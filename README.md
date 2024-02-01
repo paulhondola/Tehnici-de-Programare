@@ -1,2 +1,2 @@
 # TP
-Tehnici de Programare
+Tehnici de Programare - Curs CTI - An 1
