@@ -22,7 +22,7 @@ struct Stack {
 };
 
 Stack_t initStack(){
-    Element_t* s=malloc(STACK_BLOCK*sizeof(struct Stack));
+    Element_t* s=malloc(STACK_BLOCK*sizeof(Element_t));
     if (!s){
     	return NULL;
 	}
