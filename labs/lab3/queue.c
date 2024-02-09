@@ -32,16 +32,18 @@ queue_t enqueue(queue_t q, queue_item item)
     if (q.size == q.capacity)
     {
         printf("Queue is full\n");
-        return q;
     }
-
-    if (q.size == 0)
+    else
     {
-        q.front = 0;
-    }
+        if (q.size == 0)
+        {
+            q.front = 0;
+        }
 
-    q.data[++q.rear] = item;
-    q.size++;
+        q.data[++q.rear] = item;
+        q.size++;
+    }
+    
 
     return q;
 }
@@ -52,11 +54,13 @@ queue_t dequeue(queue_t q)
     if (q.size == 0)
     {
         printf("Queue is empty\n");
-        return q;
     }
-
-    q.front++;
-    q.size--;
+    else
+    {
+        q.front++;
+        q.size--;
+    }
+    
     return q;
 }
 

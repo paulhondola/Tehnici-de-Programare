@@ -19,34 +19,46 @@ stack init_stack(int size)
     return s;
 }
 
-void push(stack *s, stack_item i)
+stack push(stack s, stack_item i)
 {
-    if (s->top < s->size) 
+    if(s.top == s.size)
     {
-        s->contents[s->top++] = i;
-    }
-}
-
-
-void pop(stack *s)
-{
-    if (s->top > 0)
-    {
-        s->top--;
+        printf("Stack is full\n");
     }
     else
     {
-        printf("Stack is empty\n");
+        s.contents[s.top] = i;
+        s.top++;
     }
+
+    return s;
 }
 
-stack_item peek(stack *s)
+
+stack pop(stack s)
 {
-    if (s->top > 0)
+    if(s.top == 0)
     {
-        return s->contents[s->top - 1];
+        printf("Stack is empty\n");
     }
-    return 0;
+    else
+    {
+        s.top--;
+    }
+
+    return s;
+}
+
+stack_item peek(stack s)
+{
+    if(s.top == 0)
+    {
+        return -1;
+    }
+    else
+    {
+        return s.contents[s.top - 1];
+    }
 }
 
 
@@ -54,7 +66,7 @@ int main(void)
 {
     stack my_stack = init_stack(10);
 
-    stack_item el = peek(&my_stack);
+    stack_item el = peek(my_stack);
 
     if(el == 0)
     {
@@ -63,15 +75,15 @@ int main(void)
 
     for(int i = 0; i < 10; i++)
     {
-        push(&my_stack, i);
-        el = peek(&my_stack);
+        my_stack = push(my_stack, i);
+        el = peek(my_stack);
 
         printf("Element at the top of the stack: %d\n", el);
     }
 
-    pop(&my_stack);
+    my_stack = pop(my_stack);
 
-    el = peek(&my_stack);
+    el = peek(my_stack);
 
     printf("Element at the top of the stack: %d\n", el);
 
