@@ -6,4 +6,3 @@ EXECUTABLE = exe
 
 run: $(FILES) $(DEPS)
 	$(CC) -o $(EXECUTABLE) $(FILES) $(CFLAGS)
-

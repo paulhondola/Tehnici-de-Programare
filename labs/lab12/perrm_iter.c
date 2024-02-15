@@ -69,7 +69,7 @@ int main(int argc, char* argv[]){
 //    }
 	
     int n=atoi(argv[1]);
-    n=4;
+    //n=4;
 #if DEBUG==1
     printf("N= %d\n", n);
 #endif   
