@@ -62,6 +62,66 @@ List *add_back_node(List *list, int data)
 }
 
 
+List *remove_front_node(List *list) 
+{
+    if(list->front == NULL) 
+    {
+        return list;
+    }
+
+    if(list->front == list->back) 
+    {
+        free(list->front);
+        list->front = NULL;
+        list->back = NULL;
+        return list;
+    }
+
+    Node *temp = list->front;
+
+    list->front = list->front->next;
+
+    free(temp);
+
+    return list;
+}
+
+
+List *remove_back_node(List *list)
+{
+    if(list->back == NULL) 
+    {
+        return list;
+    }
+    
+
+    Node *iterator = list->front;
+    
+    if(iterator->next == NULL) 
+    {
+        free(list->back);
+        list->front = NULL;
+        list->back = NULL;
+        return list;
+    }
+
+    while(iterator->next != list->back) 
+    {
+        
+        iterator = iterator->next;
+    }
+
+    free(list->back);
+
+    list->back = iterator;
+
+    list->back->next = NULL;
+
+    return list;
+
+}
+
+
 void print_list(List *list)
 {
     Node *iterator = list->front;

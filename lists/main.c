@@ -10,15 +10,20 @@ int main(void)
 
     list = add_front_node(list, 1);
 
-    list = add_front_node(list, 2);
+    list = remove_front_node(list);
 
-    list = add_front_node(list, 3);
+    list = add_back_node(list, 2);
 
-    list = add_back_node(list, 4);
+    list = remove_front_node(list);
 
     print_list(list);
+    
+    if(list->front != NULL && list->back != NULL)
+    {
+        free_list(list);
+    }
 
-    free_list(list);
+    free(list);
 
     return 0;
 }
