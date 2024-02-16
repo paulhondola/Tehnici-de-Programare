@@ -15,6 +15,8 @@ typedef struct list {
     Node *back;
 } List;
 
+List *init_list(void);
+
 List *add_front_node(List *list, int data);
 
 List *add_back_node(List *list, int data);

@@ -1,5 +1,16 @@
 #include "lists.h"
 
+
+List *init_list(void)
+{
+    List *list = (List *)malloc(sizeof(List));
+    list->front = NULL;
+    list->back = NULL;
+
+    return list;
+}
+
+
 List *add_front_node(List *list, int data) 
 {
     if(list->front == NULL && list->back == NULL) 
