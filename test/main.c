@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #define MAX_STRING_SIZE 10
-#define MAX_LINE_SIZE 22
+#define MAX_LINE_SIZE 24
 #define CHUNK 16
 
 typedef struct
