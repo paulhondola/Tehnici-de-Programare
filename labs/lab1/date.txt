@@ -1,6 +1,10 @@
 temp = 35.2
 turatie = 17.5
+
 temp = 8.2
+
+
+
 
 parola = gigel
 viteza = 128

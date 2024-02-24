@@ -5,7 +5,7 @@
 #define MAX_LINE_SIZE 24
 #define CHUNK 16
 
-typedef enum { OK, NOK } return_code_t;
+typedef enum { OK, ERR, END } return_code_t;
 
 typedef struct {
   char key[MAX_STRING_SIZE];
@@ -38,13 +38,13 @@ pair read_data_line(FILE *file) {
   char line[MAX_LINE_SIZE];
 
   if (fgets(line, MAX_LINE_SIZE, file) == NULL) {
-    return (pair){0, 0, NOK};
-    return data;
+    return (pair){"", "", END};
   }
 
   if (line[0] == '\n' || line[0] == '\0' || strchr(line, '=') == NULL) {
-    return (pair){0, 0, NOK};
+    return (pair){"", "", ERR};
   }
+
   char *token = strtok(line, " =");
 
   strcpy(data.key, token);
@@ -67,8 +67,12 @@ pair *input_array(FILE *file, int *size) {
   while (1) {
     aux_input = read_data_line(file);
 
-    if (aux_input.key[0] == '\0' && aux_input.value[0] == '\0') {
+    if (aux_input.code == END) {
       break;
+    }
+
+    if (aux_input.code == ERR) {
+      continue;
     }
 
     if (used_size == allocated_size) {
