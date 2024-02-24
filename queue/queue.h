@@ -12,6 +12,7 @@ typedef struct queue {
   int head;
   int rear;
   int size;
+  int used_size;
   int capacity;
   queue_data *data;
 } queue;
@@ -25,6 +26,8 @@ void dequeue(queue *q);
 queue_data peek_head(queue *q);
 
 queue_data peek_rear(queue *q);
+
+void print_queue(queue *q);
 
 void free_queue(queue *q);
 
