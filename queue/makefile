@@ -1,7 +1,7 @@
 CC = clang
 CFLAGS = -Wall -Wextra -pedantic -Wconversion -I.
-DEPS = stack.h
-FILES = main.c stack.c
+DEPS = queue.h
+FILES = main.c queue.c
 EXECUTABLE = exe
 
 run: $(FILES) $(DEPS)

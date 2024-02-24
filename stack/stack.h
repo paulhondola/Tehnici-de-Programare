@@ -4,14 +4,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define STACK_SIZE 100
+#define STACK_CHUNK 16
 
 typedef int stack_data;
 
 typedef struct {
   int top;
-  int max_size;
-  stack_data data[STACK_SIZE];
+  int capacity;
+  stack_data *data;
 } stack;
 
 void init_stack(stack *st);
@@ -21,5 +21,7 @@ void push(stack *st, stack_data data);
 void pop(stack *st);
 
 stack_data peek(stack *st);
+
+void free_stack(stack *st);
 
 #endif
