@@ -1,10 +1,7 @@
 #include "matrix_block.h"
-#include "matrix.h"
 
 matrix_block_t init_matrix_block(matrix_size_t rows, matrix_size_t collumns) {
-  matrix_block_t b;
-  b.rows = rows;
-  b.collumns = collumns;
+  matrix_block_t b = {rows, collumns, NULL};
   b.data = (matrix_data_t *)malloc(
       (unsigned long)rows * (unsigned long)collumns * sizeof(matrix_data_t));
 
@@ -36,6 +33,8 @@ void print_matrix_block(matrix_block_t *m, FILE *file) {
 
 void free_matrix_block(matrix_block_t *b) {
   free(b->data);
+  b->rows = 0;
+  b->collumns = 0;
   b->data = NULL;
 }
 

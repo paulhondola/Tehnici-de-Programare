@@ -1,45 +1,57 @@
 #include "files.h"
 #include "matrix.h"
+#include "matrix_data.h"
 
 #define INPUT_FILE_NAME "date.txt"
 #define OUTPUT_FILE_NAME "output.txt"
 
-#define MAX_ROWS 100
-#define MAX_COLS 100
-
 int main(void) {
 
-  FILE *input = open_file(INPUT_FILE_NAME, "r");
+  FILE *input_file = open_file(INPUT_FILE_NAME, "r");
 
-  int n = 0;
+  FILE *output_file = open_file(OUTPUT_FILE_NAME, "w");
 
-  if (fscanf(input, "%d", &n) != 1) {
-    perror("Invalid Input!");
-    exit(1);
-  }
+  matrix_std_t a = {0, 0, NULL};
+  matrix_std_t b = {0, 0, NULL};
 
-  matrix_std_t m = init_matrix(n, n);
+  if (fscanf(input_file, "%d %d", &a.rows, &a.collumns) != 2) {
+    printf("Invalid input -> a\n");
+    return 1;
+  };
 
-  read_matrix_data(&m, input);
+  a = init_matrix_std(a.rows, a.collumns);
 
-  close_file(input);
+  read_data_matrix_std(&a, input_file);
 
-  FILE *output = open_file(OUTPUT_FILE_NAME, "w");
+  if (fscanf(input_file, "%d %d", &b.rows, &b.collumns) != 2) {
+    printf("Invalid input -> b\n");
+    return 1;
+  };
 
-  print_matrix(&m, output);
+  b = init_matrix_std(b.rows, b.collumns);
 
-  close_file(output);
+  read_data_matrix_std(&b, input_file);
 
-  matrix_block_t b = convert_matrix_to_block(&m);
+  matrix_std_t c = {0, 0, NULL};
+  matrix_std_t d = {0, 0, NULL};
 
-  output = open_file(OUTPUT_FILE_NAME, "a");
+  c = multiply_matrix_std(&a, &b);
 
-  print_matrix_block(&b, output);
+  print_matrix_std(&c, output_file);
 
-  close_file(output);
+  d = multiply_matrix_std(&a, &c);
 
-  free_matrix(&m);
-  free_matrix_block(&b);
+  print_matrix_std(&d, output_file);
+
+  free_matrix_std(&a);
+
+  free_matrix_std(&b);
+
+  free_matrix_std(&c);
+  free_matrix_std(&d);
+
+  close_file(input_file);
+  close_file(output_file);
 
   return 0;
 }

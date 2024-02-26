@@ -8,4 +8,6 @@ FILE *open_file(const char *filename, const char *mode);
 
 void close_file(FILE *file);
 
+void reset_file(const char *filename);
+
 #endif

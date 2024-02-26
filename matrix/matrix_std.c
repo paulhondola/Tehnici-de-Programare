@@ -1,22 +1,29 @@
-#include "matrix.h"
+#include "matrix_std.h"
 
-matrix_std_t init_matrix(int rows, int collumns) {
-  matrix_std_t m;
-  m.rows = rows;
-  m.collumns = collumns;
+matrix_std_t init_matrix_std(int rows, int collumns) {
+  matrix_std_t m = {rows, collumns, NULL};
 
   m.data =
       (matrix_data_t **)malloc((unsigned long)rows * sizeof(matrix_data_t *));
 
+  if (m.data == NULL) {
+    printf("Memory allocation failed\n");
+    exit(1);
+  }
+
   for (matrix_size_t i = 0; i < m.rows; i++) {
-    m.data[i] = (matrix_data_t *)malloc((unsigned long)collumns *
-                                        sizeof(matrix_data_t));
+    m.data[i] = (matrix_data_t *)realloc(m.data[i], (unsigned long)collumns *
+                                                        sizeof(matrix_data_t));
+    if (m.data[i] == NULL) {
+      printf("Memory allocation failed\n");
+      exit(1);
+    }
   }
 
   return m;
 }
 
-void read_matrix_data(matrix_std_t *m, FILE *file) {
+void read_data_matrix_std(matrix_std_t *m, FILE *file) {
   for (matrix_size_t i = 0; i < m->rows; i++)
     for (matrix_size_t j = 0; j < m->collumns; j++)
       if (fscanf(file, "%d", &m->data[i][j]) != 1) {
@@ -25,7 +32,7 @@ void read_matrix_data(matrix_std_t *m, FILE *file) {
       }
 }
 
-void print_matrix(matrix_std_t *m, FILE *file) {
+void print_matrix_std(matrix_std_t *m, FILE *file) {
   for (matrix_size_t i = 0; i < m->rows; i++) {
     for (matrix_size_t j = 0; j < m->collumns; j++) {
       fprintf(file, "%d ", m->data[i][j]);
@@ -34,15 +41,17 @@ void print_matrix(matrix_std_t *m, FILE *file) {
   }
 }
 
-void free_matrix(matrix_std_t *m) {
+void free_matrix_std(matrix_std_t *m) {
   for (matrix_size_t i = 0; i < m->rows; i++) {
     free(m->data[i]);
   }
   free(m->data);
+  m->rows = 0;
+  m->collumns = 0;
   m->data = NULL;
 }
 
-matrix_data_t sum_matrix(matrix_std_t *m) {
+matrix_data_t sum_matrix_std(matrix_std_t *m) {
   matrix_data_t sum = 0;
   for (matrix_size_t i = 0; i < m->rows; i++)
     for (matrix_size_t j = 0; j < m->collumns; j++)
@@ -51,7 +60,7 @@ matrix_data_t sum_matrix(matrix_std_t *m) {
   return sum;
 }
 
-matrix_data_t sum_above_primary_diagonal(matrix_std_t *m) {
+matrix_data_t sum_above_primary_diagonal_matrix_std(matrix_std_t *m) {
   matrix_data_t sum = 0;
 
   for (matrix_size_t i = 0; i < m->rows; i++)
@@ -61,7 +70,7 @@ matrix_data_t sum_above_primary_diagonal(matrix_std_t *m) {
   return sum;
 }
 
-matrix_data_t sum_below_secondary_diagonal(matrix_std_t *m) {
+matrix_data_t sum_below_secondary_diagonal_matrix_std(matrix_std_t *m) {
   matrix_data_t sum = 0;
 
   for (matrix_size_t i = 0; i < m->rows; i++)
@@ -71,7 +80,7 @@ matrix_data_t sum_below_secondary_diagonal(matrix_std_t *m) {
   return sum;
 }
 
-matrix_data_t quadrant_sum(matrix_std_t *m, int option) {
+matrix_data_t quadrant_sum_matrix_std(matrix_std_t *m, int option) {
 
   matrix_data_t sum = 0;
   matrix_size_t i = 0, j = 0;

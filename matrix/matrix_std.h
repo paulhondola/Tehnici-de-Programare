@@ -3,14 +3,14 @@
 
 #include "matrix_data.h"
 
-matrix_std_t init_matrix(int rows, int collumns);
+matrix_std_t init_matrix_std(matrix_size_t rows, matrix_size_t collumns);
 
-void read_matrix_data(matrix_std_t *matrix, FILE *file);
+void read_data_matrix_std(matrix_std_t *matrix, FILE *file);
 
-void print_matrix(matrix_std_t *matrix, FILE *file);
+void print_matrix_std(matrix_std_t *matrix, FILE *file);
 
-void free_matrix(matrix_std_t *matrix);
+void free_matrix_std(matrix_std_t *matrix);
 
-matrix_data_t quadrant_sum(matrix_std_t *matrix, int option);
+matrix_data_t quadrant_sum_matrix_std(matrix_std_t *matrix, int option);
 
 #endif

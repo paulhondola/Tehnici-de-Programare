@@ -1,4 +1,5 @@
 #include "files.h"
+#include <stdio.h>
 
 FILE *open_file(const char *filepath, const char *mode) {
   FILE *file = NULL;
@@ -17,4 +18,9 @@ void close_file(FILE *file) {
     perror("Cannot close file");
     exit(2);
   }
+}
+
+void reset_file(const char *filepath) {
+  FILE *file = open_file(filepath, "w");
+  close_file(file);
 }
