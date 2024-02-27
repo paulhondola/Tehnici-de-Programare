@@ -1,21 +1,17 @@
 #include "matrix_conversion.h"
 
-matrix_block_t convert_matrix_to_block(matrix_std_t *m) {
-  matrix_block_t block = init_matrix_block(m->rows, m->collumns);
+void convert_matrix_to_block(matrix_std_t matrix_std,
+                             matrix_block_t matrix_block) {
 
-  for (matrix_size_t i = 0; i < m->rows; i++)
-    for (matrix_size_t j = 0; j < m->collumns; j++)
-      block.data[i * m->collumns + j] = m->data[i][j];
-
-  return block;
+  for (matrix_size_t i = 0; i < matrix_std.rows; i++)
+    for (matrix_size_t j = 0; j < matrix_std.collumns; j++)
+      matrix_block.data[i * matrix_std.collumns + j] = matrix_std.data[i][j];
 }
 
-matrix_std_t convert_block_to_matrix(matrix_block_t *b) {
-  matrix_std_t m = init_matrix_std(b->rows, b->collumns);
+void convert_block_to_matrix(matrix_block_t matrix_block,
+                             matrix_std_t matrix_std) {
 
-  for (matrix_size_t i = 0; i < b->rows; i++)
-    for (matrix_size_t j = 0; j < b->collumns; j++)
-      m.data[i][j] = b->data[i * b->collumns + j];
-
-  return m;
+  for (matrix_size_t i = 0; i < matrix_block.rows; i++)
+    for (matrix_size_t j = 0; j < matrix_block.collumns; j++)
+      matrix_std.data[i][j] = matrix_block.data[i * matrix_block.collumns + j];
 }

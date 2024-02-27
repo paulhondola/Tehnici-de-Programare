@@ -4,8 +4,8 @@
 #include "matrix_block.h"
 #include "matrix_std.h"
 
-matrix_block_t convert_matrix_to_block(matrix_std_t *m);
+void convert_matrix_to_block(matrix_std_t m, matrix_block_t b);
 
-matrix_std_t convert_block_to_matrix(matrix_block_t *b);
+void convert_block_to_matrix(matrix_block_t b, matrix_std_t m);
 
 #endif
