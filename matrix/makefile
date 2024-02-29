@@ -4,5 +4,11 @@ DEPS = files.h matrix_data.h matrix_std.h matrix_block.h matrix_conversion.h mat
 FILES = main.c files.c matrix_std.c matrix_block.c matrix_conversion.c matrix_operations.c
 EXECUTABLE = exe
 
-run: $(FILES) $(DEPS)
+compile: $(FILES) $(DEPS)
 	$(CC) -o $(EXECUTABLE) $(FILES) $(CFLAGS)
+
+run: $(EXECUTABLE)
+	./$(EXECUTABLE)
+
+leaks: $(EXECUTABLE)
+	leaks -q --atExit -- ./$(EXECUTABLE)
