@@ -24,7 +24,7 @@ typedef struct {
   double (*get_perimeter)(const object_t *);
   double (*get_area)(const object_t *);
   void (*show_data)(const object_t *);
-  const char *(*get_name)(const object_t *);
+  const char *(*get_name)(void);
 
 } object_methods_t;
 
@@ -37,15 +37,15 @@ typedef struct object {
       double radius;
     } circle;
 
-    // triangle
-    struct {
-      double a, b, c;
-    } triangle;
-
     // rectangle
     struct {
       double length, width;
     } rectangle;
+
+    // triangle
+    struct {
+      double a, b, c;
+    } triangle;
   };
 
   object_methods_t methods;
