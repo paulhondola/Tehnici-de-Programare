@@ -3,15 +3,13 @@
 int main(void) {
 
   stack st;
+  stack_code code;
 
-  init_stack(&st);
+  code = init_stack(&st, 5);
 
-  push(&st, 10);
-  push(&st, 20);
-
-  pop(&st);
-  pop(&st);
-  printf("Peek: %d\n", peek(&st));
+  if (code == EMPTY) {
+  }
+  free(st.data);
 
   return 0;
 }

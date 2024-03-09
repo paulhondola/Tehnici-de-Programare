@@ -96,11 +96,11 @@ object_t *triangle_constructor(double a, double b, double c) {
 }
 
 object_t *rectangle_constructor(double length, double width) {
+
   object_t *rectangle = (object_t *)alloc(sizeof(object_t));
 
   rectangle->type = RECTANGLE;
-  rectangle->rectangle.length = length;
-  rectangle->rectangle.width = width;
+  rectangle->rectangle = (rectangle_t){.length = length, .width = width};
   rectangle->methods = (object_methods_t){
       .get_area = get_area_rectangle,
       .get_perimeter = get_perimeter_rectangle,

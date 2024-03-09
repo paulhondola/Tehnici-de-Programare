@@ -1,45 +1,65 @@
 #include "stack.h"
 
-void init_stack(stack *st) {
-  st->capacity = STACK_CHUNK;
-  st->top = -1;
-  st->data = (stack_data *)malloc(st->capacity * sizeof(stack_data));
+stack_code init_stack(stack *st, size_t cap) {
+
+  *st = (stack){0, 0, NULL};
+
+  st->data = (stack_data *)malloc(cap * sizeof(stack_data));
 
   if (st->data == NULL) {
-    printf("Memory allocation failed\n");
-    exit(1);
+    st->capacity = 0;
+    return EMPTY;
   }
+
+  st->capacity = cap;
+  return OK;
 }
 
-void push(stack *st, stack_data data) {
-  if (st->top == st->capacity - 1) {
+stack_data is_empty(stack *st) {
+  if (st->top == 0) {
+    return EMPTY;
+  }
+
+  return OK;
+}
+
+stack_data is_full(stack *st) {
+  if (st->top >= st->capacity) {
+    return FULL;
+  }
+
+  return OK;
+}
+
+stack_code push(stack *st, stack_data data) {
+  if (st->top >= st->capacity) {
     st->capacity += STACK_CHUNK;
     st->data =
         (stack_data *)realloc(st->data, st->capacity * sizeof(stack_data));
 
     if (st->data == NULL) {
-      printf("Memory allocation failed\n");
-      exit(2);
+      st->capacity = 0;
+      return FULL;
     }
   }
 
-  st->data[++st->top] = data;
+  st->data[st->top++] = data;
+  return OK;
 }
 
-void pop(stack *st) {
-  if (st->top == -1) {
-    printf("Stack is empty\n");
-    return;
+stack_code pop(stack *st) {
+  if (st->top == 0) {
+    return EMPTY;
   }
 
   st->top--;
+  return OK;
 }
 
 stack_data peek(stack *st) {
-  if (st->top == -1) {
-    printf("Stack is empty\n");
+  if (st->top == 0) {
     return -1;
   }
 
-  return st->data[st->top];
+  return st->data[st->top - 1];
 }

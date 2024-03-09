@@ -9,6 +9,21 @@
 
 typedef enum { CIRCLE, TRIANGLE, RECTANGLE } shape_t;
 
+// circle
+typedef struct circle {
+  double radius;
+} circle_t;
+
+// rectangle
+typedef struct rectangle {
+  double length, width;
+} rectangle_t;
+
+// triangle
+typedef struct triangle {
+  double a, b, c;
+} triangle_t;
+
 struct object;
 
 typedef struct object object_t;
@@ -29,23 +44,13 @@ typedef struct {
 } object_methods_t;
 
 typedef struct object {
+
   shape_t type;
 
   union {
-    // circle
-    struct {
-      double radius;
-    } circle;
-
-    // rectangle
-    struct {
-      double length, width;
-    } rectangle;
-
-    // triangle
-    struct {
-      double a, b, c;
-    } triangle;
+    circle_t circle;
+    rectangle_t rectangle;
+    triangle_t triangle;
   };
 
   object_methods_t methods;
