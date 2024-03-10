@@ -6,7 +6,7 @@
 
 #define STACK_CHUNK 16
 
-typedef enum { OK, EMPTY, FULL } stack_code;
+typedef enum { STACK_OK, STACK_EMPTY, STACK_FULL } stack_code;
 
 typedef int stack_data;
 
@@ -17,6 +17,10 @@ typedef struct {
 } stack;
 
 stack_code init_stack(stack *st, size_t capacity);
+
+stack_code is_empty(stack *st);
+
+stack_code is_full(stack *st);
 
 stack_code push(stack *st, stack_data data);
 
