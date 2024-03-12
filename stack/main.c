@@ -2,13 +2,13 @@
 
 int main(void) {
 
-  stack st = init_stack(10);
+  stack st = init_stack(32);
 
-  for (int i = 0; i < 1000; i++) {
+  for (int i = 0; i < 100; i++) {
     push(&st, i);
   }
 
-  for (int i = 0; i < 11; i++) {
+  for (int i = 0; i < 100; i++) {
     pop(&st);
   }
 

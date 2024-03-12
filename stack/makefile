@@ -4,11 +4,9 @@ DEPS = stack.h
 FILES = main.c stack.c
 EXECUTABLE = exe
 
-compile: $(FILES) $(DEPS)
+run: $(FILES) $(DEPS)
 	$(CC) -o $(EXECUTABLE) $(FILES) $(CFLAGS)
-
-run: compile
 	./$(EXECUTABLE)
 
-leaks: compile
+leaks: run
 	leaks -q --atExit -- ./$(EXECUTABLE)

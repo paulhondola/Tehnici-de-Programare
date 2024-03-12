@@ -3,22 +3,18 @@
 int main(void) {
   queue q;
 
-  init_queue(&q);
+  q = init_queue(10);
 
-  enqueue(&q, 10);
-  enqueue(&q, 20);
+  for (int i = 0; i < 106; i++)
+    enqueue(&q, i);
 
-  enqueue(&q, 30);
-  enqueue(&q, 40);
+  for (int i = 0; i < 50; i++)
+    dequeue(&q);
 
-  dequeue(&q);
-  dequeue(&q);
-  dequeue(&q);
-
-  enqueue(&q, 50);
-
-  print_queue(&q);
+  for (int i = 106; i < 130; i++)
+    enqueue(&q, i);
 
   free_queue(&q);
+
   return 0;
 }

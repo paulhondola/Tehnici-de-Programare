@@ -125,10 +125,6 @@ int check_validity(char *str) {
 
   for (size_t i = 1; i < capacity; i++) {
 
-    if (DEBUG) {
-      // printf("PEEK %zu -> el: %c\n", i, peek(&st));
-    }
-
     switch (str[i]) {
     case ')':
 

@@ -4,30 +4,29 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define QUEUE_CHUNK 16
+#define QUEUE_DEBUG 1
+#define QUEUE_DYNAMIC 1
+#define QUEUE_CHUNK 32
 
 typedef int queue_data;
 
 typedef struct queue {
-  int head;
-  int rear;
-  int size;
-  int used_size;
-  int capacity;
+  size_t head;
+  size_t tail;
+  size_t size;
+  size_t capacity;
   queue_data *data;
 } queue;
 
-void init_queue(queue *q);
+queue init_queue(size_t capacity);
 
-void enqueue(queue *q, queue_data data);
+int enqueue(queue *q, queue_data data);
 
-void dequeue(queue *q);
+int dequeue(queue *q);
 
 queue_data peek_head(queue *q);
 
 queue_data peek_rear(queue *q);
-
-void print_queue(queue *q);
 
 void free_queue(queue *q);
 

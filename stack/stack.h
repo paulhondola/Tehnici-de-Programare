@@ -4,9 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define DEBUG 1
-#define DYNAMIC 1
-#define STACK_CHUNK 10
+#define STACK_DEBUG 1
+#define STACK_DYNAMIC 0
+#define STACK_CHUNK 32
 
 typedef int stack_data;
 
@@ -16,17 +16,19 @@ typedef struct {
   stack_data *data;
 } stack;
 
-stack init_stack(size_t capacity);
+stack init_stack(size_t initial_capacity);
 
-int is_empty(stack *st);
+int stack_is_empty(stack *st);
 
-int is_full(stack *st);
+int stack_is_full(stack *st);
 
 int push(stack *st, stack_data data);
 
 int pop(stack *st);
 
 stack_data peek(stack *st);
+
+void print_stack(stack *st);
 
 void free_stack(stack *st);
 
