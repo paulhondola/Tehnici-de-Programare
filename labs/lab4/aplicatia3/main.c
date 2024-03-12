@@ -27,6 +27,7 @@ este valid. În caz contrar, nu este valid.
 
 #define STRING_SIZE 100
 #define DEBUG 1
+
 typedef enum { STACK_OK, STACK_EMPTY, STACK_FULL } stack_code;
 
 stack_code error_code;
@@ -118,74 +119,85 @@ int check_validity(char *str) {
 
   st = push(&st, str[0]);
 
+  if (DEBUG) {
+    printf("PUSH %zu %c\n", st.top, peek(&st));
+  }
+
   for (size_t i = 1; i < capacity; i++) {
 
     if (DEBUG) {
-      printf("PEEK: %zu -> el: %c\n", i, peek(&st));
+      // printf("PEEK %zu -> el: %c\n", i, peek(&st));
     }
 
     switch (str[i]) {
     case ')':
 
-      if (DEBUG) {
-        printf("PUSH %zu %c\n", i, peek(&st));
-      }
-
       if (peek(&st) == '(') {
 
         if (DEBUG) {
-          printf("POP %c\n", peek(&st));
+          printf("POP %c due to %c\n", peek(&st), str[i]);
         }
 
         pop(&st);
+
       } else {
+
         st = push(&st, str[i]);
+
+        if (DEBUG) {
+          printf("PUSH %zu %c\n", st.top, peek(&st));
+        }
       }
       break;
 
     case ']':
 
-      if (DEBUG) {
-        printf("PUSH %zu %c\n", i, peek(&st));
-      }
-
       if (peek(&st) == '[') {
 
         if (DEBUG) {
-          printf("POP %c\n", peek(&st));
+          printf("POP %c due to %c\n", peek(&st), str[i]);
         }
 
         pop(&st);
+
       } else {
+
         st = push(&st, str[i]);
+
+        if (DEBUG) {
+          printf("PUSH %zu %c\n", st.top, peek(&st));
+        }
       }
       break;
 
     case '}':
 
-      if (DEBUG) {
-        printf("PUSH %zu %c\n", i, peek(&st));
-      }
-
       if (peek(&st) == '{') {
 
         if (DEBUG) {
-          printf("POP %c\n", peek(&st));
+          printf("POP %c due to %c\n", peek(&st), str[i]);
         }
 
         pop(&st);
+
       } else {
+
+        if (DEBUG) {
+          printf("PUSH %zu %c\n", st.top, peek(&st));
+        }
+
         st = push(&st, str[i]);
       }
       break;
 
     default:
 
+      st = push(&st, str[i]);
+
       if (DEBUG) {
-        printf("PUSH %zu %c\n", i, peek(&st));
+        printf("PUSH %zu %c\n", st.top, peek(&st));
       }
 
-      st = push(&st, str[i]);
       break;
     }
   }
