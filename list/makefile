@@ -4,5 +4,9 @@ FILES = main.c list.c
 HEADERS = list.h
 EXECUTABLE = exe
 
-all: $(FILES) $(HEADERS)
+run: $(FILES) $(HEADERS)
 	$(COMPILER) $(FLAGS) -o $(EXECUTABLE) $(FILES)
+	./$(EXECUTABLE)
+
+leaks: run
+	leaks --atExit -q -- ./$(EXECUTABLE)

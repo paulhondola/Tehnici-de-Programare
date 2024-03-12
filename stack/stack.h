@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 #define STACK_DEBUG 1
-#define STACK_DYNAMIC 0
+#define STACK_DYNAMIC 1
 #define STACK_CHUNK 32
 
 typedef int stack_data;
