@@ -62,7 +62,7 @@ int push(stack *st, stack_data data) {
   if (stack_is_full(st)) {
     if (STACK_DYNAMIC) {
       if (!stack_realloc(st))
-        return 0;
+        return -1;
     } else {
       if (STACK_DEBUG)
         printf("no push happened\n");

@@ -22,6 +22,8 @@ int stack_is_empty(stack *st);
 
 int stack_is_full(stack *st);
 
+int stack_realloc(stack *st);
+
 int push(stack *st, stack_data data);
 
 int pop(stack *st);

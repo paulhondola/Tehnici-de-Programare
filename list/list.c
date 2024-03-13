@@ -16,8 +16,7 @@ int add_front_node(list_t *list, list_data_t input_data) {
   if (LIST_DEBUG)
     printf("new node linked to front / data linked: %d\n", input_data);
 
-  new_node->data = input_data;
-  new_node->next = list->head;
+  *new_node = (node_t){input_data, list->head};
 
   list->head = new_node;
 
@@ -49,8 +48,7 @@ int add_rear_node(list_t *list, list_data_t input_data) {
   if (LIST_DEBUG)
     printf("new node linked to rear / data linked: %d\n", input_data);
 
-  new_node->data = input_data;
-  new_node->next = NULL;
+  *new_node = (node_t){input_data, NULL};
 
   list->rear->next = new_node;
   list->rear = list->rear->next;
@@ -72,6 +70,7 @@ int pop_front(list_t *list) {
     free(list->head);
 
     *list = (list_t){NULL, NULL};
+
     return 0;
   }
 

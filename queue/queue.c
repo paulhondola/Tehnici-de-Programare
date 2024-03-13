@@ -2,7 +2,7 @@
 
 queue init_queue(size_t capacity) {
 
-  queue q = {0, 0, 0, capacity, NULL};
+  queue q = {0, 0, capacity, NULL};
 
   q.data = (queue_data *)malloc(capacity * sizeof(queue_data));
 
@@ -31,9 +31,9 @@ int queue_is_empty(queue *q) {
 }
 
 int queue_is_full(queue *q) {
-  if (QUEUE_DEBUG && q->size >= q->capacity)
+  if (QUEUE_DEBUG && q->tail >= q->capacity)
     printf("queue full\n");
-  return q->size >= q->capacity;
+  return q->tail >= q->capacity;
 }
 
 int queue_realloc(queue *q) {
@@ -74,7 +74,6 @@ int enqueue(queue *q, queue_data data) {
   if (QUEUE_DEBUG)
     printf("enqueue: %d\n", data);
 
-  q->size++;
   q->data[q->tail++] = data;
 
   return 1;
@@ -128,5 +127,5 @@ void free_queue(queue *q) {
     printf("free queue\n");
 
   free(q->data);
-  *q = (queue){0, 0, 0, 0, NULL};
+  *q = (queue){0, 0, 0, NULL};
 }

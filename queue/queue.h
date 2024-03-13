@@ -13,20 +13,27 @@ typedef int queue_data;
 typedef struct queue {
   size_t head;
   size_t tail;
-  size_t size;
   size_t capacity;
   queue_data *data;
 } queue;
 
 queue init_queue(size_t capacity);
 
+int queue_is_empty(queue *q);
+
+int queue_is_empty(queue *q);
+
+int queue_realloc(queue *q);
+
 int enqueue(queue *q, queue_data data);
 
 int dequeue(queue *q);
 
-queue_data peek_head(queue *q);
+queue_data head(queue *q);
 
-queue_data peek_rear(queue *q);
+queue_data tail(queue *q);
+
+void print_queue(queue *q);
 
 void free_queue(queue *q);
 
