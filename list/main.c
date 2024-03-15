@@ -2,7 +2,15 @@
 
 #define SIZE 10
 
-int main(void) {
+int main(int argc, char *argv[]) {
+
+  if (argc != 2) {
+    perror("Invalid number of arguments -> need 1 -> LIST DEBUG");
+    return 0;
+  }
+
+  LIST_DEBUG = atoi(argv[1]);
+
   list_t list = init_list();
 
   for (int i = 0; i < 100; i++)

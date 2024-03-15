@@ -6,7 +6,7 @@ EXECUTABLE = exe
 
 run: $(FILES) $(HEADERS)
 	$(COMPILER) $(FLAGS) -o $(EXECUTABLE) $(FILES)
-	./$(EXECUTABLE)
+	./$(EXECUTABLE) 1
 
 leaks: run
-	leaks --atExit -q -- ./$(EXECUTABLE)
+	leaks --atExit -q -- ./$(EXECUTABLE) 0

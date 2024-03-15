@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define LIST_DEBUG 1
+extern int LIST_DEBUG;
 
 typedef int list_data_t;
 

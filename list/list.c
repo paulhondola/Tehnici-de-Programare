@@ -1,5 +1,7 @@
 #include "list.h"
 
+int LIST_DEBUG = 0;
+
 list_t init_list(void) { return (list_t){NULL, NULL}; }
 
 int add_front_node(list_t *list, list_data_t input_data) {

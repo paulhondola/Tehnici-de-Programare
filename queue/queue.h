@@ -4,9 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define QUEUE_DEBUG 1
-#define QUEUE_DYNAMIC 1
-#define QUEUE_CHUNK 32
+extern int QUEUE_DEBUG; // default 0
+extern int QUEUE_DYNAMIC; // default 0
+extern size_t QUEUE_CHUNK; // default 32
 
 typedef int queue_data;
 
@@ -17,24 +17,26 @@ typedef struct queue {
   queue_data *data;
 } queue;
 
-queue init_queue(size_t capacity);
+queue init_queue(size_t);
 
-int queue_is_empty(queue *q);
+int queue_is_empty(queue *);
 
-int queue_is_empty(queue *q);
+int queue_is_empty(queue *);
 
-int queue_realloc(queue *q);
+int queue_realloc(queue *);
 
-int enqueue(queue *q, queue_data data);
+int enqueue(queue *, queue_data);
 
-int dequeue(queue *q);
+int dequeue(queue *);
 
-queue_data head(queue *q);
+void move_queue(queue *);
 
-queue_data tail(queue *q);
+queue_data head(queue *);
 
-void print_queue(queue *q);
+queue_data tail(queue *);
 
-void free_queue(queue *q);
+void print_queue(queue *);
+
+void free_queue(queue *);
 
 #endif

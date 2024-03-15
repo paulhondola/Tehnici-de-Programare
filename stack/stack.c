@@ -1,5 +1,9 @@
 #include "stack.h"
 
+int STACK_DEBUG = 0;
+int STACK_DYNAMIC = 0;
+int STACK_CHUNK = 32;
+
 stack init_stack(size_t capacity) {
 
   stack st = (stack){0, capacity, NULL};

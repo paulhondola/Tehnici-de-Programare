@@ -1,5 +1,9 @@
 #include "queue.h"
 
+int QUEUE_DEBUG = 0;
+int QUEUE_DYNAMIC = 0;
+size_t QUEUE_CHUNK = 32;
+
 queue init_queue(size_t capacity) {
 
   queue q = {0, 0, capacity, NULL};
@@ -63,7 +67,7 @@ int enqueue(queue *q, queue_data data) {
   if (queue_is_full(q)) {
     if (QUEUE_DYNAMIC) {
       if (!queue_realloc(q))
-        return 0;
+        return -1;
     } else {
       if (QUEUE_DEBUG)
         printf("no enqueue happened\n");
@@ -79,6 +83,12 @@ int enqueue(queue *q, queue_data data) {
   return 1;
 }
 
+void move_queue(queue *q) {
+  for (size_t i = q->head; i < q->tail; i++) {
+    q->data[i - q->head] = q->data[i];
+  }
+}
+
 int dequeue(queue *q) {
   if (queue_is_empty(q)) {
     return 0;
@@ -89,6 +99,15 @@ int dequeue(queue *q) {
   }
 
   q->head++;
+
+  if (q->head == QUEUE_CHUNK) {
+    if (QUEUE_DEBUG) {
+      printf("chunk reached, resetting head position to 0\n");
+    }
+
+    move_queue(q);
+  }
+
   return 1;
 }
 
