@@ -12,4 +12,6 @@ void rotate_matrix_std(matrix_std_t m, int option);
 
 void sort_matrix_std(matrix_std_t m);
 
+matrix_std_t transpose_matrix_std(matrix_std_t m);
+
 #endif

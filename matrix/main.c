@@ -106,14 +106,15 @@ int main(void) {
 
   read_data_matrix_std(a, input_file);
 
-  print_matrix_std(a, stdout);
+  matrix_std_t b = transpose_matrix_std(a);
 
-  sort_matrix_std(a);
+  matrix_std_t c = multiply_matrix_std(b, a);
 
-  print_matrix_std(a, stdout);
+  print_matrix_std(c, stdout);
 
   free_matrix_std(a);
-
+  free_matrix_std(b);
+  free_matrix_std(c);
   return 0;
 }
 
