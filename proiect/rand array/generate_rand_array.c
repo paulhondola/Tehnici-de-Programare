@@ -53,13 +53,13 @@ int main(void) {
 
   srand(time(NULL));
 
-  rand_arr(10);
+  // rand_arr(10);
 
-  rand_limit(10, 100, 1000);
+  rand_limit(1000000000, 0, 100000);
 
-  rand_flex_asc(10, 1000);
+  // rand_flex_asc(10, 1000);
 
-  rand_flex_desc(10, 1000);
+  // rand_flex_desc(10, 1000);
 
   return 0;
 }

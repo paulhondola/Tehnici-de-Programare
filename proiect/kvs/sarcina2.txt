@@ -1,0 +1,31 @@
+Sa se implementeze o "biblioteca" care sa ofera implementarea unui tip de date
+care pastreaza doua informatii: cheie (numar natural de maxim 10 cifre) si
+valoare (numar real). Pentru uniformitatea implementarii tipul de date se va
+numi El_t.
+
+De asemenea se va implementa un tip de date "public" (accesibil clientului)
+numit KVS_t care pastreaza un pointer la o colectie (tablou) de El_t, impreuna
+cu alte date necesare implementarii functiilor de mai jos.
+
+Biblioteca va oferi (public, clientului) urmatoarele functii:
+
+KVS_t* adauga(KVS_t*,  El_tKVS_t); //primeste drept parametru un pointer la
+tabloul de elemente curent,
+                               //un element de tipul KVS_tEl_t si il adauga in
+tablou, returnand pointer la noul tablou; void printKVS(KVS_t*); //afiseaza
+elementele stocate, sub forma cheie=valoare, cate unul pe rand; int cauta(KVS_t*
+v, unsigned k); //cauta elementul de cheie k in colectia v, returnand pozitia
+primei aparitii a lui k in v
+                                 //sau -1 daca acesta nu apare;
+Prezentati sub forma de comentarii in cod, analiza complexitatii din punct de
+vedere al timpului de executie si al memoriei utilizate, in termeni de O()
+pentru functiile implementate;
+
+Biblioteca nu va expune clientului detaliile de implementare ale tipului de
+date, iar utilizarea se va face doar prin intermediul functiilor implementate.
+
+Puteti implementa si orice alte functii/tipuri de date pe care le considerati
+necesare pentru "eleganta" solutiei.
+
+Implementati de asemenea si un client in care sa ilustrati utilizarea
+bibliotecii. Pentru brevitate, puteti genera elemente aleatoare.
