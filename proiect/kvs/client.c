@@ -1,6 +1,6 @@
 #include "kvs.h"
 #define PI 3.14159265359
-#define SIZE 1000
+#define SIZE 10000
 
 int main(void) {
 
