@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 void rand_arr(unsigned n) {
-  unsigned *arr = make_rand_array(n);
+  int *arr = make_rand_array(n);
 
   printf("\nStandard random array:\n");
 
@@ -13,7 +13,7 @@ void rand_arr(unsigned n) {
 }
 
 void rand_limit(unsigned n, unsigned a, unsigned b) {
-  unsigned *arr = make_rand_array(10);
+  int *arr = make_rand_array(10);
 
   arr = make_rand_limit_array(n, a, b);
 
@@ -55,7 +55,7 @@ int main(void) {
 
   // rand_arr(10);
 
-  rand_limit(1000000000, 0, 100000);
+  rand_limit(1000, 0, 100000);
 
   // rand_flex_asc(10, 1000);
 

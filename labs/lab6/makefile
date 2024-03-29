@@ -12,5 +12,6 @@ k_th:
 	time ./$(EXE) < random_numbers.txt
 
 binary_search:
-	$(CC) $(CFLAGS) -o $(EXE) binary_search.c
-	time ./$(EXE) < random_numbers.txt
+	$(CC) $(CFLAGS) -c binary_search.c
+	$(CC) $(CFLAGS) -o $(EXE) binary_search.o rand_array.o
+	./$(EXE) > output.csv

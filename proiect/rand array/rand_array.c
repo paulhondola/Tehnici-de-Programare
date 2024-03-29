@@ -7,9 +7,9 @@ alocat dinamic, continand n numere naturale pseodoaleatoare, uniform
  distribuite
 */
 
-unsigned *make_rand_array(unsigned n) {
+int *make_rand_array(unsigned n) {
 
-  unsigned *arr = (unsigned *)malloc((size_t)n * sizeof(unsigned));
+  int *arr = (int *)malloc((size_t)n * sizeof(unsigned));
 
   if (arr == NULL)
     return NULL;
@@ -27,12 +27,12 @@ vector alocat dinamic, continand n numere intregi pseudoaleatoare, uniform
 distribuite, cuprinse intre a si b
 */
 
-unsigned *make_rand_limit_array(unsigned n, unsigned a, unsigned b) {
+int *make_rand_limit_array(unsigned n, unsigned a, unsigned b) {
 
   if (a > b)
     return NULL;
 
-  unsigned *arr = (unsigned *)malloc((size_t)n * sizeof(unsigned));
+  int *arr = (int *)malloc((size_t)n * sizeof(unsigned));
 
   if (arr == NULL)
     return NULL;

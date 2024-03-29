@@ -1,39 +1,12 @@
+#include "/Users/paulhondola/Faculta/Tehnici de Programare/proiect/rand array/rand_array.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #define CHUNK 1024
 #define MAX_ELEMENT 100000
-
-int *generate_array(unsigned *size) {
-  int *arr = NULL;
-
-  unsigned capacity = 0;
-  unsigned i = 0;
-
-  int input = 0;
-
-  while (1) {
-
-    if (scanf("%d", &input) != 1)
-      break;
-
-    if (capacity == i) {
-      capacity += CHUNK;
-      arr = realloc(arr, capacity * sizeof(int));
-
-      if (arr == NULL) {
-        perror("realloc");
-        exit(EXIT_FAILURE);
-      }
-    }
-
-    arr[i++] = input;
-  }
-
-  *size = i;
-
-  return arr;
-}
+#define MAX_RUNS 10
+#define MIN_SIZE 10
+#define MAX_SIZE 50000
 
 /*
 a) Implementati o functie cu prototipul int findElemLin(int v[], unsigned n, int
@@ -56,8 +29,7 @@ int find_elem_lin(int *v, unsigned n, int x) {
       end = clock();
       cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
 
-      printf("Time taken to find element -> linear search: %f\n",
-             cpu_time_used);
+      printf("%f\n", cpu_time_used);
 
       return i;
     }
@@ -66,7 +38,7 @@ int find_elem_lin(int *v, unsigned n, int x) {
   end = clock();
   cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
 
-  printf("Time taken to find element -> linear search: %f\n", cpu_time_used);
+  printf("%f\n", cpu_time_used);
 
   return -1;
 }
@@ -89,17 +61,7 @@ int comparator(const void *p, const void *q) {
 }
 
 void sort_array(int *v, unsigned n) {
-  clock_t start, end;
-  double cpu_time_used;
-
-  start = clock();
-
   qsort(v, (size_t)n, sizeof(v[0]), comparator);
-
-  end = clock();
-  cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
-
-  printf("Time taken to sort array: %f\n", cpu_time_used);
 }
 
 int find_elem_bin(int *v, unsigned n, int x) {
@@ -114,7 +76,7 @@ int find_elem_bin(int *v, unsigned n, int x) {
   end = clock();
   cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
 
-  printf("Time taken to find element -> binary search: %f\n", cpu_time_used);
+  printf("%f\n", cpu_time_used);
 
   if (ptr == NULL)
     return -1;
@@ -148,27 +110,11 @@ int main(void) {
 
   srand(time(NULL));
 
-  unsigned size = 0;
-  int *arr = generate_array(&size);
+  unsigned size = rand() % (MAX_SIZE - MIN_SIZE + 1);
 
-  int ELEMENT = 0;
-  for (unsigned i = 0; i < 100; i++) {
+  int *array = make_rand_array(size);
 
-    ELEMENT = rand() % MAX_ELEMENT;
-    printf("Linear search for %d: %d\n", ELEMENT,
-           find_elem_lin(arr, size, ELEMENT));
-  }
-
-  sort_array(arr, size);
-
-  for (unsigned i = 0; i < 100; i++) {
-
-    ELEMENT = rand() % MAX_ELEMENT;
-    printf("Binary search for %d: %d\n", ELEMENT,
-           find_elem_bin(arr, size, ELEMENT));
-  }
-
-  free(arr);
+  print_array(array, size);
 
   return 0;
 }

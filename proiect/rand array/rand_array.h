@@ -4,9 +4,9 @@
 #include <stdlib.h>
 #include <time.h>
 
-unsigned *make_rand_array(unsigned element_count);
+int *make_rand_array(unsigned element_count);
 
-unsigned *make_rand_limit_array(unsigned element_count, unsigned a, unsigned b);
+int *make_rand_limit_array(unsigned element_count, unsigned a, unsigned b);
 
 int get_new_element_asc(int *array, unsigned element_count, unsigned steps);
 
