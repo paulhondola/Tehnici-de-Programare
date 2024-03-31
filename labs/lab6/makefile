@@ -1,5 +1,5 @@
 CC = clang
-CFLAGS = -Wall -Wextra -Wpedantic -lm
+CFLAGS = -Wall -Wextra -Wpedantic
 
 EXE = exe
 
@@ -14,4 +14,5 @@ k_th:
 binary_search:
 	$(CC) $(CFLAGS) -c binary_search.c
 	$(CC) $(CFLAGS) -o $(EXE) binary_search.o rand_array.o
-	./$(EXE) > output.csv
+	time ./$(EXE) > output.csv
+	rm binary_search.o

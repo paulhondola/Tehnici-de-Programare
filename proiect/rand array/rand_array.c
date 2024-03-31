@@ -70,7 +70,7 @@ int *make_rand_flexi_array(unsigned n,
   if (arr == NULL)
     return NULL;
 
-  arr[0] = rand();
+  arr[0] = rand() % steps;
 
   for (unsigned i = 1; i < n; i++)
     arr[i] = get_new_element(arr, i, steps);

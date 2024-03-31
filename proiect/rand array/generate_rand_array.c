@@ -55,9 +55,9 @@ int main(void) {
 
   // rand_arr(10);
 
-  rand_limit(1000, 0, 100000);
+  // rand_limit(1000, 0, 100000);
 
-  // rand_flex_asc(10, 1000);
+  rand_flex_asc(10, 1000);
 
   // rand_flex_desc(10, 1000);
 

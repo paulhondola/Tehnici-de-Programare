@@ -1,4 +1,5 @@
 #include "/Users/paulhondola/Faculta/Tehnici de Programare/proiect/rand array/rand_array.h"
+// #include "rand_array.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -7,6 +8,8 @@
 #define MAX_RUNS 10
 #define MIN_SIZE 10
 #define MAX_SIZE 50000
+
+typedef enum { LINEAR, BINARY } search_type;
 
 /*
 a) Implementati o functie cu prototipul int findElemLin(int v[], unsigned n, int
@@ -29,7 +32,7 @@ int find_elem_lin(int *v, unsigned n, int x) {
       end = clock();
       cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
 
-      printf("%f\n", cpu_time_used);
+      printf("%lf", cpu_time_used);
 
       return i;
     }
@@ -38,7 +41,7 @@ int find_elem_lin(int *v, unsigned n, int x) {
   end = clock();
   cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
 
-  printf("%f\n", cpu_time_used);
+  printf("%lf", cpu_time_used);
 
   return -1;
 }
@@ -76,7 +79,7 @@ int find_elem_bin(int *v, unsigned n, int x) {
   end = clock();
   cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
 
-  printf("%f\n", cpu_time_used);
+  printf("%lf", cpu_time_used);
 
   if (ptr == NULL)
     return -1;
@@ -106,15 +109,66 @@ void print_array(int *arr, unsigned n) {
   printf("\n");
 }
 
+void linear_benchmark(unsigned runs, int *(*rand_array_generate)(unsigned),
+                      int (*array_search)(int *, unsigned, int)) {
+
+  for (unsigned i = 0; i < runs; i++) {
+
+    unsigned size = rand() % MAX_SIZE;
+
+    int *rand_array = rand_array_generate(size);
+
+    // print_array(rand_array, size);
+
+    int elem = rand_array[rand() % size];
+
+    printf("%u, ", size);
+
+    array_search(rand_array, size, elem);
+
+    printf("\n");
+
+    free(rand_array);
+  }
+}
+
+void binary_benchmark(
+    unsigned runs,
+    int *(*binary_array_generate)(unsigned, int (*)(int *, unsigned, unsigned),
+                                  unsigned),
+    int (*array_search)(int *, unsigned, int)) {
+
+  for (unsigned i = 0; i < runs; i++) {
+
+    unsigned size = rand() % MAX_SIZE;
+
+    int *rand_array = binary_array_generate(size, get_new_element_asc, 1000);
+
+    // print_array(rand_array, size);
+
+    int elem = rand_array[rand() % size];
+
+    printf("%d, ", elem);
+
+    array_search(rand_array, size, elem);
+
+    printf("\n");
+
+    free(rand_array);
+  }
+}
+
 int main(void) {
 
   srand(time(NULL));
 
-  unsigned size = rand() % (MAX_SIZE - MIN_SIZE + 1);
+  unsigned runs = 1000;
 
-  int *array = make_rand_array(size);
+  linear_benchmark(runs, make_rand_array, find_elem_lin);
 
-  print_array(array, size);
+  printf("\n");
+
+  binary_benchmark(runs, make_rand_flexi_array, find_elem_bin);
 
   return 0;
 }

@@ -19,6 +19,8 @@ KVS_t add_element(KVS_t, EL_t);
 
 void print_kvs(KVS_t);
 
-void free_kvs(KVS_t dataset);
+int search_key(KVS_t, unsigned);
+
+void free_kvs(KVS_t);
 
 #endif
