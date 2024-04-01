@@ -38,9 +38,8 @@ matrix_t init_matrix(size_t rows, size_t cols) {
       exit(1);
     }
 
-    for (size_t j = 0; j < cols; j++) {
+    for (size_t j = 0; j < cols; j++)
       m->data[i][j] = 0;
-    }
   }
 
   return m;
