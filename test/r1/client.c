@@ -14,21 +14,22 @@ void assign_table(matrix_t m, size_t rows, size_t cols,
 
 int main(void) {
 
-  matrix_t m1 = init_matrix(ROWS + 1, COLS);
-  matrix_t m2 = init_matrix(ROWS, COLS + 1);
+  matrix_t m1 = init_matrix(ROWS, COLS);
+  matrix_t m2 = init_matrix(ROWS + 1, COLS + 1);
 
-  element_t values2[ROWS][COLS + 1] = {{PI * 1, PI * 2, PI * 3, PI * 4},
-                                       {PI * 5, PI * 6, PI * 7, PI * 8},
-                                       {PI * 9, PI * 10, PI * 11, PI * 12}};
+  element_t values1[ROWS][COLS + 1] = {{PI * 1, PI * 2, PI * 3},
+                                       {PI * 5, PI * 6, PI * 7},
+                                       {PI * 9, PI * 10, PI * 11}};
 
-  element_t values1[ROWS + 1][COLS] = {{PI * 1, PI * 2, PI * 3},
-                                       {PI * 4, PI * 5, PI * 6},
-                                       {PI * 7, PI * 8, PI * 9},
-                                       {PI * 10, PI * 11, PI * 12}};
+  element_t values2[ROWS + 1][COLS + 1] = {
+      {PI * 1, PI * 2, PI * 3, PI * 4},
+      {PI * 4, PI * 5, PI * 6, PI * 7},
+      {PI * 7, PI * 8, PI * 9, PI * 10},
+      {PI * 10, PI * 11, PI * 12, PI * 13}};
 
-  assign_table(m1, ROWS + 1, COLS, values1);
+  assign_table(m1, ROWS, COLS, values1);
 
-  assign_table(m2, ROWS, COLS + 1, values2);
+  assign_table(m2, ROWS + 1, COLS + 1, values2);
 
   matrix_t m3 = sum(m1, m2);
 
