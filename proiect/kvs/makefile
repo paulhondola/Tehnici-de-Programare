@@ -1,14 +1,12 @@
 CC = clang
 CFLAGS = -Wall -Wextra -Wpedantic
 
-FILES = client.c kvs.c kvs.h
+SRC = client.c kvs.c
+HEADER = kvs.h
 
 EXE = exe
 
-all: $(FILES)
+all: $(SRC)
 	clear
-	$(CC) $(CFLAGS) -c kvs.c
-	$(CC) $(CFLAGS) -c client.c
-	$(CC) $(CFLAGS) -o $(EXE) client.o kvs.o
-	rm -f *.o
+	$(CC) $(CFLAGS) -o $(EXE) $(SRC)
 	./$(EXE)
