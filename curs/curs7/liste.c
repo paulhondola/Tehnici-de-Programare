@@ -15,13 +15,13 @@ typedef struct NODE {
 } node_t;
 
 node_t *make_node(payload_t info) {
+
   node_t *node = malloc(sizeof(node_t));
 
   if (node == NULL)
     return NULL;
 
-  node->info = info;
-  node->next = NULL;
+  *node = (struct NODE){info, NULL};
 
   return node;
 }
@@ -87,6 +87,7 @@ list_t delete_position(list_t list, size_t k) {
     free(temp);
 
   } else {
+
     node_t *temp = iterator->next->next;
     iterator->next->next = iterator->next->next->next;
     free(temp);
