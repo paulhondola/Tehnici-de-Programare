@@ -1,35 +1,35 @@
 #ifndef __LIST_H
 #define __LIST_H
 
+// libraries
 #include <stdio.h>
 #include <stdlib.h>
 
-extern int LIST_DEBUG;
+// constants
+#define DEBUG 1
 
-typedef int list_data_t;
+// structures
+typedef double list_data_t;
+typedef struct NODE *node_t;
+typedef struct LIST *list_t;
 
-typedef struct node {
-  list_data_t data;
-  struct node *next;
-} node_t;
+// node functions
+node_t create_node(list_data_t data);
+void print_node_data(node_t node);
 
-typedef struct {
-  node_t *head;
-  node_t *rear;
-} list_t;
-
+// list functions
 list_t init_list(void);
+void print_list(list_t list);
+void free_list(list_t list);
 
-int add_front_node(list_t *list, list_data_t data);
+// adding
+list_t add_front_node(list_t list, node_t node);
+list_t add_rear_node(list_t list, node_t node);
+list_t add_index_node(list_t list, node_t node, size_t index);
 
-int add_rear_node(list_t *list, list_data_t data);
-
-int pop_front(list_t *list);
-
-int pop_rear(list_t *list);
-
-void print_list(list_t *list);
-
-void free_list(list_t *list);
+// removing
+list_t remove_front_node(list_t list);
+list_t remove_rear_node(list_t list);
+list_t remove_index_node(list_t list, size_t index);
 
 #endif

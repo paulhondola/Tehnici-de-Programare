@@ -10,7 +10,7 @@
 // constants
 
 #define MAX_NAME_SIZE 100
-#define HASH_TABLE_CHUNK 1024
+#define HASH_TABLE_CHUNK 64
 #define DEBUG 1
 
 // structures
@@ -28,31 +28,32 @@ typedef struct ARRAY_LIST *array_list_t;
 
 // payload functions
 
-payload_t create_payload(int, double, char[]);
-void print_payload(payload_t, FILE *);
+payload_t create_payload(int int_num, double double_num, char string[]);
+void print_payload(payload_t payload, FILE *file);
 
 // node functions
 
-node_t create_node(payload_t);
-void print_node_data(node_t, FILE *);
+node_t create_node(payload_t payload);
+void print_node_data(node_t node, FILE *file);
 
 // array list functions
 
 array_list_t init_array_list(void);
-void print_array_list(array_list_t, FILE *);
-void free_array_list(array_list_t);
+void print_array_list(array_list_t arr_list, FILE *file);
+void free_array_list(array_list_t arr_list);
 
 // adding
-array_list_t add_to_front(array_list_t, node_t);
-array_list_t add_to_back(array_list_t, node_t);
-array_list_t add_to_index(array_list_t, node_t, size_t);
+array_list_t add_front_node(array_list_t arr_list, node_t new_node);
+array_list_t add_rear_node(array_list_t arr_list, node_t new_node);
+array_list_t add_index_node(array_list_t arr_list, node_t new_node,
+                            size_t index);
 
 // removing
-array_list_t remove_from_front(array_list_t);
-array_list_t remove_from_end(array_list_t);
-array_list_t remove_from_index(array_list_t, size_t);
+array_list_t remove_front_node(array_list_t arr_list);
+array_list_t remove_rear_node(array_list_t arr_list);
+array_list_t remove_index_node(array_list_t arr_list, size_t index);
 
 // getting
-node_t get_node(array_list_t, size_t);
+node_t get_node(array_list_t arr_list, size_t index);
 
 #endif

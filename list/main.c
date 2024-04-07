@@ -1,33 +1,33 @@
 #include "list.h"
 
-#define SIZE 10
-
-int main(int argc, char *argv[]) {
-
-  if (argc != 2) {
-    perror("Invalid number of arguments -> need 1 -> LIST DEBUG");
-    return 0;
-  }
-
-  LIST_DEBUG = atoi(argv[1]);
+int main(void) {
 
   list_t list = init_list();
 
-  for (int i = 0; i < 100; i++)
-    add_front_node(&list, i);
+  if (list == NULL)
+    return 1;
 
-  for (int i = 0; i < 100; i++)
-    add_rear_node(&list, i);
+  for (int i = 0; i < 10; i++)
+    list = add_front_node(list, create_node(i * 3.14));
 
-  for (int i = 0; i < 50; i++)
-    pop_front(&list);
+  print_list(list);
 
-  for (int i = 0; i < 50; i++)
-    pop_rear(&list);
+  for (int i = 10; i < 20; i++)
+    list = add_rear_node(list, create_node(i * 3.14));
 
-  print_list(&list);
+  print_list(list);
 
-  free_list(&list);
+  for (int i = 10; i < 20; i++)
+    list = add_index_node(list, create_node(i * 3.14), 10);
+
+  print_list(list);
+
+  for (int i = 0; i < 30; i++)
+    list = remove_index_node(list, 10);
+
+  print_list(list);
+
+  free_list(list);
 
   return 0;
 }

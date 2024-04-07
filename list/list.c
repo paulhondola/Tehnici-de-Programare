@@ -1,113 +1,279 @@
 #include "list.h"
 
-int LIST_DEBUG = 0;
+// structures
 
-list_t init_list(void) { return (list_t){NULL, NULL}; }
+struct NODE {
+  list_data_t data;
+  struct NODE *next;
+};
 
-int add_front_node(list_t *list, list_data_t input_data) {
+struct LIST {
+  struct NODE *head;
+  struct NODE *rear;
+};
 
-  node_t *new_node = (node_t *)malloc(sizeof(node_t));
+// functions
 
-  if (new_node == NULL) {
-    if (LIST_DEBUG)
-      printf("memory allocation failed\n");
+// node
 
-    return 0;
+node_t create_node(list_data_t input_data) {
+
+  if (DEBUG)
+    fprintf(stderr, "Creating node\n");
+
+  node_t node = (node_t)malloc(sizeof(struct NODE));
+
+  if (node == NULL) {
+    if (DEBUG)
+      fprintf(stderr, "Node allocation: FAIL\n");
+
+    return NULL;
   }
 
-  if (LIST_DEBUG)
-    printf("new node linked to front / data linked: %d\n", input_data);
+  if (DEBUG)
+    fprintf(stderr, "Node allocation: SUCCESS\n");
 
-  *new_node = (node_t){input_data, list->head};
+  *node = (struct NODE){input_data, NULL};
 
-  list->head = new_node;
-
-  if (list->rear == NULL) {
-    list->rear = new_node;
-  }
-
-  return 1;
+  return node;
 }
 
-int add_rear_node(list_t *list, list_data_t input_data) {
+void print_node_data(node_t node) {
+  if (node == NULL)
+    return;
 
-  if (list->rear == NULL) {
-    if (!add_front_node(list, input_data)) {
-      return 0;
-    }
-    return 1;
+  printf("%f", node->data);
+}
+
+// list operations -> initialisation, print all node data, free the list
+
+list_t init_list(void) {
+
+  list_t list = (list_t)malloc(sizeof(struct LIST));
+
+  if (list == NULL) {
+    if (DEBUG)
+      fprintf(stderr, "List allocation: FAIL\n");
+
+    return NULL;
   }
 
-  node_t *new_node = (node_t *)malloc(sizeof(node_t));
+  if (DEBUG)
+    fprintf(stderr, "List allocation: SUCCESS\n");
 
-  if (new_node == NULL) {
-    if (LIST_DEBUG)
-      printf("memory allocation failed\n");
+  *list = (struct LIST){NULL, NULL};
+  return list;
+}
 
-    return 0;
+void print_list(list_t list) {
+
+  if (list == NULL) {
+    if (DEBUG)
+      fprintf(stderr, "List is NULL\n");
+    return;
   }
 
-  if (LIST_DEBUG)
-    printf("new node linked to rear / data linked: %d\n", input_data);
+  if (DEBUG)
+    fprintf(stderr, "Printing list\n");
 
-  *new_node = (node_t){input_data, NULL};
+  node_t current = list->head;
 
-  list->rear->next = new_node;
+  size_t i = 0;
+
+  while (current != NULL) {
+    printf("Node %zu: ", i++);
+    print_node_data(current);
+    printf("\n");
+    current = current->next;
+  }
+
+  printf("NULL\n....................\n");
+}
+
+// list operations -> get the size of the list
+
+void print_byte_data(list_t list) {
+  node_t current = list->head;
+
+  size_t count = 0;
+  while (current != NULL) {
+    count++;
+    current = current->next;
+  }
+
+  fprintf(stderr, "Node count: %zu\n", count);
+  fprintf(stderr, "Size of a node: %zu\n", sizeof(struct NODE));
+  fprintf(stderr, "Size of the full list: %zu\n", sizeof(struct NODE) * count);
+}
+
+void free_list(list_t list) {
+
+  if (DEBUG)
+    fprintf(stderr, "Freeing list\n");
+
+  print_byte_data(list);
+
+  node_t current = list->head;
+
+  while (current != NULL) {
+    node_t temp = current;
+    current = current->next;
+    free(temp);
+  }
+
+  free(list);
+}
+
+// list operations -> add to front, rear or to a specific index
+
+list_t add_front_node(list_t list, node_t node) {
+
+  if (list == NULL)
+    return NULL;
+
+  if (node == NULL)
+    return list;
+
+  // if list is empty, add node to head and rear
+  if (list->head == NULL) {
+    if (DEBUG)
+      fprintf(stderr, "List is empty, adding node to head and rear\n");
+
+    list->head = node;
+    list->rear = node;
+    return list;
+  }
+
+  if (DEBUG)
+    fprintf(stderr, "New node added to front\n");
+
+  node->next = list->head;
+  list->head = node;
+
+  return list;
+}
+
+list_t add_rear_node(list_t list, node_t node) {
+
+  if (list == NULL)
+    return NULL;
+
+  if (node == NULL)
+    return list;
+
+  // if list is empty, add node to head and rear
+
+  if (list->head == NULL) {
+    if (DEBUG)
+      fprintf(stderr, "List is empty, adding node to head and rear\n");
+
+    list->head = node;
+    list->rear = node;
+    return list;
+  }
+
+  if (DEBUG)
+    fprintf(stderr, "New node added to rear\n");
+
+  list->rear->next = node;
   list->rear = list->rear->next;
 
-  return 1;
+  return list;
 }
 
-int pop_front(list_t *list) {
+list_t add_index_node(list_t list, node_t node, size_t index) {
+
+  if (list == NULL)
+    return NULL;
+
+  if (node == NULL)
+    return list;
+
+  if (index == 0)
+    return add_front_node(list, node);
+
+  node_t current = list->head;
+  size_t i = 0;
+
+  while (current != NULL && i < index - 1) {
+    current = current->next;
+    i++;
+  }
+
+  if (current == NULL)
+    return add_rear_node(list, node);
+
+  if (DEBUG)
+    fprintf(stderr, "New node added to index %zu\n", index);
+
+  node->next = current->next;
+  current->next = node;
+
+  return list;
+}
+
+// list operations -> pop front, rear or from a specific index
+
+list_t remove_front_node(list_t list) {
+
+  if (list == NULL)
+    return NULL;
+
   if (list->head == NULL) {
-    printf("list is empty, no action taken\n");
-    return -1;
+    if (DEBUG)
+      fprintf(stderr, "List is empty, no action taken\n");
+
+    return list;
   }
 
   if (list->head->next == NULL) {
 
-    if (LIST_DEBUG)
-      printf("removed last item in list\n");
+    if (DEBUG)
+      fprintf(stderr, "Removed last item in list\n");
 
     free(list->head);
 
-    *list = (list_t){NULL, NULL};
+    *list = (struct LIST){NULL, NULL};
 
-    return 0;
+    return list;
   }
 
-  if (LIST_DEBUG)
-    printf("pop front / data: %d\n", list->head->data);
+  if (DEBUG)
+    fprintf(stderr, "pop front / data: %f\n", list->head->data);
 
-  node_t *temp = list->head;
+  node_t temp = list->head;
   list->head = list->head->next;
   free(temp);
 
-  return 1;
+  return list;
 }
 
-int pop_rear(list_t *list) {
+list_t remove_rear_node(list_t list) {
+
+  if (list == NULL)
+    return NULL;
 
   if (list->head == NULL) {
-    printf("list is empty, no action taken\n");
-    return -1;
+    if (DEBUG)
+      fprintf(stderr, "List is empty, no action taken\n");
+    return list;
   }
 
   if (list->head->next == NULL) {
 
-    if (LIST_DEBUG)
-      printf("removed last item in list\n");
+    if (DEBUG)
+      fprintf(stderr, "Removed last item in list\n");
 
     free(list->head);
-    *list = (list_t){NULL, NULL};
+    *list = (struct LIST){NULL, NULL};
 
-    return 0;
+    return list;
   }
 
-  if (LIST_DEBUG)
-    printf("pop front / data: %d\n", list->rear->data);
+  if (DEBUG)
+    fprintf(stderr, "pop rear / data: %f\n", list->rear->data);
 
-  node_t *iterator = list->head;
+  node_t iterator = list->head;
 
   while (iterator->next != list->rear) {
     iterator = iterator->next;
@@ -118,29 +284,60 @@ int pop_rear(list_t *list) {
 
   list->rear = iterator;
 
-  return 1;
+  return list;
 }
 
-void print_list(list_t *list) {
+list_t remove_index_node(list_t list, size_t index) {
 
-  node_t *current = list->head;
+  if (list == NULL)
+    return NULL;
 
-  while (current != NULL) {
-    printf("%d -> ", current->data);
-    current = current->next;
+  if (list->head == NULL) {
+    if (DEBUG)
+      fprintf(stderr, "List is empty, no action taken\n");
+    return list;
   }
 
-  printf("NULL\n");
-}
+  // if the list has only one node, remove it
 
-void free_list(list_t *list) {
-  node_t *current = list->head;
+  if (list->head->next == NULL) {
+    if (DEBUG)
+      fprintf(stderr, "Removed last item in list\n");
 
-  while (current != NULL) {
-    node_t *temp = current;
-    current = current->next;
-    free(temp);
+    free(list->head);
+    *list = (struct LIST){NULL, NULL};
+
+    return list;
   }
 
-  *list = (list_t){NULL, NULL};
+  // if index is 0, remove front node
+
+  if (index == 0)
+    return remove_front_node(list);
+
+  // if index is out of bounds, remove rear node
+
+  node_t current = list->head;
+
+  size_t i = 0;
+
+  while (current->next != list->rear && i < index - 1) {
+    current = current->next;
+    i++;
+  }
+
+  if (current->next == list->rear)
+    return remove_rear_node(list);
+
+  if (DEBUG)
+    fprintf(stderr, "Removed node at index %zu / data: %f\n", i + 1,
+            current->next->data);
+
+  node_t temp = current->next;
+
+  current->next = current->next->next;
+
+  free(temp);
+
+  return list;
 }
