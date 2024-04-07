@@ -10,14 +10,18 @@ int main(void) {
     return 1;
 
   for (int i = 0; i < 10; i++)
-    list = add_to_front(list, create_node(create_payload(i, i * 3.14, "pi")));
+    list = add_to_front(
+        list, create_node(create_payload(i, i * 3.14, "payload hihi <3")));
+
+  for (int i = 0; i < 10; i++)
+    list = add_to_back(
+        list, create_node(create_payload(i, i * 3.14, "payload hihi <3")));
 
   print_array_list(list, stdout);
 
-  for (int i = 0; i < 15; i++)
-    list = remove_from_front(list);
+  printf("................................................................\n");
 
-  print_array_list(list, stdout);
+  // print_array_list(list, stdout);
 
   free_array_list(list);
 
