@@ -42,8 +42,31 @@ void print_node_data(node_t node) {
   if (node == NULL)
     return;
 
-  printf("%f", node->data);
+  printf("%d", node->data);
 }
+
+// getters
+
+list_data_t get_node_data(node_t node) { return node->data; }
+
+node_t get_next_node(node_t node) { return node->next; }
+
+node_t get_list_head(list_t list) { return list->head; }
+
+node_t move_list_head(list_t list) {
+  if (list == NULL)
+    return NULL;
+
+  if (list->head == NULL)
+    return NULL;
+
+  node_t temp = list->head;
+  list->head = list->head->next;
+
+  return temp;
+}
+
+node_t get_list_rear(list_t list) { return list->rear; }
 
 // list operations -> initialisation, print all node data, free the list
 
@@ -126,7 +149,7 @@ void free_list(list_t list) {
 
 // list operations -> add to front, rear or to a specific index
 
-list_t add_front_node(list_t list, node_t node) {
+list_t add_head_node(list_t list, node_t node) {
 
   if (list == NULL)
     return NULL;
@@ -190,7 +213,7 @@ list_t add_index_node(list_t list, node_t node, size_t index) {
     return list;
 
   if (index == 0)
-    return add_front_node(list, node);
+    return add_head_node(list, node);
 
   node_t current = list->head;
   size_t i = 0;
@@ -214,7 +237,7 @@ list_t add_index_node(list_t list, node_t node, size_t index) {
 
 // list operations -> pop front, rear or from a specific index
 
-list_t remove_front_node(list_t list) {
+list_t remove_head_node(list_t list) {
 
   if (list == NULL)
     return NULL;
@@ -239,7 +262,7 @@ list_t remove_front_node(list_t list) {
   }
 
   if (DEBUG)
-    fprintf(stderr, "pop front / data: %f\n", list->head->data);
+    fprintf(stderr, "pop front / data: %d\n", list->head->data);
 
   node_t temp = list->head;
   list->head = list->head->next;
@@ -271,7 +294,7 @@ list_t remove_rear_node(list_t list) {
   }
 
   if (DEBUG)
-    fprintf(stderr, "pop rear / data: %f\n", list->rear->data);
+    fprintf(stderr, "pop rear / data: %d\n", list->rear->data);
 
   node_t iterator = list->head;
 
@@ -313,7 +336,7 @@ list_t remove_index_node(list_t list, size_t index) {
   // if index is 0, remove front node
 
   if (index == 0)
-    return remove_front_node(list);
+    return remove_head_node(list);
 
   // if index is out of bounds, remove rear node
 
@@ -330,7 +353,7 @@ list_t remove_index_node(list_t list, size_t index) {
     return remove_rear_node(list);
 
   if (DEBUG)
-    fprintf(stderr, "Removed node at index %zu / data: %f\n", i + 1,
+    fprintf(stderr, "Removed node at index %zu / data: %d\n", i + 1,
             current->next->data);
 
   node_t temp = current->next;

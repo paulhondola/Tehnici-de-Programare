@@ -8,7 +8,7 @@ int main(void) {
     return 1;
 
   for (int i = 0; i < 10; i++)
-    list = add_front_node(list, create_node(i * 3.14));
+    list = add_head_node(list, create_node(i * 3.14));
 
   print_list(list);
 
