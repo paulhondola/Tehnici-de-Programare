@@ -7,27 +7,27 @@ typedef list_data_t payload_t;
 typedef list_t queue_list_t;
 
 // INIT
-queue_list_t init_stack(void);
+queue_list_t init_queue(void);
 
 // FREE
-void free_stack(queue_list_t stack);
+void free_queue(queue_list_t queue);
 
 // DISPLAY
-void print_stack(queue_list_t stack);
+void print_queue(queue_list_t queue);
 
 // SIZE
-size_t get_size(queue_list_t stack);
-
-// PUSH
-queue_list_t push(queue_list_t stack, payload_t info);
-
-// POP
-queue_list_t pop(queue_list_t stack);
-
-// PEEK
-payload_t peek(queue_list_t stack);
+size_t get_size(queue_list_t queue);
 
 // ISEMPTY
-int is_empty(queue_list_t stack);
+int is_empty(queue_list_t queue);
+
+// ENQUEUE
+queue_list_t enqueue(queue_list_t queue, payload_t info);
+
+// DEQUEUE
+queue_list_t dequeue(queue_list_t queue);
+
+// PEEK
+payload_t head(queue_list_t queue);
 
 #endif
