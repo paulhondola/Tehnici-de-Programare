@@ -47,11 +47,25 @@ void print_node_data(node_t node) {
 
 // getters
 
+size_t get_list_size(list_t list) {
+  size_t index = 0;
+  node_t current = list->head;
+
+  while (current != NULL) {
+    index++;
+    current = current->next;
+  }
+
+  return index;
+}
+
 list_data_t get_node_data(node_t node) { return node->data; }
 
 node_t get_next_node(node_t node) { return node->next; }
 
 node_t get_list_head(list_t list) { return list->head; }
+
+node_t get_list_rear(list_t list) { return list->rear; }
 
 node_t move_list_head(list_t list) {
   if (list == NULL)
@@ -65,8 +79,6 @@ node_t move_list_head(list_t list) {
 
   return temp;
 }
-
-node_t get_list_rear(list_t list) { return list->rear; }
 
 // list operations -> initialisation, print all node data, free the list
 

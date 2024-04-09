@@ -4,7 +4,7 @@
 #include "/Users/paulhondola/Faculta/Tehnici de Programare/list/list.h"
 
 typedef list_data_t payload_t;
-typedef struct STACK_LIST *stack_list_t;
+typedef list_t stack_list_t;
 
 // INIT
 stack_list_t init_stack(void);

@@ -33,6 +33,7 @@ list_t remove_rear_node(list_t list);
 list_t remove_index_node(list_t list, size_t index);
 
 // getters
+size_t get_list_size(list_t list);
 node_t get_next_node(node_t node);
 list_data_t get_node_data(node_t node);
 node_t get_list_head(list_t list);
