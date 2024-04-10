@@ -49,17 +49,29 @@ void rand_flex_desc(unsigned n, unsigned steps) {
   free(arr_flex);
 }
 
+void print_double_array(double *arr, unsigned n) {
+  for (unsigned i = 0; i < n; i++)
+    printf("%lf\n", arr[i]);
+}
+
+#define N 1000
+
 int main(void) {
 
   srand(time(NULL));
 
-  // rand_arr(10);
+  double *gauss = generate_gauss_distribution(N, 0, 1);
 
-  // rand_limit(1000, 0, 100000);
+  double *poisson = generate_poisson_distribution(N, 2);
 
-  rand_flex_asc(10, 1000);
+  print_double_array(gauss, N);
 
-  // rand_flex_desc(10, 1000);
+  printf("\n............................................\n");
+
+  print_double_array(poisson, N);
+
+  free(gauss);
+  free(poisson);
 
   return 0;
 }

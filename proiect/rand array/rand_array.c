@@ -1,5 +1,9 @@
 #include "rand_array.h"
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// P R O I E C T  1 -  R A N D O M  A R R A Y S
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 /*
 1. Implementati o functie unsigned\* makeRandArray(unsigned seed, unsigned
 n), care primeste un seed si un numar natural n si returneaza un vector
@@ -74,6 +78,54 @@ int *make_rand_flexi_array(unsigned n,
 
   for (unsigned i = 1; i < n; i++)
     arr[i] = get_new_element(arr, i, steps);
+
+  return arr;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// P R O I E C T  2 - N O R M A L  D I S T R I B U T I O N
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+double *generate_gauss_distribution(size_t n, double mean, double std_dev) {
+
+  double *arr = (double *)malloc(n * sizeof(double));
+
+  if (arr == NULL)
+    return NULL;
+
+  for (unsigned i = 0; i < n; i++) {
+    double u1 = (double)rand() / RAND_MAX;
+    double u2 = (double)rand() / RAND_MAX;
+
+    arr[i] = sqrt(-2 * log(u1)) * cos(2 * M_PI * u2) * std_dev + mean;
+  }
+
+  return arr;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// P R O I E C T  2 - P O I S S O N  D I S T R I B U T I O N
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+double *generate_poisson_distribution(size_t n, double lambda) {
+
+  double *arr = (double *)malloc(n * sizeof(double));
+
+  if (arr == NULL)
+    return NULL;
+
+  for (unsigned i = 0; i < n; i++) {
+    double L = exp(-lambda);
+    double p = 1;
+    int k = 0;
+
+    do {
+      k++;
+      p *= (double)rand() / RAND_MAX;
+    } while (p > L);
+
+    arr[i] = k - 1;
+  }
 
   return arr;
 }

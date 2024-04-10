@@ -1,13 +1,11 @@
 CC = clang
-CFLAGS = -Wall -Wextra -Wpedantic
-
-FILES = generate_rand_array.c rand_array.c rand_array.h
-
+CFLAGS = -lm -Wall -Wextra -Wpedantic
+SRC = $(wildcard *.c)
+OBJ = $(wildcard *.o)
 EXE = exe
 
-all: $(FILES)
+all:
 	clear
-	$(CC) $(CFLAGS) -c generate_rand_array.c
-	$(CC) $(CFLAGS) -c rand_array.c
-	$(CC) $(CFLAGS) -o $(EXE) generate_rand_array.c rand_array.c
+	$(CC) $(CFLAGS) -c $(SRC)
+	$(CC) $(CFLAGS) -o $(EXE) $(OBJ)
 	./$(EXE) > output.txt
