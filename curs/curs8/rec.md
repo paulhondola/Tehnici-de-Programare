@@ -24,7 +24,7 @@ Recursivitatea poate fi foarte utilă pentru rezolvarea problemelor care implic�
 Expresie prefix
 O expresie aritmetică în notația prefix (sau notația poloneză prefixă) este o modalitate de a reprezenta o expresie matematică în care operatorii precedă operanzii. În notația prefix, operatorii apar înaintea operanzilor și nu este nevoie de paranteze pentru a specifica ordinea de evaluare a expresiilor.
 
-Spre exemplu, în notația prefix, expresia aritmetică 3 + 4 * 5 este reprezentată astfel: + 3 * 4 5. În această notație, operatorul de adunare (+) apare înaintea operanzilor 3 și * 4 5, unde operatorul de înmulțire (*) apare înaintea operanzilor 4 și 5.
+Spre exemplu, în notația prefix, expresia aritmetică 3 + 4 _ 5 este reprezentată astfel: + 3 _ 4 5. În această notație, operatorul de adunare (+) apare înaintea operanzilor 3 și _ 4 5, unde operatorul de înmulțire (_) apare înaintea operanzilor 4 și 5.
 
 Pentru a evalua o expresie aritmetică în notația prefix, se parcurge expresia de la stânga la dreapta, se identifică operatorii și se aplică operația corespunzătoare asupra operanzilor.
 
@@ -132,14 +132,15 @@ Bibliografie
 https://staff.cs.upt.ro/~marius/curs/pc/old/notes2.pdf
 
 Aplicatii propuse
+
 1. https://staff.cs.upt.ro/~marius/curs/lp/tema2.html : exercitiile 1,2 si 3
 
 2. https://staff.cs.upt.ro/~marius/curs/lp/tema3.html : Exercitiul 2
 
 3. Se dau n bombe, numerotate de la 1 la n, pentru fiecare cunoscandu-se coordonatele (x,y) unde sunt plasate si raza de distrugere r. La explozia unei bombe se va distruge totul in interiorul si pe cercul de centru (x,y) si raza r, iar daca exista alte bombe in aceasta zona, acestea vor exploda la randul lor. Se da indicele k al primei bombe care explodeaza si se cere sa se calculeze cate bombe raman neexplodate.
-Datele se citesc din fisierul bombe.in si rezultatele se vor afisa in fisierul bombe.out.
-In fisierul bombe.in pe prima linie se afla numerele n si k, iar pe urmatoarele n linii coordonatele si razele de distrugere ale celor n bombe. n si k sunt numere naturale, coordonatele numere intregi, iar razele numere naturale.
-Exemplu:
+   Datele se citesc din fisierul bombe.in si rezultatele se vor afisa in fisierul bombe.out.
+   In fisierul bombe.in pe prima linie se afla numerele n si k, iar pe urmatoarele n linii coordonatele si razele de distrugere ale celor n bombe. n si k sunt numere naturale, coordonatele numere intregi, iar razele numere naturale.
+   Exemplu:
 
 bombe.in
 8 5
