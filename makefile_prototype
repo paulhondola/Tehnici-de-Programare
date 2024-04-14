@@ -5,7 +5,7 @@ SRC = $(wildcard *.c)
 OBJ = $(wildcard *.o)
 EXE = $(NAME).exe
 
-all:
+run:
 	clear
 	$(CC) $(CFLAGS) -c $(SRC)
 	$(CC) $(CFLAGS) -o $(EXE) $(OBJ)

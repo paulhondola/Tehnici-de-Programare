@@ -1,11 +1,15 @@
+NAME = expr_eval
 CC = clang
 CFLAGS = -Wall -Wextra -Werror
 SRC = $(wildcard *.c)
 OBJ = $(wildcard *.o)
-EXE = expr
+EXE = $(NAME).exe
 
-all:
+run:
 	clear
 	$(CC) $(CFLAGS) -c $(SRC)
 	$(CC) $(CFLAGS) -o $(EXE) $(OBJ)
 	./$(EXE)
+
+leaks: run
+	leaks -q --atExit -- ./$(EXE)

@@ -1,4 +1,4 @@
-#include "/Users/paulhondola/Faculta/Tehnici de Programare/stack/stack.h"
+#include "/Users/paulhondola/Faculta/Tehnici de Programare/AUX/DATA_STRUCTURES/stack/stack.h"
 
 int main(void) {
 
