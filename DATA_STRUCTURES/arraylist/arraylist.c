@@ -1,5 +1,4 @@
 #include "arraylist.h"
-#include <stdio.h>
 
 // structures
 

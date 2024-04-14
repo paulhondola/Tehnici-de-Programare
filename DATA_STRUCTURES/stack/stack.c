@@ -1,42 +1,73 @@
 #include "stack.h"
 
-int STACK_DEBUG = 0;
-int STACK_DYNAMIC = 0;
-int STACK_CHUNK = 32;
+// STACK STRUCTURE
+struct STACK {
+  size_t top;
+  size_t capacity;
+  stack_data *data;
+};
 
+// INITIALIZATION
 stack init_stack(size_t capacity) {
 
-  stack st = (stack){0, capacity, NULL};
+  // allocate memory for the stack structure
+  stack st = (stack)malloc(sizeof(struct STACK));
 
-  st.data = (stack_data *)malloc(capacity * sizeof(stack_data));
-
-  if (st.data == NULL) {
+  if (st == NULL) {
     if (STACK_DEBUG)
       printf("memory allocation failed\n");
-    st.capacity = 0;
+    return NULL;
+  }
+
+  // initialize the stack with the given capacity
+
+  *st = (struct STACK){.top = 0, .capacity = capacity, .data = NULL};
+
+  // allocate memory for the stack data
+  st->data = (stack_data *)malloc(capacity * sizeof(stack_data));
+
+  if (st->data == NULL) {
+    if (STACK_DEBUG)
+      printf("memory allocation failed\n");
+    free(st);
+    return NULL;
   }
 
   if (STACK_DEBUG) {
     printf("initialization successful\n");
-    printf("stack capacity set to: %zu\n", st.capacity);
+    printf("stack capacity set to: %zu\n", st->capacity);
   }
 
   return st;
 }
 
-int stack_is_empty(stack *st) {
+// GETTERS
+size_t stack_size(stack st) {
+  if (STACK_DEBUG)
+    printf("stack size: %zu\n", st->top);
+  return st->top;
+}
+
+size_t stack_capacity(stack st) {
+  if (STACK_DEBUG)
+    printf("stack capacity: %zu\n", st->capacity);
+  return st->capacity;
+}
+
+// STACK SIZE FUNCTIONS
+int stack_is_empty(stack st) {
   if (STACK_DEBUG && st->top == 0)
     printf("stack empty\n");
   return st->top == 0;
 }
 
-int stack_is_full(stack *st) {
+int stack_is_full(stack st) {
   if (STACK_DEBUG && st->top >= st->capacity)
     printf("stack full\n");
   return st->top >= st->capacity;
 }
 
-int stack_realloc(stack *st) {
+stack stack_realloc(stack st) {
   stack_data *temp = (stack_data *)realloc(
       st->data, (st->capacity + STACK_CHUNK) * sizeof(stack_data));
 
@@ -46,7 +77,7 @@ int stack_realloc(stack *st) {
       printf("stack capacity remains at: %zu\n", st->capacity);
       printf("no push happened\n");
     }
-    return 0;
+    return st;
   }
 
   st->data = temp;
@@ -55,18 +86,21 @@ int stack_realloc(stack *st) {
   if (STACK_DEBUG)
     printf("stack capacity increased to: %zu\n", st->capacity);
 
-  return 1;
+  return st;
 }
 
-int push(stack *st, stack_data data) {
+// STACK OPERATIONS
+stack push(stack st, stack_data data) {
 
   // full -> dynamic -> realloc -> fail or not
   // full -> static -> no push
 
   if (stack_is_full(st)) {
     if (STACK_DYNAMIC) {
-      if (!stack_realloc(st))
-        return -1;
+      size_t old_capacity = st->capacity;
+      st = stack_realloc(st);
+      if (old_capacity == st->capacity)
+        return st;
     } else {
       if (STACK_DEBUG)
         printf("no push happened\n");
@@ -77,22 +111,22 @@ int push(stack *st, stack_data data) {
     printf("push %d\n", data);
 
   st->data[st->top++] = data;
-  return 1;
+  return st;
 }
 
-int pop(stack *st) {
+stack pop(stack st) {
   if (stack_is_empty(st)) {
-    return 0;
+    return st;
   }
 
   if (STACK_DEBUG)
     printf("pop %d\n", st->data[st->top - 1]);
 
   st->top--;
-  return 1;
+  return st;
 }
 
-stack_data peek(stack *st) {
+stack_data peek(stack st) {
   if (stack_is_empty(st)) {
     return 0;
   }
@@ -103,17 +137,19 @@ stack_data peek(stack *st) {
   return st->data[st->top - 1];
 }
 
-void free_stack(stack *st) {
+// PRINTING
+void print_stack(stack st) {
+  for (size_t i = 0; i < st->top; i++) {
+    printf("%d ", st->data[i]);
+  }
+}
+
+// FREE MEMORY
+void free_stack(stack st) {
 
   if (STACK_DEBUG)
     printf("free stack\n");
 
   free(st->data);
-  *st = (stack){0, 0, NULL};
-}
-
-void print_stack(stack *st) {
-  for (size_t i = 0; i < st->top; i++) {
-    printf("%d ", st->data[i]);
-  }
+  free(st);
 }

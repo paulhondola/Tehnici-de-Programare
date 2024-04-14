@@ -1,8 +1,9 @@
 CC = clang
-CFLAGS = -Wall -Wextra -pedantic
+CFLAGS = -Wall -Wextra -Werror
+
 SRC = $(wildcard *.c)
 OBJ = $(wildcard *.o)
-EXE = exe
+EXE = expr
 
 all:
 	clear

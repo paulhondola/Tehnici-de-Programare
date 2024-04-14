@@ -1,7 +1,7 @@
 #ifndef __STACK_LIST_H
 #define __STACK_LIST_H
 
-#include "/Users/paulhondola/Faculta/Tehnici de Programare/list/list.h"
+#include "/Users/paulhondola/Faculta/Tehnici de Programare/HEADER_FILES/list.h"
 
 typedef list_data_t payload_t;
 typedef list_t stack_list_t;

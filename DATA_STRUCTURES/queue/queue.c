@@ -1,46 +1,79 @@
 #include "queue.h"
 
-int QUEUE_DEBUG = 0;
-int QUEUE_DYNAMIC = 0;
-size_t QUEUE_CHUNK = 32;
+struct QUEUE {
+  size_t head;
+  size_t tail;
+  size_t capacity;
+  queue_data *data;
+};
 
+// INITIALIZATION
 queue init_queue(size_t capacity) {
 
-  queue q = {0, 0, capacity, NULL};
+  // Allocate memory for the queue structure
+  queue q = (queue)malloc(sizeof(struct QUEUE));
 
-  q.data = (queue_data *)malloc(capacity * sizeof(queue_data));
+  if (q == NULL) {
+    if (QUEUE_DEBUG)
+      printf("Memory allocation failed\n");
+    return NULL;
+  }
 
-  if (q.data == NULL) {
+  // Initialize the queue structure
+  *q = (struct QUEUE){.head = 0, .tail = 0, .capacity = capacity, .data = NULL};
+
+  // Allocate memory for the queue data
+  q->data = (queue_data *)malloc(capacity * sizeof(queue_data));
+
+  if (q->data == NULL) {
     if (QUEUE_DEBUG)
       printf("Memory allocation failed\n");
 
-    q.capacity = 0;
-    return q;
+    free(q);
+    return NULL;
   }
-
-  q.capacity = capacity;
 
   if (QUEUE_DEBUG) {
     printf("Initialization successful\n");
-    printf("Queue capacity set to: %zu\n", q.capacity);
+    printf("Queue capacity set to: %zu\n", q->capacity);
   }
 
   return q;
 }
 
-int queue_is_empty(queue *q) {
+// GETTERS
+size_t get_head_position(queue q) {
+  if (QUEUE_DEBUG)
+    printf("head position: %zu\n", q->head);
+  return q->head;
+}
+
+size_t get_tail_position(queue q) {
+  if (QUEUE_DEBUG)
+    printf("tail position: %zu\n", q->tail);
+  return q->tail;
+}
+
+size_t get_capacity(queue q) {
+  if (QUEUE_DEBUG)
+    printf("queue capacity: %zu\n", q->capacity);
+  return q->capacity;
+}
+
+// QUEUE SIZE FUNCTIONS
+int queue_is_empty(queue q) {
   if (QUEUE_DEBUG && q->head == q->tail)
     printf("queue empty\n");
   return q->head == q->tail;
 }
 
-int queue_is_full(queue *q) {
+int queue_is_full(queue q) {
   if (QUEUE_DEBUG && q->tail >= q->capacity)
     printf("queue full\n");
   return q->tail >= q->capacity;
 }
 
-int queue_realloc(queue *q) {
+queue queue_realloc(queue q) {
   queue_data *temp = (queue_data *)realloc(
       q->data, (q->capacity + QUEUE_CHUNK) * sizeof(queue_data));
 
@@ -50,7 +83,7 @@ int queue_realloc(queue *q) {
       printf("queue capacity remains at: %zu\n", q->capacity);
       printf("no enqueue happened\n");
     }
-    return 0;
+    return q;
   }
 
   q->data = temp;
@@ -59,19 +92,22 @@ int queue_realloc(queue *q) {
   if (QUEUE_DEBUG)
     printf("queue capacity increased to: %zu\n", q->capacity);
 
-  return 1;
+  return q;
 }
 
-int enqueue(queue *q, queue_data data) {
+// QUEUE OPERATIONS
+queue enqueue(queue q, queue_data data) {
 
   if (queue_is_full(q)) {
     if (QUEUE_DYNAMIC) {
-      if (!queue_realloc(q))
-        return -1;
+      size_t old_capacity = q->capacity;
+      q = queue_realloc(q);
+      if (old_capacity == q->capacity)
+        return q;
     } else {
       if (QUEUE_DEBUG)
         printf("no enqueue happened\n");
-      return 0;
+      return q;
     }
   }
 
@@ -80,18 +116,18 @@ int enqueue(queue *q, queue_data data) {
 
   q->data[q->tail++] = data;
 
-  return 1;
+  return q;
 }
 
-void move_queue(queue *q) {
+void move_queue(queue q) {
   for (size_t i = q->head; i < q->tail; i++) {
     q->data[i - q->head] = q->data[i];
   }
 }
 
-int dequeue(queue *q) {
+queue dequeue(queue q) {
   if (queue_is_empty(q)) {
-    return 0;
+    return q;
   }
 
   if (QUEUE_DEBUG) {
@@ -108,43 +144,37 @@ int dequeue(queue *q) {
     move_queue(q);
   }
 
-  return 1;
+  return q;
 }
 
-queue_data head(queue *q) {
-
-  if (queue_is_empty(q)) {
+queue_data head(queue q) {
+  if (queue_is_empty(q))
     return 0;
-  }
-
   if (QUEUE_DEBUG)
     printf("head: %d\n", q->data[q->head]);
-
   return q->data[q->head];
 }
 
-queue_data tail(queue *q) {
-
-  if (queue_is_empty(q)) {
+queue_data tail(queue q) {
+  if (queue_is_empty(q))
     return 0;
-  }
-
   if (QUEUE_DEBUG)
     printf("tail: %d\n", q->data[q->tail - 1]);
-
   return q->data[q->tail - 1];
 }
 
-void print_queue(queue *q) {
+// DEBUGGING
+void print_queue(queue q) {
   for (size_t i = q->head; i < q->tail; i++) {
     printf("%d ", q->data[i]);
   }
 }
 
-void free_queue(queue *q) {
+// FREE
+void free_queue(queue q) {
   if (QUEUE_DEBUG)
     printf("free queue\n");
 
   free(q->data);
-  *q = (queue){0, 0, 0, NULL};
+  free(q);
 }
