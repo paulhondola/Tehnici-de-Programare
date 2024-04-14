@@ -1,6 +1,5 @@
 CC = clang
 CFLAGS = -Wall -Wextra -Werror
-
 SRC = $(wildcard *.c)
 OBJ = $(wildcard *.o)
 EXE = expr

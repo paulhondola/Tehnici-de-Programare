@@ -1,8 +1,9 @@
+NAME = xxx
 CC = clang
 CFLAGS = -Wall -Wextra -Werror
 SRC = $(wildcard *.c)
 OBJ = $(wildcard *.o)
-EXE = exe
+EXE = $(NAME).exe
 
 all:
 	clear
@@ -11,4 +12,4 @@ all:
 	./$(EXE)
 
 leaks: run
-	leaks -q --atExit -- ./$(EXECUTABLE)
+	leaks -q --atExit -- ./$(EXE)
