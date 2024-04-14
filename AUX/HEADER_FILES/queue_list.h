@@ -1,7 +1,7 @@
 #ifndef __QUEUE_LIST_H
 #define __QUEUE_LIST_H
 
-#include "/Users/paulhondola/Faculta/Tehnici de Programare/HEADER_FILES/list.h"
+#include "/Users/paulhondola/Faculta/Tehnici de Programare/AUX/HEADER_FILES/list.h"
 
 typedef list_data_t payload_t;
 typedef list_t queue_list_t;
