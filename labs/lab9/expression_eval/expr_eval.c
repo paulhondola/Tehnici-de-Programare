@@ -1,4 +1,7 @@
 #include "/Users/paulhondola/Faculta/Tehnici de Programare/AUX/DATA_STRUCTURES/stack/stack.h"
+#include <ctype.h>
+#include <math.h>
+#include <stdlib.h>
 #include <string.h>
 
 #define MAX_SIZE 100
@@ -15,11 +18,53 @@ int eval_expression(char expression[]) {
 
   stack st = init_stack(len);
 
-  // + 2 * 3 5 => 3 * 5 + 2
+  // - 12 * 3 5 => 12 - 3 * 5
 
+  int num = 0, index = 0;
   for (long long int i = len - 1; i >= 0; i--) {
-    if ()
+    if (isdigit(expression[i])) {
+      num = pow(10, index++) * (expression[i] - '0') + num;
+    } else if (expression[i] == ' ' || expression[i] == '\n') {
+      if (num != 0) {
+        push(st, num);
+        num = 0;
+        index = 0;
+      }
+    } else {
+
+      // operator detected, pop 2 elements from the stack and apply the operator
+      int op1 = peek(st);
+      st = pop(st);
+      int op2 = peek(st);
+      st = pop(st);
+
+      switch (expression[i]) {
+      case '+':
+        push(st, op1 + op2);
+        break;
+      case '-':
+        push(st, op1 - op2);
+        break;
+      case '*':
+        push(st, op1 * op2);
+        break;
+      case '/':
+        push(st, op1 / op2);
+        break;
+      case '%':
+        push(st, op1 % op2);
+        break;
+      case '^':
+        push(st, pow(op1, op2));
+        break;
+      default:
+        printf("Invalid operator\n");
+        exit(EXIT_FAILURE);
+      }
+    }
   }
+
+  result = peek(st);
 
   free(st);
 

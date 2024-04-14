@@ -38,7 +38,7 @@ void read_index_data(size_t *count, size_t *index, FILE *file) {
   }
 }
 
-bomb_t read_bomb_data(FILE *file) {
+bomb_t read_bomb_data(int id, size_t size, FILE *file) {
   float x, y, r;
 
   if (fscanf(file, "%f %f %f", &x, &y, &r) != 3) {
@@ -46,7 +46,23 @@ bomb_t read_bomb_data(FILE *file) {
     exit(2);
   }
 
-  return (bomb_t){x, y, r, FALSE};
+  int *visited = malloc(size * sizeof(int));
+
+  if (visited == NULL) {
+    perror("Memory allocation failed\n");
+    exit(3);
+  }
+
+  return (bomb_t){id, x, y, r, FALSE, 0, visited};
+}
+
+void check_bombs_in_radius(bomb_t *arr, size_t count, size_t index) {
+  size_t in_radius = 0;
+  for (size_t i = 0; i < count; i++)
+    if (i != index && is_in_radius(arr[index], arr[i]))
+      arr[index].bombs_in_radius[in_radius++] = i;
+
+  arr[index].bombs_in_radius_count = in_radius;
 }
 
 bomb_t *read_bomb_array_data(size_t count, FILE *file) {
@@ -55,26 +71,29 @@ bomb_t *read_bomb_array_data(size_t count, FILE *file) {
 
   if (arr == NULL) {
     perror("Memory allocation failed\n");
-    exit(3);
+    exit(4);
   }
 
-  for (size_t i = 0; i < count; i++) {
-    arr[i] = read_bomb_data(file);
-  }
+  for (size_t i = 0; i < count; i++)
+    arr[i] = read_bomb_data(i, count - 1, file);
+
+  for (size_t i = 0; i < count; i++)
+    check_bombs_in_radius(arr, count, i);
 
   return arr;
 }
 
 // WRITING
 void print_bomb_data(bomb_t bomb, FILE *file) {
-  fprintf(file, "X: %d | Y: %d | R: %d | ", bomb.x, bomb.y, bomb.radius);
+  fprintf(file, "ID: %d | X: %d | Y: %d | R: %d | BOMBS IN RADIUS: %zu | ",
+          bomb.id, bomb.x, bomb.y, bomb.radius, bomb.bombs_in_radius_count);
 
   switch (bomb.state) {
-  case FALSE:
-    fprintf(file, "NOT EXPLODED\n");
-    break;
   case TRUE:
     fprintf(file, "EXPLODED\n");
+    break;
+  case FALSE:
+    fprintf(file, "NOT EXPLODED\n");
     break;
   default:
     fprintf(file, "UNKNOWN\n");
@@ -107,10 +126,9 @@ int is_in_radius(bomb_t main, bomb_t secondary) {
 
 void explode(bomb_t main_bomb, bomb_t *arr, size_t count) {
 
-  for (size_t i = 0; i < count; i++) {
-    if (arr[i].state == FALSE && is_in_radius(main_bomb, arr[i])) {
-      arr[i].state = TRUE;
-      explode(arr[i], arr, count);
+  for (size_t i = 0; i < main_bomb.bombs_in_radius_count; i++)
+    if (arr[main_bomb.bombs_in_radius[i]].state == FALSE) {
+      arr[main_bomb.bombs_in_radius[i]].state = TRUE;
+      explode(arr[main_bomb.bombs_in_radius[i]], arr, count);
     }
-  }
 }
