@@ -18,25 +18,33 @@ flag-uri de eroare (var globala)
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef enum { STACK_OK, STACK_EMPTY, STACK_FULL } stack_code;
+typedef enum
+{
+  STACK_OK,
+  STACK_EMPTY,
+  STACK_FULL
+} stack_code;
 
 stack_code error_code;
 
 typedef int stack_data;
 
-typedef struct {
+typedef struct
+{
   size_t top;
   size_t capacity;
   stack_data *data;
 } stack;
 
-stack init_stack(size_t cap) {
+stack init_stack(size_t cap)
+{
 
   stack st = {0, 0, NULL};
 
   st.data = (stack_data *)malloc(cap * sizeof(stack_data));
 
-  if (st.data == NULL) {
+  if (st.data == NULL)
+  {
     st.capacity = 0;
     error_code = STACK_EMPTY;
     return st;
@@ -48,8 +56,10 @@ stack init_stack(size_t cap) {
   return st;
 }
 
-stack push(stack *st, stack_data data) {
-  if (st->top >= st->capacity) {
+stack push(stack *st, stack_data data)
+{
+  if (st->top >= st->capacity)
+  {
     error_code = STACK_FULL;
     return *st;
   }
@@ -60,8 +70,10 @@ stack push(stack *st, stack_data data) {
   return *st;
 }
 
-stack_data pop(stack *st) {
-  if (error_code != STACK_EMPTY) {
+stack_data pop(stack *st)
+{
+  if (error_code != STACK_EMPTY)
+  {
     error_code = STACK_OK;
     st->top--;
     return st->data[st->top];
@@ -71,8 +83,10 @@ stack_data pop(stack *st) {
   return 0;
 }
 
-stack_data peek(stack *st) {
-  if (error_code == STACK_EMPTY) {
+stack_data peek(stack *st)
+{
+  if (error_code == STACK_EMPTY)
+  {
     error_code = STACK_EMPTY;
     return 0;
   }
@@ -80,18 +94,22 @@ stack_data peek(stack *st) {
   return st->data[st->top - 1];
 }
 
-int main(void) {
+int main(void)
+{
 
   stack st = init_stack(10);
 
-  if (error_code == STACK_EMPTY) {
+  if (error_code == STACK_EMPTY)
+  {
     perror("Error: STACK_EMPTY");
     return 1;
   }
 
-  for (int i = 0; i < 11; i++) {
+  for (int i = 0; i < 11; i++)
+  {
     st = push(&st, i);
-    if (error_code == STACK_FULL) {
+    if (error_code == STACK_FULL)
+    {
       perror("Error: STACK_FULL");
     }
 

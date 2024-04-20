@@ -9,12 +9,14 @@
 typedef double matrix_data_t;
 typedef size_t matrix_size_t;
 
-typedef struct {
+typedef struct
+{
   matrix_size_t rows, collumns;
   matrix_data_t **data;
 } matrix_std_t;
 
-typedef struct {
+typedef struct
+{
   matrix_size_t rows, collumns;
   matrix_data_t *data;
 } matrix_block_t;

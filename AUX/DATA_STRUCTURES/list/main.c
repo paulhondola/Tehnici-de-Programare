@@ -1,6 +1,7 @@
 #include "list.h"
 
-int main(void) {
+int main(void)
+{
 
   list_t list = init_list();
 

@@ -6,7 +6,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-unsigned long long find_group(unsigned long long k) {
+unsigned long long find_group(unsigned long long k)
+{
   unsigned long long group = 1;
 
   float delta = 1 + 8 * k;
@@ -18,7 +19,8 @@ unsigned long long find_group(unsigned long long k) {
   return group;
 }
 
-unsigned long long find_k(unsigned long long k) {
+unsigned long long find_k(unsigned long long k)
+{
 
   unsigned long long group = find_group(k);
 
@@ -29,10 +31,12 @@ unsigned long long find_k(unsigned long long k) {
   return k_in_group;
 }
 
-int main(int argc, char const *argv[]) {
+int main(int argc, char const *argv[])
+{
   unsigned long long k = 0;
 
-  if (argc != 2) {
+  if (argc != 2)
+  {
     perror("Invalid args");
     return -1;
   }

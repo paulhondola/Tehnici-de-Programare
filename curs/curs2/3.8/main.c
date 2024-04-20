@@ -9,7 +9,8 @@
 
 #include "products.h"
 
-int main(void) {
+int main(void)
+{
 
   factory_t factory = init_factory();
 

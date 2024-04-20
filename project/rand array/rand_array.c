@@ -11,7 +11,8 @@ alocat dinamic, continand n numere naturale pseodoaleatoare, uniform
  distribuite
 */
 
-int *make_rand_array(unsigned n) {
+int *make_rand_array(unsigned n)
+{
 
   int *arr = (int *)malloc((size_t)n * sizeof(unsigned));
 
@@ -31,7 +32,8 @@ vector alocat dinamic, continand n numere intregi pseudoaleatoare, uniform
 distribuite, cuprinse intre a si b
 */
 
-int *make_rand_limit_array(unsigned n, unsigned a, unsigned b) {
+int *make_rand_limit_array(unsigned n, unsigned a, unsigned b)
+{
 
   if (a > b)
     return NULL;
@@ -57,17 +59,20 @@ sau curent de elemente. Implementati functii "concrete" pentru generarea
 unor vectori monoton crescatori si monoton descrescatori.
 */
 
-int get_new_element_asc(int *arr, unsigned n, unsigned steps) {
+int get_new_element_asc(int *arr, unsigned n, unsigned steps)
+{
   return arr[n - 1] + rand() % steps;
 }
 
-int get_new_element_desc(int *arr, unsigned n, unsigned steps) {
+int get_new_element_desc(int *arr, unsigned n, unsigned steps)
+{
   return arr[n - 1] - rand() % steps;
 }
 
 int *make_rand_flexi_array(unsigned n,
                            int (*get_new_element)(int *, unsigned, unsigned),
-                           unsigned steps) {
+                           unsigned steps)
+{
 
   int *arr = (int *)malloc((size_t)n * sizeof(int));
 
@@ -86,14 +91,16 @@ int *make_rand_flexi_array(unsigned n,
 // P R O I E C T  2 - N O R M A L  D I S T R I B U T I O N
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-double *generate_gauss_distribution(size_t n, double mean, double std_dev) {
+double *generate_gauss_distribution(size_t n, double mean, double std_dev)
+{
 
   double *arr = (double *)malloc(n * sizeof(double));
 
   if (arr == NULL)
     return NULL;
 
-  for (unsigned i = 0; i < n; i++) {
+  for (unsigned i = 0; i < n; i++)
+  {
     double u1 = (double)rand() / RAND_MAX;
     double u2 = (double)rand() / RAND_MAX;
 
@@ -107,19 +114,22 @@ double *generate_gauss_distribution(size_t n, double mean, double std_dev) {
 // P R O I E C T  2 - P O I S S O N  D I S T R I B U T I O N
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-double *generate_poisson_distribution(size_t n, double lambda) {
+double *generate_poisson_distribution(size_t n, double lambda)
+{
 
   double *arr = (double *)malloc(n * sizeof(double));
 
   if (arr == NULL)
     return NULL;
 
-  for (unsigned i = 0; i < n; i++) {
+  for (unsigned i = 0; i < n; i++)
+  {
     double L = exp(-lambda);
     double p = 1;
     int k = 0;
 
-    do {
+    do
+    {
       k++;
       p *= (double)rand() / RAND_MAX;
     } while (p > L);

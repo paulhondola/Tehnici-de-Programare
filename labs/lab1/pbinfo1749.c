@@ -2,7 +2,8 @@
 // #include <stdlib.h>
 #define MAX_SIZE 5
 
-int zone_sum(int matrix[][MAX_SIZE], int n, int zone) {
+int zone_sum(int matrix[][MAX_SIZE], int n, int zone)
+{
   int sum = 0;
 
   // zona 1 -> i < j / i + j < n + 1
@@ -10,7 +11,8 @@ int zone_sum(int matrix[][MAX_SIZE], int n, int zone) {
   // zona 3 -> i > j / i + j > n + 1
   // zona 4 -> i > j / i + j < n + 1
 
-  switch (zone) {
+  switch (zone)
+  {
   case 1:
     for (int i = 0; i < n; i++)
       for (int j = 0; j < n; j++)
@@ -46,15 +48,18 @@ int zone_sum(int matrix[][MAX_SIZE], int n, int zone) {
   return sum;
 }
 
-void print_matrix(int matrix[][MAX_SIZE], int n) {
-  for (int i = 0; i < n; i++) {
+void print_matrix(int matrix[][MAX_SIZE], int n)
+{
+  for (int i = 0; i < n; i++)
+  {
     for (int j = 0; j < n; j++)
       printf("%d ", matrix[i][j]);
     printf("\n");
   }
 }
 
-int main(void) {
+int main(void)
+{
   int matrix[MAX_SIZE][MAX_SIZE] = {{7, 4, 8, 5, 10},
                                     {7, 7, 10, 2, 2},
                                     {1, 2, 8, 8, 4},

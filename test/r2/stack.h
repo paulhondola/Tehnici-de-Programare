@@ -6,7 +6,12 @@
 
 #define STACK_SIZE 1000
 
-typedef enum { STACK_OK, STACK_OVERFLOW, STACK_UNDERFLOW } stack_status;
+typedef enum
+{
+    STACK_OK,
+    STACK_OVERFLOW,
+    STACK_UNDERFLOW
+} stack_status;
 typedef int element_t;
 
 typedef struct STACK_T *stack;

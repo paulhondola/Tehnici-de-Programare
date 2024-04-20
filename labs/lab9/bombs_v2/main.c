@@ -1,15 +1,18 @@
 #include "bombs.h"
 
-int main(void) {
+int main(void)
+{
 
   FILE *input = fopen("bombs.in", "r");
-  if (input == NULL) {
+  if (input == NULL)
+  {
     perror("Failed to open input file\n");
     exit(-1);
   }
 
   FILE *output = fopen("bombs.out", "w");
-  if (output == NULL) {
+  if (output == NULL)
+  {
     perror("Failed to open output file\n");
     exit(-1);
   }

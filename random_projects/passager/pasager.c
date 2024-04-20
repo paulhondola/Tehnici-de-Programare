@@ -8,7 +8,8 @@ si categoria in care acesta se afla (1 sau 2).
 
 #define MAX_PASAGER_NAME_LENGTH 41
 
-struct PASAGER_T {
+struct PASAGER_T
+{
   char name[MAX_PASAGER_NAME_LENGTH];
   int weight;
   int category;
@@ -21,7 +22,8 @@ locuri, numarul de locuri disponibile pentru categoria 1, numarul de locuri
 disponibile pentru categoria 2 si alte date considerate necesare.
 */
 
-struct AVION_T {
+struct AVION_T
+{
   pasager_t *pas_cat1;
   pasager_t *pas_cat2;
 
@@ -33,10 +35,12 @@ struct AVION_T {
 };
 
 pasager_t init_pasager(const char *name, const unsigned weigth,
-                       const int category) {
+                       const int category)
+{
   pasager_t pasager = malloc(sizeof(struct PASAGER_T));
 
-  if (pasager == NULL) {
+  if (pasager == NULL)
+  {
     perror("Pasager memory error!");
     exit(1);
   }
@@ -48,10 +52,12 @@ pasager_t init_pasager(const char *name, const unsigned weigth,
   return pasager;
 }
 
-avion_t init_avion(size_t cat1_cap, size_t cat2_cap) {
+avion_t init_avion(size_t cat1_cap, size_t cat2_cap)
+{
   avion_t avion = malloc(sizeof(struct AVION_T));
 
-  if (avion == NULL) {
+  if (avion == NULL)
+  {
     perror("Avion memory error!");
     exit(1);
   }
@@ -65,14 +71,16 @@ avion_t init_avion(size_t cat1_cap, size_t cat2_cap) {
 
   avion->pas_cat1 = malloc(cat1_cap * sizeof(pasager_t));
 
-  if (avion->pas_cat1 == NULL) {
+  if (avion->pas_cat1 == NULL)
+  {
     perror("Avion memory error!");
     exit(1);
   }
 
   avion->pas_cat2 = malloc(cat2_cap * sizeof(pasager_t));
 
-  if (avion->pas_cat2 == NULL) {
+  if (avion->pas_cat2 == NULL)
+  {
     perror("Avion memory error!");
     exit(1);
   }
@@ -90,11 +98,14 @@ sunt locuri la categoria x” (x poate fi 1 sau 2).
 
 */
 
-avion_t add_pasager(avion_t av, char *nume, int greutate, int categorie) {
+avion_t add_pasager(avion_t av, char *nume, int greutate, int categorie)
+{
 
-  switch (categorie) {
+  switch (categorie)
+  {
   case 1:
-    if (av->cat1_size == av->cat1_capacity) {
+    if (av->cat1_size == av->cat1_capacity)
+    {
       printf("Nu mai sunt locuri la categoria 1\n");
       return av;
     }
@@ -102,7 +113,8 @@ avion_t add_pasager(avion_t av, char *nume, int greutate, int categorie) {
     break;
 
   case 2:
-    if (av->cat2_size == av->cat2_capacity) {
+    if (av->cat2_size == av->cat2_capacity)
+    {
       printf("Nu mai sunt locuri la categoria 2\n");
       return av;
     }
@@ -118,13 +130,15 @@ void afisarePasageri(Avion_t*, int g); //afiseaza in ordine alfabetica datele
 pasagerilor din avion care au greutatea bagajului mai mare decat g
 */
 
-pasager_t *create_pasager_array(avion_t av, size_t *size) {
+pasager_t *create_pasager_array(avion_t av, size_t *size)
+{
 
   *size = av->cat1_size + av->cat2_size;
 
   pasager_t *array = malloc((*size) * sizeof(pasager_t));
 
-  if (array == NULL) {
+  if (array == NULL)
+  {
     perror("Alloc error");
     exit(2);
   }
@@ -138,22 +152,26 @@ pasager_t *create_pasager_array(avion_t av, size_t *size) {
   return array;
 }
 
-int compare_pasager_names(const void *p, const void *q) {
+int compare_pasager_names(const void *p, const void *q)
+{
   pasager_t a = *(pasager_t *)p;
   pasager_t b = *(pasager_t *)q;
 
   return strcmp(a->name, b->name);
 }
 
-void afisare_pasageri(avion_t av, int greutate) {
+void afisare_pasageri(avion_t av, int greutate)
+{
 
   size_t size = 0;
   pasager_t *array = create_pasager_array(av, &size);
 
   qsort(array, size, sizeof(pasager_t), compare_pasager_names);
 
-  for (size_t i = 0; i < size; i++) {
-    if (array[i]->weight > greutate) {
+  for (size_t i = 0; i < size; i++)
+  {
+    if (array[i]->weight > greutate)
+    {
       printf("%s %d %d\n", array[i]->name, array[i]->weight,
              array[i]->category);
     }
@@ -169,16 +187,19 @@ numarul de pasageri care au putut fi mutati tinandu-se cont de numarul de locuri
 disponibile
 */
 
-int move_pasageri(avion_t av, size_t x, int categorie) {
+int move_pasageri(avion_t av, size_t x, int categorie)
+{
 
   size_t pas_moved = 0;
   size_t space_left = 0;
 
-  switch (categorie) {
+  switch (categorie)
+  {
   case 1:
 
     space_left = av->cat2_capacity - av->cat2_size;
-    while (1) {
+    while (1)
+    {
 
       // nu mai sunt pasageri de mutat
       if (x == 0)
@@ -186,14 +207,16 @@ int move_pasageri(avion_t av, size_t x, int categorie) {
 
       // nu mai sunt locuri in categoria 2
 
-      if (pas_moved == space_left) {
+      if (pas_moved == space_left)
+      {
         printf("Nu mai sunt locuri la categoria 2 (MUTARE)\n");
         break;
       }
 
       // nu mai sunt pasageri din categoria 1 de mutat
 
-      if (av->cat1_size == 0) {
+      if (av->cat1_size == 0)
+      {
         printf("Nu mai sunt pasageri la categoria 1 (MUTARE)\n");
         break;
       }
@@ -215,21 +238,24 @@ int move_pasageri(avion_t av, size_t x, int categorie) {
   case 2:
 
     space_left = av->cat1_capacity - av->cat1_size;
-    while (1) {
+    while (1)
+    {
 
       // nu mai sunt pasageri de mutat
       if (x == 0)
         break;
 
       // nu mai sunt locuri in categoria 1
-      if (pas_moved == space_left) {
+      if (pas_moved == space_left)
+      {
         printf("Nu mai sunt locuri la categoria 1 (MUTARE)\n");
         break;
       }
 
       // nu mai sunt pasageri din categoria 2 de mutat
 
-      if (av->cat2_size == 0) {
+      if (av->cat2_size == 0)
+      {
         printf("Nu mai sunt pasageri la categoria 2 (MUTARE)\n");
         break;
       }

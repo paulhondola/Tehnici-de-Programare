@@ -3,7 +3,8 @@
 #define PI 3.14159265359
 #define SIZE 10000
 
-int main(void) {
+int main(void)
+{
 
   KVS_t dataset = init_kvs(SIZE);
 
@@ -16,7 +17,8 @@ int main(void) {
 
   unsigned element;
 
-  for (int i = 0; i < 100; i++) {
+  for (int i = 0; i < 100; i++)
+  {
     element = rand() % (SIZE * 2);
     printf("Element %u at index: %d\n", element, search_key(dataset, element));
   }

@@ -5,14 +5,16 @@
 #define COLS 3
 
 void assign_table(matrix_t m, size_t rows, size_t cols,
-                  element_t values[rows][cols]) {
+                  element_t values[rows][cols])
+{
   for (size_t i = 0; i < rows; i++)
     for (size_t j = 0; j < cols; j++)
       if (assign_value(m, i, j, values[i][j]) == MATRIX_OVERFLOW)
         printf("matrix overflow\n");
 }
 
-int main(void) {
+int main(void)
+{
 
   matrix_t m1 = init_matrix(ROWS, COLS);
   matrix_t m2 = init_matrix(ROWS + 1, COLS + 1);

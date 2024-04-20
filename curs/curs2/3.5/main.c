@@ -13,14 +13,16 @@
 #include <math.h>
 #include <stdio.h>
 
-void tabelare(double a, double b, int segments, double (*f)(double)) {
+void tabelare(double a, double b, int segments, double (*f)(double))
+{
 
   double step = (fabs(a) + fabs(b)) / segments;
   for (double i = a; i < b; i += step)
     printf("%9.5f | %9.5f\n", i, f(i));
 }
 
-int main(void) {
+int main(void)
+{
   double a = -10.2552, b = 10.66;
   int segments = 50;
   tabelare(a, b, segments, sin);

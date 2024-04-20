@@ -37,15 +37,19 @@ elemente numere naturale. Să se determine suma elementelor de pe cele două
 diagonale vecine (si ulterioarele) cu diagonala principală.
 */
 
-void pbinfo783(matrix_std_t m) {
+void pbinfo783(matrix_std_t m)
+{
 
   matrix_data_t sum = 0;
   // upper
 
-  for (matrix_size_t offset = 1; offset < m.collumns; offset++) {
+  for (matrix_size_t offset = 1; offset < m.collumns; offset++)
+  {
     sum = 0;
-    for (matrix_size_t index = 0; index < m.rows; index++) {
-      if (index + offset < m.collumns) {
+    for (matrix_size_t index = 0; index < m.rows; index++)
+    {
+      if (index + offset < m.collumns)
+      {
         sum += m.data[index][index + offset];
       }
     }
@@ -54,10 +58,13 @@ void pbinfo783(matrix_std_t m) {
 
   // lower
 
-  for (matrix_size_t offset = 1; offset < m.collumns; offset++) {
+  for (matrix_size_t offset = 1; offset < m.collumns; offset++)
+  {
     sum = 0;
-    for (matrix_size_t index = 0; index < m.rows; index++) {
-      if (index + offset < m.collumns) {
+    for (matrix_size_t index = 0; index < m.rows; index++)
+    {
+      if (index + offset < m.collumns)
+      {
         sum += m.data[index + offset][index];
       }
     }
@@ -75,14 +82,17 @@ stânga la dreapta, să se obţină şirul primelor n*m pătrate perfecte impare
 ordonat strict crescător.
 */
 
-matrix_std_t pbinfo208(matrix_size_t n, matrix_size_t m) {
+matrix_std_t pbinfo208(matrix_size_t n, matrix_size_t m)
+{
 
   matrix_std_t matrix = init_matrix_std(n, m);
 
   matrix_size_t value = 1;
 
-  for (matrix_size_t i = 0; i < matrix.rows; i++) {
-    for (matrix_size_t j = 0; j < matrix.collumns; j++) {
+  for (matrix_size_t i = 0; i < matrix.rows; i++)
+  {
+    for (matrix_size_t j = 0; j < matrix.collumns; j++)
+    {
       matrix.data[i][j] = value * value;
       value += 2;
     }
@@ -91,13 +101,15 @@ matrix_std_t pbinfo208(matrix_size_t n, matrix_size_t m) {
   return matrix;
 }
 
-int main(void) {
+int main(void)
+{
 
   FILE *input_file = open_file(INPUT_FILE_NAME, "r");
 
   matrix_std_t a = {0, 0, NULL};
 
-  if (fscanf(input_file, "%ld %ld", &a.rows, &a.collumns) != 2) {
+  if (fscanf(input_file, "%ld %ld", &a.rows, &a.collumns) != 2)
+  {
     printf("Invalid input -> a\n");
     return 1;
   };

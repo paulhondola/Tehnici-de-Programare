@@ -9,10 +9,12 @@
 
 #define INPUT_FILE_NAME "date.txt"
 
-FILE *open_file(const char *file_name, const char *mode) {
+FILE *open_file(const char *file_name, const char *mode)
+{
   FILE *file = fopen(file_name, mode);
 
-  if (file == NULL) {
+  if (file == NULL)
+  {
     printf("Error opening file %s", file_name);
     exit(1);
   }
@@ -20,21 +22,25 @@ FILE *open_file(const char *file_name, const char *mode) {
   return file;
 }
 
-void close_file(FILE *file) {
-  if (fclose(file) == EOF) {
+void close_file(FILE *file)
+{
+  if (fclose(file) == EOF)
+  {
     printf("Error closing file");
     exit(1);
   }
 }
 
-int main(void) {
+int main(void)
+{
   FILE *input_file = open_file(INPUT_FILE_NAME, "r");
 
   student_t *students = NULL;
 
   int n = 0;
 
-  if (fscanf(input_file, "%d", &n) != 1) {
+  if (fscanf(input_file, "%d", &n) != 1)
+  {
     printf("Invalid input -> n\n");
     return 1;
   };

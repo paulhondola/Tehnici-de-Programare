@@ -7,7 +7,8 @@
 #include <time.h>
 #define CAPACITY 1000
 
-unsigned *generate_array(void) {
+unsigned *generate_array(void)
+{
 
   unsigned *arr = NULL;
 
@@ -15,12 +16,15 @@ unsigned *generate_array(void) {
 
   unsigned input = 0;
 
-  while (1) {
-    if (scanf("%u", &input) != 1 || input == 0) {
+  while (1)
+  {
+    if (scanf("%u", &input) != 1 || input == 0)
+    {
       break;
     }
 
-    if (input >= 100 && input <= 999) {
+    if (input >= 100 && input <= 999)
+    {
       arr[input] = 1;
     }
   }
@@ -28,20 +32,28 @@ unsigned *generate_array(void) {
   return arr;
 }
 
-unsigned *find_largest_values(unsigned *arr) {
+unsigned *find_largest_values(unsigned *arr)
+{
   unsigned *largest_values = calloc(3, sizeof(unsigned));
 
   unsigned largest = 0;
   unsigned second_largest = 0;
   unsigned third_largest = 0;
 
-  for (unsigned i = 999; i >= 100; i--) {
-    if (arr[i] == 1) {
-      if (largest == 0) {
+  for (unsigned i = 999; i >= 100; i--)
+  {
+    if (arr[i] == 1)
+    {
+      if (largest == 0)
+      {
         largest = i;
-      } else if (second_largest == 0) {
+      }
+      else if (second_largest == 0)
+      {
         second_largest = i;
-      } else if (third_largest == 0) {
+      }
+      else if (third_largest == 0)
+      {
         third_largest = i;
         break;
       }
@@ -55,7 +67,8 @@ unsigned *find_largest_values(unsigned *arr) {
   return largest_values;
 }
 
-int main(void) {
+int main(void)
+{
 
   clock_t start, end;
   double cpu_time_used;
@@ -70,7 +83,8 @@ int main(void) {
 
   printf("\nTime taken to generate array: %f\n", cpu_time_used);
 
-  for (unsigned i = 100; i < CAPACITY; i++) {
+  for (unsigned i = 100; i < CAPACITY; i++)
+  {
     printf("%u ", arr[i]);
   }
 
@@ -85,7 +99,8 @@ int main(void) {
   printf("\nTime taken to find 3 biggest values: %f\n", cpu_time_used);
 
   printf("Largest values:\n");
-  for (unsigned i = 0; i < 3; i++) {
+  for (unsigned i = 0; i < 3; i++)
+  {
     printf("%u ", largest_values[i]);
   }
 

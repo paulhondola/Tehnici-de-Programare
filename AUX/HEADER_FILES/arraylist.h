@@ -15,7 +15,8 @@
 
 // structures
 
-typedef struct PAYLOAD {
+typedef struct PAYLOAD
+{
   int key;
   double value;
   char name[MAX_NAME_SIZE];

@@ -4,7 +4,8 @@
 
 float function(float x) { return (x * x) - 3; }
 
-double search_radacina_functie(float a, float b, float limit) {
+double search_radacina_functie(float a, float b, float limit)
+{
   printf("a= %lf b=%lf\n", a, b);
   // float aux = (a + b) / 2;  // initial, aux = mijlocul intervalului
 
@@ -15,19 +16,26 @@ double search_radacina_functie(float a, float b, float limit) {
   //     return aux;
   // }
 
-  if (fabs(b - a) < limit) {
+  if (fabs(b - a) < limit)
+  {
     return a;
-  } else {
+  }
+  else
+  {
     double mij = (a + b) / 2;
-    if (function(a) * function(mij) < 0) {
+    if (function(a) * function(mij) < 0)
+    {
       return search_radacina_functie(a, mij, limit);
-    } else {
+    }
+    else
+    {
       return search_radacina_functie(mij, b, limit);
     }
   }
 }
 
-int main(void) {
+int main(void)
+{
   printf("Radacina (aproximativa) a functiei este: %lf\n",
          search_radacina_functie(1, 3, 1.0 / 1000000));
   return 0;

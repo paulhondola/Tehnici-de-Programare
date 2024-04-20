@@ -5,19 +5,27 @@
 #define MAX_LINE_SIZE 24
 #define CHUNK 16
 
-typedef enum { OK, ERR, END } return_code_t;
+typedef enum
+{
+  OK,
+  ERR,
+  END
+} return_code_t;
 
-typedef struct {
+typedef struct
+{
   char key[MAX_STRING_SIZE];
   char value[MAX_STRING_SIZE];
   return_code_t code;
 } pair;
 
-FILE *open_file(const char *filepath, const char *mode) {
+FILE *open_file(const char *filepath, const char *mode)
+{
   FILE *file = NULL;
   file = fopen(filepath, mode);
 
-  if (file == NULL) {
+  if (file == NULL)
+  {
     perror(filepath);
     exit(1);
   }
@@ -25,23 +33,28 @@ FILE *open_file(const char *filepath, const char *mode) {
   return file;
 }
 
-void close_file(FILE *file) {
-  if (fclose(file) == EOF) {
+void close_file(FILE *file)
+{
+  if (fclose(file) == EOF)
+  {
     perror("Cannot close file");
     exit(2);
   }
 }
 
-pair read_data_line(FILE *file) {
+pair read_data_line(FILE *file)
+{
   pair data;
 
   char line[MAX_LINE_SIZE];
 
-  if (fgets(line, MAX_LINE_SIZE, file) == NULL) {
+  if (fgets(line, MAX_LINE_SIZE, file) == NULL)
+  {
     return (pair){"", "", END};
   }
 
-  if (line[0] == '\n' || line[0] == '\0' || strchr(line, '=') == NULL) {
+  if (line[0] == '\n' || line[0] == '\0' || strchr(line, '=') == NULL)
+  {
     return (pair){"", "", ERR};
   }
 
@@ -57,31 +70,37 @@ pair read_data_line(FILE *file) {
   return data;
 }
 
-pair *input_array(FILE *file, int *size) {
+pair *input_array(FILE *file, int *size)
+{
   pair *data_array = NULL;
   pair aux_input;
 
   int allocated_size = 0;
   int used_size = 0;
 
-  while (1) {
+  while (1)
+  {
     aux_input = read_data_line(file);
 
-    if (aux_input.code == END) {
+    if (aux_input.code == END)
+    {
       break;
     }
 
-    if (aux_input.code == ERR) {
+    if (aux_input.code == ERR)
+    {
       continue;
     }
 
-    if (used_size == allocated_size) {
+    if (used_size == allocated_size)
+    {
       allocated_size += CHUNK;
 
       data_array =
           realloc(data_array, (unsigned long)allocated_size * sizeof(pair));
 
-      if (data_array == NULL) {
+      if (data_array == NULL)
+      {
         perror("Memory alloc error");
         exit(-1);
       }
@@ -95,14 +114,17 @@ pair *input_array(FILE *file, int *size) {
   return data_array;
 }
 
-void sort_array(pair *array, int size) {
+void sort_array(pair *array, int size)
+{
   pair aux;
   int ok = 0;
 
-  do {
+  do
+  {
     ok = 0;
     for (int i = 0; i < size - 1; i++)
-      if (strcmp(array[i].key, array[i + 1].key) > 0) {
+      if (strcmp(array[i].key, array[i + 1].key) > 0)
+      {
         aux = array[i];
         array[i] = array[i + 1];
         array[i + 1] = aux;
@@ -111,12 +133,14 @@ void sort_array(pair *array, int size) {
   } while (ok);
 }
 
-void print_array(pair *array, int size) {
+void print_array(pair *array, int size)
+{
   for (int i = 0; i < size; i++)
     printf("%s = %s\n", array[i].key, array[i].value);
 }
 
-void print_last_values(pair *array, int size) {
+void print_last_values(pair *array, int size)
+{
   for (int i = 0; i < size - 1; i++)
     if (strcmp(array[i].key, array[i + 1].key) != 0)
       printf("%s = %s\n", array[i].key, array[i].value);
@@ -125,8 +149,10 @@ void print_last_values(pair *array, int size) {
     printf("%s = %s\n", array[size - 1].key, array[size - 1].value);
 }
 
-int main(int argc, char **argv) {
-  if (argc != 2) {
+int main(int argc, char **argv)
+{
+  if (argc != 2)
+  {
     perror("Invalid number of arguments");
     return 1;
   }
@@ -138,7 +164,8 @@ int main(int argc, char **argv) {
 
   data_array = input_array(input_file, &size);
 
-  if (data_array == NULL) {
+  if (data_array == NULL)
+  {
     perror("File is empty");
     return 0;
   }

@@ -4,7 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct kv_pair {
+struct kv_pair
+{
   unsigned key;
   float value;
 };

@@ -7,18 +7,22 @@
 
 #define COUNT 10
 
-object_t **generate_objects(size_t count) {
+object_t **generate_objects(size_t count)
+{
   factory_t factory = init_factory();
 
   object_t **objects = (object_t **)malloc(count * sizeof(object_t *));
 
-  if (objects == NULL) {
+  if (objects == NULL)
+  {
     perror("Memory allocation error");
     exit(1);
   }
 
-  for (size_t i = 0; i < count; i++) {
-    switch (i % 3) {
+  for (size_t i = 0; i < count; i++)
+  {
+    switch (i % 3)
+    {
     case 0:
       objects[i] = factory.generate_circle(i + 1);
       break;
@@ -34,8 +38,10 @@ object_t **generate_objects(size_t count) {
   return objects;
 }
 
-void print_objects(object_t **objects, size_t count) {
-  for (size_t i = 0; i < count; i++) {
+void print_objects(object_t **objects, size_t count)
+{
+  for (size_t i = 0; i < count; i++)
+  {
     printf("Object %zu: %s\n", i, objects[i]->methods.get_name());
     objects[i]->methods.show_data(objects[i]);
     printf("Area: %.2f\n", objects[i]->methods.get_area(objects[i]));
@@ -44,15 +50,18 @@ void print_objects(object_t **objects, size_t count) {
   }
 }
 
-void free_objects(object_t **objects, size_t count) {
-  for (size_t i = 0; i < count; i++) {
+void free_objects(object_t **objects, size_t count)
+{
+  for (size_t i = 0; i < count; i++)
+  {
     free(objects[i]);
   }
 
   free(objects);
 }
 
-int main(void) {
+int main(void)
+{
 
   object_t **objects = generate_objects(COUNT);
 

@@ -8,30 +8,43 @@
 #define MAX_ARTIST_NAME 100
 #define MAX_LINE 1000
 
-typedef enum { ASCENDING, DESCENDING } order_key;
-typedef enum { SONG, ARTIST, YEAR } sort_key;
+typedef enum
+{
+  ASCENDING,
+  DESCENDING
+} order_key;
+typedef enum
+{
+  SONG,
+  ARTIST,
+  YEAR
+} sort_key;
 
-typedef struct {
+typedef struct
+{
   char song_name[MAX_SONG_NAME];
   char artist[MAX_ARTIST_NAME];
   unsigned release_year;
 } record;
 
 void storing(FILE *csv_file, record *song_array, int *no_of_songs,
-             unsigned selected_year) {
+             unsigned selected_year)
+{
   char line[1000];
   fgets(line, 1000, csv_file);
 
   int count = 0;
 
-  while (!feof(csv_file)) {
+  while (!feof(csv_file))
+  {
 
     if (fgets(line, MAX_LINE, csv_file) == NULL)
       break;
 
     char *token = NULL;
 
-    if (line[0] == '"') {
+    if (line[0] == '"')
+    {
 
       token = strtok(line + 1, "\"");
 
@@ -47,10 +60,10 @@ void storing(FILE *csv_file, record *song_array, int *no_of_songs,
         song_array[count].release_year = 0;
 
       song_array[count].release_year = atoi(token);
-
     }
 
-    else {
+    else
+    {
 
       token = strtok(line, ",");
 
@@ -75,74 +88,91 @@ void storing(FILE *csv_file, record *song_array, int *no_of_songs,
   *no_of_songs = count;
 }
 
-void printing(record array_songs[], int no_of_songs) {
-  for (int i = 0; i < no_of_songs; i++) {
+void printing(record array_songs[], int no_of_songs)
+{
+  for (int i = 0; i < no_of_songs; i++)
+  {
     printf("%s - %s - %u\n", array_songs[i].song_name, array_songs[i].artist,
            array_songs[i].release_year);
   }
 }
 
-int year_compare_asc(const void *p, const void *q) {
+int year_compare_asc(const void *p, const void *q)
+{
   int p_year = ((record *)p)->release_year;
   int q_year = ((record *)q)->release_year;
   return p_year - q_year;
 }
 
-int year_compare_desc(const void *p, const void *q) {
+int year_compare_desc(const void *p, const void *q)
+{
   int p_year = ((record *)p)->release_year;
   int q_year = ((record *)q)->release_year;
   return -(p_year - q_year);
 }
 
-int song_name_compare_asc(const void *p, const void *q) {
+int song_name_compare_asc(const void *p, const void *q)
+{
   return strcmp(((record *)p)->song_name, ((record *)q)->song_name);
 }
 
-int song_name_compare_desc(const void *p, const void *q) {
+int song_name_compare_desc(const void *p, const void *q)
+{
   return -strcmp(((record *)p)->song_name, ((record *)q)->song_name);
 }
 
-int artist_name_compare_asc(const void *p, const void *q) {
+int artist_name_compare_asc(const void *p, const void *q)
+{
   return strcmp(((record *)p)->artist, ((record *)q)->artist);
 }
 
-int artist_compare_desc(const void *p, const void *q) {
+int artist_compare_desc(const void *p, const void *q)
+{
   return -strcmp(((record *)p)->artist, ((record *)q)->artist);
 }
 
-void sort_records(record *array, int no_of_songs, sort_key s, order_key o) {
+void sort_records(record *array, int no_of_songs, sort_key s, order_key o)
+{
 
   // ARTIST
-  if (s == ARTIST && o == ASCENDING) {
+  if (s == ARTIST && o == ASCENDING)
+  {
     qsort(array, no_of_songs, sizeof(record), artist_name_compare_asc);
   }
 
-  if (s == ARTIST && o == DESCENDING) {
+  if (s == ARTIST && o == DESCENDING)
+  {
     qsort(array, no_of_songs, sizeof(record), artist_compare_desc);
   }
 
   // SONG
-  if (s == SONG && o == ASCENDING) {
+  if (s == SONG && o == ASCENDING)
+  {
     qsort(array, no_of_songs, sizeof(record), song_name_compare_asc);
   }
 
-  if (s == SONG && o == DESCENDING) {
+  if (s == SONG && o == DESCENDING)
+  {
     qsort(array, no_of_songs, sizeof(record), song_name_compare_desc);
   }
 
   // YEAR
-  if (s == YEAR && o == ASCENDING) {
+  if (s == YEAR && o == ASCENDING)
+  {
     qsort(array, no_of_songs, sizeof(record), year_compare_asc);
   }
 
-  if (s == YEAR && o == DESCENDING) {
+  if (s == YEAR && o == DESCENDING)
+  {
     qsort(array, no_of_songs, sizeof(record), year_compare_desc);
   }
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
 
-  if (argc != 3) {
+  if (argc != 3)
+  {
     perror("Not enough arguments!\n");
     return -1;
   }
@@ -150,7 +180,8 @@ int main(int argc, char *argv[]) {
   FILE *csv_file;
   csv_file = fopen(argv[1], "r");
 
-  if (csv_file == NULL) {
+  if (csv_file == NULL)
+  {
     perror("File problem\n");
     exit(EXIT_FAILURE);
   }

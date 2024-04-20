@@ -1,9 +1,10 @@
-#include "/Users/paulhondola/Faculta/Tehnici de Programare/list/list.h"
+#include "/Users/paulhondola/Faculta/Tehnici de Programare/AUX/DATA_STRUCTURES/list/list.h"
 #include <time.h>
 #define ARR_CHUNK 10
 #define MAX 100
 
-list_t create_element_list(int *arr, size_t size) {
+list_t create_element_list(int *arr, size_t size)
+{
 
   list_t list = init_list();
 
@@ -17,7 +18,8 @@ list_t create_element_list(int *arr, size_t size) {
   return list;
 }
 
-int *create_array_from_list(list_t list, size_t *size) {
+int *create_array_from_list(list_t list, size_t *size)
+{
 
   size_t capacity = 0;
   size_t index = 0;
@@ -26,12 +28,15 @@ int *create_array_from_list(list_t list, size_t *size) {
 
   node_t iterator = get_list_head(list);
 
-  while (iterator != NULL) {
-    if (index == capacity) {
+  while (iterator != NULL)
+  {
+    if (index == capacity)
+    {
       capacity += ARR_CHUNK;
       arr = realloc(arr, capacity * sizeof(list_data_t));
 
-      if (arr == NULL) {
+      if (arr == NULL)
+      {
         perror("realloc");
         exit(EXIT_FAILURE);
       }
@@ -48,11 +53,13 @@ int *create_array_from_list(list_t list, size_t *size) {
   return arr;
 }
 
-void write_data_to_file(const char *filename, size_t size) {
+void write_data_to_file(const char *filename, size_t size)
+{
 
   FILE *file = fopen(filename, "w");
 
-  if (file == NULL) {
+  if (file == NULL)
+  {
     perror("fopen");
     exit(EXIT_FAILURE);
   }
@@ -65,11 +72,13 @@ void write_data_to_file(const char *filename, size_t size) {
   fclose(file);
 }
 
-list_t create_list_from_file(const char *filename) {
+list_t create_list_from_file(const char *filename)
+{
 
   FILE *file = fopen(filename, "r");
 
-  if (file == NULL) {
+  if (file == NULL)
+  {
     perror("fopen");
     exit(EXIT_FAILURE);
   }
@@ -86,7 +95,8 @@ list_t create_list_from_file(const char *filename) {
   return list;
 }
 
-list_t *create_odd_even_lists(list_t list) {
+list_t *create_odd_even_lists(list_t list)
+{
 
   list_t *all_elements = malloc(sizeof(list_t) * 2);
   all_elements[0] = init_list();
@@ -96,7 +106,8 @@ list_t *create_odd_even_lists(list_t list) {
 
   node_t iterator = get_list_head(list);
 
-  while (iterator != NULL) {
+  while (iterator != NULL)
+  {
 
     all_elements[get_node_data(iterator) % 2] =
         add_rear_node(all_elements[get_node_data(iterator) % 2],
@@ -110,18 +121,21 @@ list_t *create_odd_even_lists(list_t list) {
   return all_elements;
 }
 
-int is_equal_to(list_data_t main, list_data_t compare) {
+int is_equal_to(list_data_t main, list_data_t compare)
+{
   return main == compare;
 }
 
 void filter_list(list_t list,
                  list_data_t (*condition)(list_data_t, list_data_t),
-                 list_data_t compare) {
+                 list_data_t compare)
+{
 
   node_t iterator = get_list_head(list);
   size_t index = 0;
 
-  while (iterator != NULL) {
+  while (iterator != NULL)
+  {
     /*
   if (condition(get_node_data(iterator), compare)) {
     printf("hello");
@@ -139,7 +153,8 @@ void filter_list(list_t list,
   }
 }
 
-int main(void) {
+int main(void)
+{
 
   //////////////////////////////////////////////////
 

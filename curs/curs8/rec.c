@@ -2,7 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void print_reverse(void) {
+void print_reverse(void)
+{
   int n;
   scanf("%d", &n);
 
@@ -12,20 +13,23 @@ void print_reverse(void) {
   printf("%d ", n);
 }
 
-int calc_prefix(void) {
+int calc_prefix(void)
+{
   // citeste de la intrare o expresie in notatie prefix -> operanzii sunt valori
   // de o singura cifra
 
   int c = getchar();
 
-  if (isdigit(c)) {
+  if (isdigit(c))
+  {
     return c - '0';
   }
 
   int Ed = calc_prefix();
   int Es = calc_prefix();
 
-  switch (c) {
+  switch (c)
+  {
   case '+':
     return Es + Ed;
   case '-':
@@ -39,23 +43,28 @@ int calc_prefix(void) {
   }
 }
 
-void print_matrix(int a[][10], int nL, int nC) {
-  for (int i = 0; i < nL; i++) {
-    for (int j = 0; j < nC; j++) {
+void print_matrix(int a[][10], int nL, int nC)
+{
+  for (int i = 0; i < nL; i++)
+  {
+    for (int j = 0; j < nC; j++)
+    {
       printf("%d ", a[i][j]);
     }
     printf("\n");
   }
 }
 
-void fill(int a[][10], int nL, int nC, int i, int j) {
+void fill(int a[][10], int nL, int nC, int i, int j)
+{
 
   print_matrix(a, nL, nC);
 
   printf("\n.........................................");
 
   // celula valida
-  if (i >= 0 && i < nL && j >= 0 && j < nC) {
+  if (i >= 0 && i < nL && j >= 0 && j < nC)
+  {
     if (a[i][j] == 1) // uscat
     {
       a[i][j] = 9; // marcam ca fiind uscat vizitat
@@ -68,7 +77,8 @@ void fill(int a[][10], int nL, int nC, int i, int j) {
   }
 }
 
-int main(void) {
+int main(void)
+{
 
   int a[][10] = {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
                  {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},

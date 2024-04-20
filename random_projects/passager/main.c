@@ -19,7 +19,8 @@ aleatoare de lungime fixa.
 
 #include "pasager.h"
 
-int main(void) {
+int main(void)
+{
 
   avion_t avion = init_avion(5, 12);
 

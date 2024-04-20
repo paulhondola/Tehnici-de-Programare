@@ -4,7 +4,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef enum { OK, MATRIX_OVERFLOW } status_t;
+typedef enum
+{
+    OK,
+    MATRIX_OVERFLOW
+} status_t;
 typedef double element_t;
 typedef struct Matrix *matrix_t;
 typedef struct Vector *vector_t;

@@ -8,10 +8,12 @@
 
 #include <stdio.h>
 
-int is_prime(int n) {
+int is_prime(int n)
+{
   if (n < 2)
     return 0;
-  for (int i = 2; i * i <= n; i++) {
+  for (int i = 2; i * i <= n; i++)
+  {
     if (n % i == 0)
       return 0;
   }
@@ -23,26 +25,33 @@ int is_odd(int n) { return n % 2; }
 
 int is_even(int n) { return !(n % 2); }
 
-void remove_elements_by_condition(int *array, int *n, int (*condition)(int)) {
+void remove_elements_by_condition(int *array, int *n, int (*condition)(int))
+{
   int i = 0;
   int j = 0;
-  while (i < *n) {
-    if (condition(array[i])) {
+  while (i < *n)
+  {
+    if (condition(array[i]))
+    {
       i++;
-    } else {
+    }
+    else
+    {
       array[j++] = array[i++];
     }
   }
   *n = j;
 }
 
-void print_array(int *array, int n) {
+void print_array(int *array, int n)
+{
   for (int i = 0; i < n; i++)
     printf("%d ", array[i]);
   printf("\n");
 }
 
-int main(void) {
+int main(void)
+{
   int array[] = {1, 2, 3, 4, 5};
 
   int n = sizeof(array) / sizeof(array[0]);

@@ -2,13 +2,13 @@
 
 void hanoi(int n, char src, char aux, char dest)
 {
-	if(n == 1)
+	if (n == 1)
 	{
 		printf("%c --> %c\n", src, dest);
 		return;
 	}
 
-	hanoi(n-1, src, dest, aux);
+	hanoi(n - 1, src, dest, aux);
 	printf("%c --> %c\n", src, dest);
 	hanoi(n - 1, aux, src, dest);
 }

@@ -31,17 +31,21 @@ raman neexplodate.
 #include "bombs.h"
 
 // READING
-void read_index_data(size_t *count, size_t *index, FILE *file) {
-  if (fscanf(file, "%zu %zu", count, index) != 2) {
+void read_index_data(size_t *count, size_t *index, FILE *file)
+{
+  if (fscanf(file, "%zu %zu", count, index) != 2)
+  {
     printf("Invalid input for count and index\n");
     exit(1);
   }
 }
 
-bomb_t read_bomb_data(FILE *file) {
+bomb_t read_bomb_data(FILE *file)
+{
   float x, y, r;
 
-  if (fscanf(file, "%f %f %f", &x, &y, &r) != 3) {
+  if (fscanf(file, "%f %f %f", &x, &y, &r) != 3)
+  {
     printf("Invalid input for bomb data\n");
     exit(2);
   }
@@ -49,16 +53,19 @@ bomb_t read_bomb_data(FILE *file) {
   return (bomb_t){x, y, r, FALSE};
 }
 
-bomb_t *read_bomb_array_data(size_t count, FILE *file) {
+bomb_t *read_bomb_array_data(size_t count, FILE *file)
+{
 
   bomb_t *arr = malloc(count * sizeof(bomb_t));
 
-  if (arr == NULL) {
+  if (arr == NULL)
+  {
     perror("Memory allocation failed\n");
     exit(3);
   }
 
-  for (size_t i = 0; i < count; i++) {
+  for (size_t i = 0; i < count; i++)
+  {
     arr[i] = read_bomb_data(file);
   }
 
@@ -66,10 +73,12 @@ bomb_t *read_bomb_array_data(size_t count, FILE *file) {
 }
 
 // WRITING
-void print_bomb_data(bomb_t bomb, FILE *file) {
+void print_bomb_data(bomb_t bomb, FILE *file)
+{
   fprintf(file, "X: %d | Y: %d | R: %d | ", bomb.x, bomb.y, bomb.radius);
 
-  switch (bomb.state) {
+  switch (bomb.state)
+  {
   case FALSE:
     fprintf(file, "NOT EXPLODED\n");
     break;
@@ -81,12 +90,14 @@ void print_bomb_data(bomb_t bomb, FILE *file) {
   }
 }
 
-void print_bomb_array_data(bomb_t *bombs, size_t count, FILE *file) {
+void print_bomb_array_data(bomb_t *bombs, size_t count, FILE *file)
+{
   for (size_t i = 0; i < count; i++)
     print_bomb_data(bombs[i], file);
 }
 
-void print_bomb_statistics(bomb_t *arr, size_t count, FILE *file) {
+void print_bomb_statistics(bomb_t *arr, size_t count, FILE *file)
+{
   size_t exploded = 0, unexploded = 0;
   for (size_t i = 0; i < count; i++)
     if (arr[i].state == TRUE)
@@ -99,16 +110,20 @@ void print_bomb_statistics(bomb_t *arr, size_t count, FILE *file) {
 
 // BOMB EXPLOSION
 
-int is_in_radius(bomb_t main, bomb_t secondary) {
+int is_in_radius(bomb_t main, bomb_t secondary)
+{
   return (main.x - secondary.x) * (main.x - secondary.x) +
              (main.y - secondary.y) * (main.y - secondary.y) <=
          main.radius * main.radius;
 }
 
-void explode(bomb_t main_bomb, bomb_t *arr, size_t count) {
+void explode(bomb_t main_bomb, bomb_t *arr, size_t count)
+{
 
-  for (size_t i = 0; i < count; i++) {
-    if (arr[i].state == FALSE && is_in_radius(main_bomb, arr[i])) {
+  for (size_t i = 0; i < count; i++)
+  {
+    if (arr[i].state == FALSE && is_in_radius(main_bomb, arr[i]))
+    {
       arr[i].state = TRUE;
       explode(arr[i], arr, count);
     }

@@ -4,21 +4,25 @@
 
 #define MAX_LINE_LEN 1024
 
-typedef struct {
+typedef struct
+{
   char line[MAX_LINE_LEN];
   unsigned len;
   unsigned word_count;
 } line_t;
 
-char *read_line(FILE *file) {
+char *read_line(FILE *file)
+{
   char *line = malloc(MAX_LINE_LEN);
 
-  if (line == NULL) {
+  if (line == NULL)
+  {
     perror("Alloc line failed");
     return NULL;
   }
 
-  if (fgets(line, MAX_LINE_LEN, file) == NULL) {
+  if (fgets(line, MAX_LINE_LEN, file) == NULL)
+  {
     free(line);
     return NULL;
   }
@@ -26,7 +30,8 @@ char *read_line(FILE *file) {
   if (line[strlen(line) - 1] == '\n')
     line[strlen(line) - 1] = '\0';
 
-  if (line[strlen(line) - 1] == '\0') {
+  if (line[strlen(line) - 1] == '\0')
+  {
     free(line);
     return NULL;
   }
@@ -34,13 +39,15 @@ char *read_line(FILE *file) {
   return line;
 }
 
-line_t *read_lines(FILE *file, unsigned *size) {
+line_t *read_lines(FILE *file, unsigned *size)
+{
 
   *size = 0;
   line_t *lines = NULL;
   char *line = NULL;
 
-  while (1) {
+  while (1)
+  {
 
     if ((line = read_line(file)) == NULL)
       break;
@@ -58,19 +65,23 @@ line_t *read_lines(FILE *file, unsigned *size) {
   return lines;
 }
 
-void print_lines(line_t *lines, unsigned size) {
-  for (unsigned i = 0; i < size; i++) {
+void print_lines(line_t *lines, unsigned size)
+{
+  for (unsigned i = 0; i < size; i++)
+  {
     printf("Line %d: %s, Length: %u\n", i, lines[i].line, lines[i].len);
   }
 }
 
-int main(void) {
+int main(void)
+{
 
   line_t *lines = NULL;
 
   FILE *file = fopen("in.txt", "r");
 
-  if (file == NULL) {
+  if (file == NULL)
+  {
     printf("Error! Could not open file\n");
     return -1;
   }

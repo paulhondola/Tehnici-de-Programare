@@ -1,6 +1,7 @@
 #include "queue.h"
 
-int main() {
+int main()
+{
 
   queue q = init_queue(QUEUE_CHUNK);
 

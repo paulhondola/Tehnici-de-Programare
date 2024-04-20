@@ -2,7 +2,8 @@
 
 // TODO: INDEX BASED INSERTION AND DELETION
 
-int main(void) {
+int main(void)
+{
 
   array_list_t list = init_array_list();
 

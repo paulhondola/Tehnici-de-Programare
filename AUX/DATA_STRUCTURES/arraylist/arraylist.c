@@ -2,12 +2,14 @@
 
 // structures
 
-struct NODE {
+struct NODE
+{
   payload_t payload;
   struct NODE *next;
 };
 
-struct ARRAY_LIST {
+struct ARRAY_LIST
+{
   struct NODE *item;
   size_t size;
   size_t capacity;
@@ -16,7 +18,8 @@ struct ARRAY_LIST {
 
 // payload functions
 
-payload_t create_payload(int key, double value, char name[]) {
+payload_t create_payload(int key, double value, char name[])
+{
   if (DEBUG)
     fprintf(stderr, "Creating payload\n");
   payload_t payload = {.key = key, .value = value};
@@ -24,19 +27,22 @@ payload_t create_payload(int key, double value, char name[]) {
   return payload;
 }
 
-void print_payload(payload_t payload, FILE *file) {
+void print_payload(payload_t payload, FILE *file)
+{
   fprintf(file, "KEY: %d / VALUE: %f / NAME: %s\n", payload.key, payload.value,
           payload.name);
 }
 
 // node functions
 
-node_t create_node(payload_t info) {
+node_t create_node(payload_t info)
+{
   if (DEBUG)
     fprintf(stderr, "Creating node\n");
   node_t node = (node_t)malloc(sizeof(struct NODE));
 
-  if (node == NULL) {
+  if (node == NULL)
+  {
     if (DEBUG)
       fprintf(stderr, "Node allocation: FAIL\n");
     return NULL;
@@ -49,7 +55,8 @@ node_t create_node(payload_t info) {
   return node;
 }
 
-void print_node_data(node_t node, FILE *file) {
+void print_node_data(node_t node, FILE *file)
+{
 
   if (node == NULL)
     return;
@@ -57,7 +64,8 @@ void print_node_data(node_t node, FILE *file) {
   print_payload(node->payload, file);
 }
 
-node_t get_node(array_list_t list, size_t index) {
+node_t get_node(array_list_t list, size_t index)
+{
 
   if (list == NULL)
     return NULL;
@@ -69,7 +77,8 @@ node_t get_node(array_list_t list, size_t index) {
 
 // arraylist functions
 
-array_list_t init_array_list(void) {
+array_list_t init_array_list(void)
+{
   if (DEBUG)
     fprintf(stderr, "Initializing array list\n");
 
@@ -77,7 +86,8 @@ array_list_t init_array_list(void) {
 
   // if the allocation fails, return NULL
 
-  if (list == NULL) {
+  if (list == NULL)
+  {
     if (DEBUG)
       fprintf(stderr, "Array list allocation: FAIL\n");
     return NULL;
@@ -94,13 +104,15 @@ array_list_t init_array_list(void) {
 
 // insert and remove aux functions
 
-void insert_index_to_array(array_list_t list, size_t index) {
+void insert_index_to_array(array_list_t list, size_t index)
+{
   list->size++;
   for (size_t i = list->size - 1; i > index; i--)
     list->hash_table[i] = list->hash_table[i - 1];
 }
 
-void remove_index_from_array(array_list_t list, size_t index) {
+void remove_index_from_array(array_list_t list, size_t index)
+{
   list->size--;
   for (size_t i = index; i < list->size; i++)
     list->hash_table[i] = list->hash_table[i + 1];
@@ -108,13 +120,15 @@ void remove_index_from_array(array_list_t list, size_t index) {
 
 // realloc
 
-void realloc_array_list(array_list_t list) {
+void realloc_array_list(array_list_t list)
+{
 
   if (list == NULL)
     return;
 
   // if the list is empty -> alloc new memory for the hash table
-  if (list->size == 0) {
+  if (list->size == 0)
+  {
     if (DEBUG)
       fprintf(stderr, "List is empty\n");
 
@@ -123,7 +137,8 @@ void realloc_array_list(array_list_t list) {
         list->hash_table, sizeof(struct NODE *) * HASH_TABLE_CHUNK);
 
     // if the allocation fails, return NULL
-    if (list->hash_table == NULL) {
+    if (list->hash_table == NULL)
+    {
       if (DEBUG)
         fprintf(stderr, "Hash table allocation: FAIL\n");
       list = NULL;
@@ -137,7 +152,8 @@ void realloc_array_list(array_list_t list) {
   }
 
   // if the size has reached full capacity, reallocate
-  else if (list->size == list->capacity) {
+  else if (list->size == list->capacity)
+  {
     if (DEBUG)
       fprintf(stderr, "List has reached full capacity, realloc one more chunk "
                       "for the hash table\n");
@@ -147,7 +163,8 @@ void realloc_array_list(array_list_t list) {
         list->hash_table, sizeof(struct NODE *) * list->capacity);
 
     // if the reallocation fails, return NULL
-    if (list->hash_table == NULL) {
+    if (list->hash_table == NULL)
+    {
       if (DEBUG)
         fprintf(stderr, "Hash table reallocation: FAIL\n");
       list = NULL;
@@ -162,7 +179,8 @@ void realloc_array_list(array_list_t list) {
 
 // add
 
-array_list_t add_front_node(array_list_t list, node_t node) {
+array_list_t add_front_node(array_list_t list, node_t node)
+{
 
   if (list == NULL)
     return NULL;
@@ -186,7 +204,8 @@ array_list_t add_front_node(array_list_t list, node_t node) {
   return list;
 }
 
-array_list_t add_rear_node(array_list_t list, node_t node) {
+array_list_t add_rear_node(array_list_t list, node_t node)
+{
 
   if (list == NULL)
     return NULL;
@@ -214,7 +233,8 @@ array_list_t add_rear_node(array_list_t list, node_t node) {
   return list;
 }
 
-array_list_t add_index_node(array_list_t list, node_t node, size_t index) {
+array_list_t add_index_node(array_list_t list, node_t node, size_t index)
+{
 
   if (list == NULL)
     return NULL;
@@ -228,7 +248,8 @@ array_list_t add_index_node(array_list_t list, node_t node, size_t index) {
   if (DEBUG)
     fprintf(stderr, "Adding node to index %zu\n", index);
 
-  if (index >= list->size) {
+  if (index >= list->size)
+  {
     if (DEBUG)
       fprintf(stderr, "Index out of bounds\nNew index set: %zu\n",
               list->size - 1);
@@ -250,12 +271,14 @@ array_list_t add_index_node(array_list_t list, node_t node, size_t index) {
 }
 
 // remove
-array_list_t remove_front_node(array_list_t list) {
+array_list_t remove_front_node(array_list_t list)
+{
 
   if (list == NULL)
     return NULL;
 
-  if (list->size == 0) {
+  if (list->size == 0)
+  {
     if (DEBUG)
       fprintf(stderr, "List is empty\n");
     return list;
@@ -271,12 +294,14 @@ array_list_t remove_front_node(array_list_t list) {
   return list;
 }
 
-array_list_t remove_rear_node(array_list_t list) {
+array_list_t remove_rear_node(array_list_t list)
+{
 
   if (list == NULL)
     return NULL;
 
-  if (list->size == 0) {
+  if (list->size == 0)
+  {
     if (DEBUG)
       fprintf(stderr, "List is empty\n");
     return list;
@@ -292,13 +317,15 @@ array_list_t remove_rear_node(array_list_t list) {
   return list;
 }
 
-array_list_t remove_index_node(array_list_t list, size_t index) {
+array_list_t remove_index_node(array_list_t list, size_t index)
+{
 
   if (list == NULL)
     return NULL;
 
   // empty list case
-  if (list->size == 0) {
+  if (list->size == 0)
+  {
     if (DEBUG)
       fprintf(stderr, "List is empty\n");
     return list;
@@ -312,7 +339,8 @@ array_list_t remove_index_node(array_list_t list, size_t index) {
     fprintf(stderr, "Removing node from index %zu\n", index);
 
   // if the index is out of bounds, remove the last element
-  if (index >= list->size) {
+  if (index >= list->size)
+  {
     if (DEBUG)
       fprintf(stderr, "Index out of bounds\nNew index set: %zu\n",
               list->size - 1);
@@ -328,7 +356,8 @@ array_list_t remove_index_node(array_list_t list, size_t index) {
 }
 
 // print
-void print_array_list(array_list_t list, FILE *file) {
+void print_array_list(array_list_t list, FILE *file)
+{
 
   if (list == NULL)
     return;
@@ -341,7 +370,8 @@ void print_array_list(array_list_t list, FILE *file) {
 }
 
 // free
-void print_byte_data(array_list_t list) {
+void print_byte_data(array_list_t list)
+{
   size_t list_size = sizeof(*list);
   size_t hash_table_size = sizeof(list->hash_table) * list->capacity;
   size_t node_size = sizeof(struct NODE) * list->size;
@@ -359,12 +389,14 @@ void print_byte_data(array_list_t list) {
   fprintf(stderr, "LIST: %zu(bytes)\n", list_size);
 }
 
-void free_array_list(array_list_t list) {
+void free_array_list(array_list_t list)
+{
 
   if (list == NULL)
     return;
 
-  for (size_t i = 0; i < list->size; i++) {
+  for (size_t i = 0; i < list->size; i++)
+  {
     if (DEBUG)
       fprintf(stderr, "Freeing node at index %zu\n", i);
     free(list->hash_table[i]);

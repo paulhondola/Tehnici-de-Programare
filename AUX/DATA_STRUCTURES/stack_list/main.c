@@ -1,5 +1,6 @@
 #include "stack_list.h"
-int main(void) {
+int main(void)
+{
 
   stack_list_t st = init_stack();
 

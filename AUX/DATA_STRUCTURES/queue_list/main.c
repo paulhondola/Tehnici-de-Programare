@@ -1,6 +1,7 @@
 #include "queue_list.h"
 
-int main(void) {
+int main(void)
+{
 
   queue_list_t queue = init_queue();
 

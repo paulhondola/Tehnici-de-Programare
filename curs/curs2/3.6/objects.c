@@ -8,56 +8,67 @@ const char *get_name_rectangle(void) { return "Rectangle"; }
 
 // SHOW DATA
 
-void show_data_circle(const object_t *obj) {
+void show_data_circle(const object_t *obj)
+{
   printf("Radius: %f\n", obj->circle.radius);
 }
 
-void show_data_triangle(const object_t *obj) {
+void show_data_triangle(const object_t *obj)
+{
   printf("Sides: %f, %f, %f\n", obj->triangle.a, obj->triangle.b,
          obj->triangle.c);
 }
 
-void show_data_rectangle(const object_t *obj) {
+void show_data_rectangle(const object_t *obj)
+{
   printf("Length: %f, Width: %f\n", obj->rectangle.length,
          obj->rectangle.width);
 }
 
 // PERIMETER
 
-double get_perimeter_circle(const object_t *obj) {
+double get_perimeter_circle(const object_t *obj)
+{
   return 2 * PI * obj->circle.radius;
 }
 
-double get_perimeter_triangle(const object_t *obj) {
+double get_perimeter_triangle(const object_t *obj)
+{
   return obj->triangle.a + obj->triangle.b + obj->triangle.c;
 }
 
-double get_perimeter_rectangle(const object_t *obj) {
+double get_perimeter_rectangle(const object_t *obj)
+{
   return 2 * (obj->rectangle.length + obj->rectangle.width);
 }
 
 // AREA
 
-double get_area_circle(const object_t *obj) {
+double get_area_circle(const object_t *obj)
+{
   return PI * obj->circle.radius * obj->circle.radius;
 }
 
-double get_area_triangle(const object_t *obj) {
+double get_area_triangle(const object_t *obj)
+{
   double p = (obj->triangle.a + obj->triangle.b + obj->triangle.c) / 2;
   return sqrt(p * (p - obj->triangle.a) * (p - obj->triangle.b) *
               (p - obj->triangle.c));
 }
 
-double get_area_rectangle(const object_t *obj) {
+double get_area_rectangle(const object_t *obj)
+{
   return obj->rectangle.length * obj->rectangle.width;
 }
 
 // CONSTUCTORS
 
-void *alloc(size_t bytes) {
+void *alloc(size_t bytes)
+{
   void *p = malloc(bytes);
 
-  if (p == NULL) {
+  if (p == NULL)
+  {
     perror("Memory allocation error");
     exit(1);
   }
@@ -65,7 +76,8 @@ void *alloc(size_t bytes) {
   return p;
 }
 
-object_t *circle_constructor(double radius) {
+object_t *circle_constructor(double radius)
+{
   object_t *circle = (object_t *)alloc(sizeof(object_t));
 
   circle->type = CIRCLE;
@@ -78,7 +90,8 @@ object_t *circle_constructor(double radius) {
   return circle;
 }
 
-object_t *triangle_constructor(double a, double b, double c) {
+object_t *triangle_constructor(double a, double b, double c)
+{
   object_t *triangle = (object_t *)alloc(sizeof(object_t));
 
   triangle->type = TRIANGLE;
@@ -95,7 +108,8 @@ object_t *triangle_constructor(double a, double b, double c) {
   return triangle;
 }
 
-object_t *rectangle_constructor(double length, double width) {
+object_t *rectangle_constructor(double length, double width)
+{
 
   object_t *rectangle = (object_t *)alloc(sizeof(object_t));
 
@@ -111,7 +125,8 @@ object_t *rectangle_constructor(double length, double width) {
   return rectangle;
 }
 
-factory_t init_factory(void) {
+factory_t init_factory(void)
+{
   return (factory_t){
       .generate_circle = circle_constructor,
       .generate_triangle = triangle_constructor,

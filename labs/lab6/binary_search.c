@@ -1,4 +1,4 @@
-#include "/Users/paulhondola/Faculta/Tehnici de Programare/proiect/rand array/rand_array.h"
+#include "/Users/paulhondola/Faculta/Tehnici de Programare/project/rand array/rand_array.h"
 // #include "rand_array.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,7 +9,11 @@
 #define MIN_SIZE 10
 #define MAX_SIZE 50000
 
-typedef enum { LINEAR, BINARY } search_type;
+typedef enum
+{
+  LINEAR,
+  BINARY
+} search_type;
 
 /*
 a) Implementati o functie cu prototipul int findElemLin(int v[], unsigned n, int
@@ -19,15 +23,18 @@ complexitate liniara (spre exemplu
 https://en.wikipedia.org/wiki/Linear_search#Basic_algorithm).
 */
 
-int find_elem_lin(int *v, unsigned n, int x) {
+int find_elem_lin(int *v, unsigned n, int x)
+{
 
   clock_t start, end;
   double cpu_time_used;
 
   start = clock();
 
-  for (unsigned i = 0; i < n; i++) {
-    if (v[i] == x) {
+  for (unsigned i = 0; i < n; i++)
+  {
+    if (v[i] == x)
+    {
 
       end = clock();
       cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
@@ -55,7 +62,8 @@ mai precis "cautarea binara", prin apelul adecvat al functiei bsearch din
 stdlib.h.
 */
 
-int comparator(const void *p, const void *q) {
+int comparator(const void *p, const void *q)
+{
 
   int a = *((int *)p);
   int b = *((int *)q);
@@ -63,11 +71,13 @@ int comparator(const void *p, const void *q) {
   return a - b;
 }
 
-void sort_array(int *v, unsigned n) {
+void sort_array(int *v, unsigned n)
+{
   qsort(v, (size_t)n, sizeof(v[0]), comparator);
 }
 
-int find_elem_bin(int *v, unsigned n, int x) {
+int find_elem_bin(int *v, unsigned n, int x)
+{
 
   clock_t start, end;
   double cpu_time_used;
@@ -102,17 +112,21 @@ puteti genera un vector pseudoaleator uniform distribuit pe care mai apoi sa il
 sortati);
 */
 
-void print_array(int *arr, unsigned n) {
-  for (unsigned i = 0; i < n; i++) {
+void print_array(int *arr, unsigned n)
+{
+  for (unsigned i = 0; i < n; i++)
+  {
     printf("%d ", arr[i]);
   }
   printf("\n");
 }
 
 void linear_benchmark(unsigned runs, int *(*rand_array_generate)(unsigned),
-                      int (*array_search)(int *, unsigned, int)) {
+                      int (*array_search)(int *, unsigned, int))
+{
 
-  for (unsigned i = 0; i < runs; i++) {
+  for (unsigned i = 0; i < runs; i++)
+  {
 
     unsigned size = rand() % MAX_SIZE;
 
@@ -136,9 +150,11 @@ void binary_benchmark(
     unsigned runs,
     int *(*binary_array_generate)(unsigned, int (*)(int *, unsigned, unsigned),
                                   unsigned),
-    int (*array_search)(int *, unsigned, int)) {
+    int (*array_search)(int *, unsigned, int))
+{
 
-  for (unsigned i = 0; i < runs; i++) {
+  for (unsigned i = 0; i < runs; i++)
+  {
 
     unsigned size = rand() % MAX_SIZE;
 
@@ -158,7 +174,8 @@ void binary_benchmark(
   }
 }
 
-int main(void) {
+int main(void)
+{
 
   srand(time(NULL));
 

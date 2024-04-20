@@ -19,9 +19,11 @@ pentru x = 4.
 double f(double x) { return 1 / x; }
 
 double limit(double x, double t, double eps, long long int max_steps,
-             double real_limit) {
+             double real_limit)
+{
 
-  if (fabs(t - real_limit) < eps || max_steps == 0) {
+  if (fabs(t - real_limit) < eps || max_steps == 0)
+  {
     return t;
   }
   fprintf(stderr, "%lf\n", t);
@@ -29,7 +31,8 @@ double limit(double x, double t, double eps, long long int max_steps,
   return limit(x, 1 / (x + t), eps, max_steps - 1, real_limit);
 }
 
-int main(void) {
+int main(void)
+{
 
   // lim = 1 / (x + lim)
   // lim (x + lim) = 1

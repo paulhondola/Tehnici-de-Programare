@@ -18,7 +18,8 @@ int is_empty(stack_list_t stack) { return get_list_size(stack) == 0; }
 // OPERATIONS
 
 // PUSH - add an element to the top of the stack
-stack_list_t push(stack_list_t stack, payload_t info) {
+stack_list_t push(stack_list_t stack, payload_t info)
+{
   return add_head_node(stack, create_node(info));
 }
 
@@ -26,6 +27,7 @@ stack_list_t push(stack_list_t stack, payload_t info) {
 stack_list_t pop(stack_list_t stack) { return remove_head_node(stack); }
 
 // PEEK - return the top element of the stack
-payload_t peek(stack_list_t stack) {
+payload_t peek(stack_list_t stack)
+{
   return get_node_data(get_list_head(stack));
 }

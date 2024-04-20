@@ -6,9 +6,14 @@
 #include <string.h>
 #define MAX_PC_CPU_NAME 100
 
-typedef enum { PC, MONITOR } product_type_t;
+typedef enum
+{
+  PC,
+  MONITOR
+} product_type_t;
 
-typedef struct pc {
+typedef struct pc
+{
 
   char cpu[MAX_PC_CPU_NAME];
   int memory;
@@ -17,7 +22,8 @@ typedef struct pc {
 
 } pc_t;
 
-typedef struct monitor {
+typedef struct monitor
+{
 
   int diagonal;
   int resolution_x;
@@ -25,9 +31,11 @@ typedef struct monitor {
 
 } monitor_t;
 
-typedef struct product {
+typedef struct product
+{
   product_type_t type;
-  union product_data {
+  union product_data
+  {
     pc_t pc;
     monitor_t monitor;
   } data;
@@ -36,7 +44,8 @@ typedef struct product {
 
 } product_t;
 
-typedef struct {
+typedef struct
+{
   product_t *(*generate_pc)(char *cpu, int memory);
   product_t *(*generate_monitor)(int diagonal, int resolution_x,
                                  int resolution_y);

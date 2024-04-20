@@ -8,12 +8,14 @@
 
 #define MAX_NAME_LENGTH 100
 
-typedef struct {
+typedef struct
+{
   char name[MAX_NAME_LENGTH];
   int grade;
 } student_t;
 
-typedef enum {
+typedef enum
+{
   NAMES_ASCENDING,
   NAMES_DESCENDING,
   GRADES_ASCENDING,

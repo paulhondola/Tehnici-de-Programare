@@ -1,16 +1,19 @@
 #include "student.h"
 
-int main(void) {
+int main(void)
+{
   FILE *input_file = fopen("students.txt", "r");
 
-  if (input_file == NULL) {
+  if (input_file == NULL)
+  {
     printf("Error: Could not open file\n");
     return 1;
   }
 
   unsigned line_count = 0;
 
-  if (fscanf(input_file, "%u", &line_count) != 1) {
+  if (fscanf(input_file, "%u", &line_count) != 1)
+  {
     printf("Error: Could not read student count\n");
     return 1;
   }

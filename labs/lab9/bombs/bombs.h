@@ -4,9 +4,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-enum bomb_type { FALSE, TRUE };
+enum bomb_type
+{
+  FALSE,
+  TRUE
+};
 
-typedef struct BOMB {
+typedef struct BOMB
+{
   int x;
   int y;
   int radius;

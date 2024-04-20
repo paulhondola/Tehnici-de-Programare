@@ -6,16 +6,19 @@
 
 typedef int matrix_data_t;
 
-typedef struct {
+typedef struct
+{
   int rows;
   int collumns;
   matrix_data_t **data;
 } matrix;
 
-matrix init_matrix(void) {
+matrix init_matrix(void)
+{
 
   int n;
-  if (scanf("%d", &n) != 1) {
+  if (scanf("%d", &n) != 1)
+  {
     printf("Invalid input");
     exit(1);
   }
@@ -32,24 +35,29 @@ matrix init_matrix(void) {
   return m;
 }
 
-void read_matrix(FILE *file, matrix *m) {
+void read_matrix(FILE *file, matrix *m)
+{
   for (int i = 0; i < m->rows; i++)
     for (int j = 0; j < m->collumns; j++)
-      if (fscanf(file, "%d", &m->data[i][j]) != 1) {
+      if (fscanf(file, "%d", &m->data[i][j]) != 1)
+      {
         printf("Invalid input");
         exit(1);
       }
 }
 
-void print_matrix(FILE *file, matrix *m) {
-  for (int i = 0; i < m->rows; i++) {
+void print_matrix(FILE *file, matrix *m)
+{
+  for (int i = 0; i < m->rows; i++)
+  {
     for (int j = 0; j < m->collumns; j++)
       fprintf(file, "%d ", m->data[i][j]);
     fprintf(file, "\n");
   }
 }
 
-int main(void) {
+int main(void)
+{
 
   matrix m;
 

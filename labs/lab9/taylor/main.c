@@ -17,9 +17,11 @@ x/n.
 #define TOL pow(10, -6)
 
 double taylor(double x, double current_x, unsigned n, unsigned current_n,
-              double tol) {
+              double tol)
+{
 
-  if (n == 0) {
+  if (n == 0)
+  {
     n++;
     return 1 + taylor(x, 1, n, 1, tol);
   }
@@ -33,14 +35,16 @@ double taylor(double x, double current_x, unsigned n, unsigned current_n,
 
   fprintf(stderr, "%u -> %lf\n", n, next);
 
-  if (fabs(next) < tol) {
+  if (fabs(next) < tol)
+  {
     return next;
   }
 
   return next + taylor(x, current_x, n, current_n, tol);
 }
 
-int main(void) {
+int main(void)
+{
 
   double x = 1;
 
