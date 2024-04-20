@@ -14,7 +14,7 @@ alocat dinamic, continand n numere naturale pseodoaleatoare, uniform
 int *make_rand_array(unsigned n)
 {
 
-  int *arr = (int *)malloc((size_t)n * sizeof(unsigned));
+  int *arr = (int *)malloc((size_t)n * sizeof(int));
 
   if (arr == NULL)
     return NULL;
@@ -38,7 +38,7 @@ int *make_rand_limit_array(unsigned n, unsigned a, unsigned b)
   if (a > b)
     return NULL;
 
-  int *arr = (int *)malloc((size_t)n * sizeof(unsigned));
+  int *arr = (int *)malloc((size_t)n * sizeof(int));
 
   if (arr == NULL)
     return NULL;
