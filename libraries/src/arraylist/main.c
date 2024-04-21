@@ -1,7 +1,5 @@
 #include "arraylist.h"
 
-// TODO: INDEX BASED INSERTION AND DELETION
-
 int main(void)
 {
 
