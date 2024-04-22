@@ -12,8 +12,8 @@ all:
 	$(CC) $(CFLAGS) -c $(SRC)
 	$(CC) $(CFLAGS) -o $(EXE) $(OBJ)
 	./$(EXE)
-	cp $(EXPORT_OBJ) "/Users/paulhondola/Faculta/Tehnici de Programare/AUX/OBJECT_FILES"
-	cp $(HEADER) "/Users/paulhondola/Faculta/Tehnici de Programare/AUX/HEADER_FILES"
+	cp $(EXPORT_OBJ) "/Users/paulhondola/Faculta/Tehnici de Programare/libraries/objects"
+	cp $(HEADER) "/Users/paulhondola/Faculta/Tehnici de Programare/libraries/headers"
 
 leaks: run
 	leaks -q --atExit -- ./$(EXE)

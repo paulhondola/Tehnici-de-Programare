@@ -1,7 +1,6 @@
 #include "arraylist.h"
 
-int main(void)
-{
+int main(void) {
 
   array_list_t list = init_array_list();
 
@@ -9,24 +8,21 @@ int main(void)
     return 1;
 
   for (int i = 0; i < 10; i++)
-    list = add_front_node(
-        list, create_node(create_payload(i, i * 3.14, "payload 1")));
+    list = add_front_node(list, create_node(create_payload(i)));
 
   print_array_list(list, stdout);
 
   printf("................................................................\n");
 
   for (int i = 10; i < 20; i++)
-    list = add_rear_node(list,
-                         create_node(create_payload(i, i * 3.14, "payload 2")));
+    list = add_rear_node(list, create_node(create_payload(i)));
 
   print_array_list(list, stdout);
 
   printf("................................................................\n");
 
   for (int i = 20; i < 30; i++)
-    list = add_index_node(
-        list, create_node(create_payload(i, i * 3.14, "payload 3")), 10);
+    list = add_index_node(list, create_node(create_payload(i)), 10);
 
   print_array_list(list, stdout);
 

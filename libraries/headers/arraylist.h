@@ -15,12 +15,15 @@
 
 // structures
 
-typedef struct PAYLOAD
-{
+/*
+typedef struct PAYLOAD {
   int key;
   double value;
   char name[MAX_NAME_SIZE];
 } payload_t;
+*/
+
+typedef int payload_t;
 
 typedef struct NODE *node_t;
 typedef struct ARRAY_LIST *array_list_t;
@@ -29,7 +32,7 @@ typedef struct ARRAY_LIST *array_list_t;
 
 // payload functions
 
-payload_t create_payload(int int_num, double double_num, char string[]);
+payload_t create_payload(int value);
 void print_payload(payload_t payload, FILE *file);
 
 // node functions
@@ -56,5 +59,8 @@ array_list_t remove_index_node(array_list_t arr_list, size_t index);
 
 // getting
 node_t get_node(array_list_t arr_list, size_t index);
+payload_t get_payload(node_t node);
+size_t get_size(array_list_t arr_list);
+size_t get_capacity(array_list_t arr_list);
 
 #endif
