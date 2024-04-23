@@ -17,28 +17,28 @@ typedef struct QUEUE *queue;
 // FUNCTIONS
 
 // INITIALIZATION
-queue init_queue(size_t capacity);
+queue init_queue(size_t);
 
 // GETTERS
-size_t get_queue_size(queue queue);
-size_t get_queue_capacity(queue queue);
+size_t get_queue_size(queue);
+size_t get_queue_capacity(queue);
 
 // QUEUE SIZE FUNCTIONS
-int queue_is_empty(queue queue);
-int queue_is_empty(queue queue);
-queue queue_realloc(queue queue);
+int queue_is_empty(queue);
+int queue_is_empty(queue);
+queue queue_realloc(queue);
 
 // QUEUE OPERATIONS
-queue enqueue(queue queue, queue_data data);
-queue dequeue(queue queue);
-void move_queue(queue queue);
-queue_data head(queue queue);
-queue_data tail(queue queue);
+queue enqueue(queue, queue_data);
+queue dequeue(queue);
+void move_queue(queue);
+queue_data head(queue);
+queue_data tail(queue);
 
 // DEBUGGING
-void print_queue(queue queue);
+void print_queue(queue);
 
 // FREE
-void free_queue(queue queue);
+void free_queue(queue);
 
 #endif

@@ -1,6 +1,6 @@
 NAME = check_sorted
-CC = clang
-CFLAGS = -Wall -Wextra -Werror
+CC = gcc-13
+CFLAGS = -fanalyzer -Wall -Wextra -Werror
 SRC = $(wildcard *.c)
 OBJ = $(wildcard *.o)
 EXE = $(NAME).exe

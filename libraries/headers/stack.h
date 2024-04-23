@@ -17,26 +17,26 @@ typedef struct STACK *stack;
 // FUNCTIONS
 
 // INITIALIZATION
-stack init_stack(size_t capacity);
+stack init_stack(size_t);
 
 // GETTERS
-size_t get_stack_size(stack stack);
-size_t get_stack_capacity(stack stack);
+size_t get_stack_size(stack);
+size_t get_stack_capacity(stack);
 
 // STACK SIZE FUNCTIONS
-int stack_is_empty(stack stack);
-int stack_is_full(stack stack);
-stack stack_realloc(stack stack);
+int stack_is_empty(stack);
+int stack_is_full(stack);
+stack stack_realloc(stack);
 
 // STACK OPERATIONS
-stack push(stack stack, stack_data data);
-stack pop(stack stack);
-stack_data peek(stack stack);
+stack push(stack, stack_data);
+stack pop(stack);
+stack_data peek(stack);
 
 // DEBUGGING
-void print_stack(stack stack);
+void print_stack(stack);
 
 // FREE
-void free_stack(stack stack);
+void free_stack(stack);
 
 #endif

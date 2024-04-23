@@ -1,6 +1,6 @@
-NAME = mergesort
-CC = clang
-CFLAGS = -Wall -Wextra -Werror
+NAME = merge_sort
+CC = gcc-13
+CFLAGS = -fanalyzer -Wall -Wextra -Werror
 SRC = $(wildcard *.c)
 OBJ = $(wildcard *.o)
 EXE = $(NAME).exe
