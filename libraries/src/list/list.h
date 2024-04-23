@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 // constants
-#define DEBUG 1
+#define DEBUG 0
 
 // structures
 typedef int list_data_t;

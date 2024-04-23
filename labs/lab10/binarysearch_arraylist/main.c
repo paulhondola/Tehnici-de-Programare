@@ -10,10 +10,10 @@ implementa sub forma de ArrayList pentru a permite acces aleator la elemente).
 void print_list(array_list_t list) {
   size_t size = get_size(list);
 
-  for (size_t i = 0; i < size; i++) {
+  for (size_t i = 0; i < size; i++)
     print_node_data(get_node(list, i), stdout);
-    printf("\n");
-  }
+
+  printf("\n");
 }
 
 int bin_search(array_list_t list, size_t left, size_t right, int value) {

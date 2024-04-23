@@ -6,8 +6,8 @@
 #include <stdlib.h>
 
 // constants
-#define QUEUE_DEBUG 1
-#define QUEUE_DYNAMIC 1
+#define QUEUE_DEBUG 0
+#define QUEUE_DYNAMIC 0
 #define QUEUE_CHUNK 16
 
 // data structures

@@ -27,7 +27,7 @@ payload_t create_payload(int value) {
 void print_payload(payload_t payload, FILE *file) {
   // fprintf(file, "KEY: %d / VALUE: %f / NAME: %s\n", payload.key,
   // payload.value, payload.name);
-  fprintf(file, "%d", payload);
+  fprintf(file, "%d ", payload);
 }
 
 // node functions

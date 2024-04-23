@@ -11,7 +11,7 @@
 
 #define MAX_NAME_SIZE 100
 #define HASH_TABLE_CHUNK 64
-#define DEBUG 1
+#define DEBUG 0
 
 // structures
 

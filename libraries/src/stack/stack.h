@@ -6,8 +6,8 @@
 #include <stdlib.h>
 
 // CONSTANTS
-#define STACK_DEBUG 1
-#define STACK_DYNAMIC 1
+#define STACK_DEBUG 0
+#define STACK_DYNAMIC 0
 #define STACK_CHUNK 16
 
 // STRUCTURES
