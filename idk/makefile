@@ -1,6 +1,6 @@
-NAME = xxx
+NAME = gcctest
 CC = gcc-13
-CFLAGS = -fanalyzer -Wall -Wextra -Werror
+CFLAGS = -fanalyzer -Wall -Wextra
 SRC = $(wildcard *.c)
 OBJ = $(wildcard *.o)
 EXE = $(NAME).exe
