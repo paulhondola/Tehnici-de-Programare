@@ -1,5 +1,5 @@
 NAME = xxx
-CC = gcc-13
+CC = gcc-14
 CFLAGS = -fanalyzer -Wall -Wextra -Werror
 SRC = $(wildcard *.c)
 OBJ = $(wildcard *.o)
