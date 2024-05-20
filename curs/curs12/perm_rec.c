@@ -13,7 +13,7 @@
 // }
 int eValid(int st[], int k) {
   for (int i = 1; i < k; i++) {
-    if (st[k] == st[i]) {
+    if (st[i] == st[k]) {
       return 0;
     }
   }
