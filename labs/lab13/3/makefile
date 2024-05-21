@@ -9,7 +9,7 @@ run:
 	clear
 	$(CC) $(CFLAGS) -c $(SRC)
 	$(CC) $(CFLAGS) -o $(EXE) $(OBJ)
-	./$(EXE) 40
+	./$(EXE) 34
 
 leaks: run
 	leaks -q --atExit -- ./$(EXE)
