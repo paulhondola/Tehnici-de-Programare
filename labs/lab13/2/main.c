@@ -6,6 +6,7 @@ puncte fixe (nu își schimbă poziția).
 
 // cele prime isi pastreaza pozitia -> celelalte fac permutari
 // n total -> k prime -> n-k neprime -> n! permutari
+//
 #include <stdio.h>
 #define MAX_STACK_SIZE 100
 
@@ -80,12 +81,12 @@ void print_prime(int array[], int element_count, int stack[], int stack_count,
 
   for (int i = 0, j = 1; i < element_count; i++)
     if (prime_array[i]) {
-      printf("%d ", array[i]);
+      printf("%2d  ", array[i]);
     } else {
       // array[0] = 1 -> stack[1] = 1
       // array[3] = 4 -> stack[2] = 2
       // array[6] = 7 -> stack[3] = 3
-      printf("%d ", stack[j++]);
+      printf("%2d  ", stack[j++]);
     }
 
   printf("\n");
@@ -123,8 +124,14 @@ int back(int array[], int element_count, int prime_array[], int prime_count) {
 }
 int main(void) {
 
-  int v[] = {1, 2, 3, 4, 5, 6, 7};
-  int n = sizeof(v) / sizeof(v[0]);
+  int n = 0;
+  int v[MAX_STACK_SIZE];
+  while (1) {
+    int x;
+    if (scanf("%d", &x) != 1)
+      break;
+    v[n++] = x;
+  }
 
   int prime_array[n];
   int prime_count = count_primes(n, v, prime_array);
