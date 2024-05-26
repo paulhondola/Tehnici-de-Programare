@@ -9,7 +9,9 @@ run:
 	clear
 	$(CC) $(CFLAGS) -c $(SRC)
 	$(CC) $(CFLAGS) -o $(EXE) $(OBJ)
-	./$(EXE) date.txt
+	./$(EXE) 2 2 ae
+	./$(EXE) 2 2 af
+	./$(EXE) 10 3 abcdefghij
 
 leaks: run
 	leaks -q --atExit -- ./$(EXE)
