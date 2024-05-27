@@ -1,4 +1,4 @@
-NAME = 6
+NAME = 7
 CC = gcc-14
 CFLAGS = -fanalyzer -Wall -Wextra
 SRC = $(wildcard *.c)
@@ -9,7 +9,7 @@ run:
 	clear
 	$(CC) $(CFLAGS) -c $(SRC)
 	$(CC) $(CFLAGS) -o $(EXE) $(OBJ)
-	./$(EXE) < date.txt
+	./$(EXE)
 
 leaks: run
 	leaks -q --atExit -- ./$(EXE)
