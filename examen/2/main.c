@@ -1,5 +1,4 @@
 #include "lib.h"
-#include <stdlib.h>
 /*
 Se considera un tip de date Film_t, cate pastreaza urmatoarele informatii: un
 sir de maxim 40 de caractere ce contine numele filmului, durata in minute,
@@ -42,6 +41,12 @@ aleatoare de lungime fixa.
 int main(void) {
 
   site_t movies = init_site(100);
+
+  movies = add_movie(movies, "Dune", "jmecher", 100, 10000000);
+
+  movies = add_movie(movies, "Dune 2", "prea jmecher", 1000, 100000000);
+
+  show_movies(movies);
 
   return 0;
 }
