@@ -1,4 +1,4 @@
-NAME = p1
+NAME = p2_2
 CC = gcc-14
 CFLAGS = -fanalyzer -Wall -Wextra -Werror
 SRC = $(wildcard *.c)
