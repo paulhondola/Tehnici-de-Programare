@@ -1,20 +1,41 @@
+#include <math.h>
 #include <stdio.h>
-
 /*
-1. Se citesc dintr-un fisier transmis ca si parametru in linie de comanda, un
-numar natural n (n<=100000) si apoi n numere intregi. Se parcurge vectorul
-format din aceste numere, salvand sumele elementelor consecutive. Dupa fiecare
-parcurgere se afiseaza numarul iteratiei si vectorul rezultat. Se va repeta
-acest pas pana cand vectorul va contine un singur numar. Exemplu
-
-intrare:
-
-5
-2 5 7 -3 9
-
-Afiseaza:
-Iteratia 1: 7 12 4 6
-Iteratia 2: 19 16 10
-Iteratia 3: 35 26
-Iteratia 4: 61
+2. Se citesc dintr-un fisier transmis ca si parametru in linie de comanda doua
+numere naturale n si s (n<=10, s<=20). Afisati in ordine crescatoare toate
+numerele cu n cifre care au suma cifrelor egala cu s si in care oricare doua
+cifre alaturate au paritate diferita. Exemple: n=4, s=8 => 1016, 1034, 1052,
+1070, 1214, 1232, ... 7010
 */
+
+int sum_of_digits(int n) {
+  if (n == 0)
+    return 0;
+  return n % 10 + sum_of_digits(n / 10);
+}
+
+int different_parity_digits(int n) {
+  while (n) {
+    if (n % 2 == n / 10 % 2)
+      return 0;
+
+    n /= 10;
+  }
+
+  return 1;
+}
+
+int main(void) {
+
+  int n = 4;
+  int s = 8;
+
+  int start = (int)pow(10, n - 1);
+  int end = start * 10;
+
+  for (int i = start; i < end; i++)
+    if (sum_of_digits(i) == s && different_parity_digits(i))
+      printf("%d ", i);
+
+  return 0;
+}
