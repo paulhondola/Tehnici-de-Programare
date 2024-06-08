@@ -40,7 +40,7 @@ void fill_array(int array[], int n) {
 
     right -= fill_size + 2 * fill_size;
 
-    printf("RIGHT: %d\n", fill_size);
+    printf("FILLED: %d\n", fill_size);
 
     fill_size *= 2;
   }
