@@ -10,16 +10,55 @@ se inserează șirul ordonat format din următoarele 2k numere naturale. Se va
 implemente o functie main() adecvata si orice alte functii necesare.
 */
 
+#include <math.h>
 #include <stdio.h>
 
-void rec_fill_array(int array[], int n, int start_value, int left, int right) {}
+void fill_array(int array[], int n) {
+
+  int start_value = 0;
+  int right = 2 * n - 1;
+  int left = 0;
+
+  // filled 2 (left and right values)
+
+  array[left++] = ++start_value;
+  array[right--] = ++start_value;
+
+  int cycles = (int)log2(n);
+
+  int fill_size = 1;
+
+  for (int i = 0; i < cycles; i++) {
+
+    for (int j = 0; j < fill_size; j++) {
+      array[left++] = ++start_value;
+    }
+
+    for (int j = 0; j < fill_size; j++) {
+      array[right++] = ++start_value;
+    }
+
+    right -= fill_size + 2 * fill_size;
+
+    printf("RIGHT: %d\n", fill_size);
+
+    fill_size *= 2;
+  }
+}
+
+void print_array(int array[], int n) {
+  for (int i = 0; i < n; i++)
+    printf("%d ", array[i]);
+  printf("\n");
+}
 
 int main(void) {
-  int n = 4;
+
+  int n = 16;
   int array[2 * n];
-  int start = 1;
-  int right = 0;
-  int left = 1;
+
+  fill_array(array, n);
+  print_array(array, 2 * n);
 
   return 0;
 }
