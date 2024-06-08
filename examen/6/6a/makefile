@@ -1,4 +1,4 @@
-NAME = 9
+NAME = 6a
 CC = gcc-14
 CFLAGS = -fanalyzer -Wall -Wextra
 SRC = $(wildcard *.c)
