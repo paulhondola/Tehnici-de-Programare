@@ -1,15 +1,13 @@
 NAME = 8
 CC = gcc-14
 CFLAGS = -fanalyzer -Wall -Wextra
-SRC = $(wildcard *.c)
-OBJ = $(wildcard *.o)
-EXE = $(NAME).exe
+SRC = src/main.c lib/hdd.c
+EXE = exe/$(NAME).exe
 
 run:
 	clear
-	$(CC) $(CFLAGS) -c $(SRC)
-	$(CC) $(CFLAGS) -o $(EXE) $(OBJ)
-	./$(EXE) < date.txt
+	$(CC) $(CFLAGS) -o $(EXE) $(SRC)
+	./$(EXE)
 
 leaks: run
 	leaks -q --atExit -- ./$(EXE)

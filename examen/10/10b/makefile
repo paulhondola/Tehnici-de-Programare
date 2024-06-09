@@ -7,9 +7,8 @@ EXE = $(NAME).exe
 
 run:
 	clear
-	$(CC) $(CFLAGS) -c $(SRC)
-	$(CC) $(CFLAGS) -o $(EXE) $(OBJ)
-	./$(EXE) < date.txt
+	$(CC) $(CFLAGS) -o $(EXE) $(SRC)
+	./$(EXE)
 
 leaks: run
 	leaks -q --atExit -- ./$(EXE)

@@ -1,3 +1,5 @@
+#include "../lib/hdd.h"
+
 /*
 Se considera un tip de date Memorie_t, cate pastreaza urmatoarele informatii: un
 sir de maxim 40 de caractere ce contine informatia de la locatie, un numar
@@ -42,3 +44,16 @@ Implementati de asemenea si un client in care sa ilustrati utilizarea
 bibliotecii. Pentru simplificarea testarii, puteti genera siruri de caractere
 aleatoare de lungime fixa.
 */
+
+int main(void) {
+  hdd_t hdd = init_hdd(1, 1);
+
+  hdd = add_mem(hdd, "bruh", 1000, false);
+  hdd = add_mem(hdd, "hello", 100, true);
+
+  show_hdd_data(hdd);
+
+  hdd_destructor(hdd);
+
+  return 0;
+}
