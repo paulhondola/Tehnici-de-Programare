@@ -1,11 +1,11 @@
 CC = clang
 CFLAGS = -lm -Wall -Wextra -Wpedantic
-SRC = $(wildcard *.c)
-OBJ = $(wildcard *.o)
-EXE = exe
+SRC = src/main.c lib/rand_array.c
+EXE = src/exe
+OUTPUT_FILES = output/rand_arrays.txt output/gauss.txt output/poisson.txt
+OPTION = 3
 
-all:
+run:
 	clear
-	$(CC) $(CFLAGS) -c $(SRC)
-	$(CC) $(CFLAGS) -o $(EXE) $(OBJ)
-	./$(EXE) > output.txt
+	$(CC) $(CFLAGS) -o $(EXE) $(SRC)
+	./$(EXE) $(OPTION) $(OUTPUT_FILES)
