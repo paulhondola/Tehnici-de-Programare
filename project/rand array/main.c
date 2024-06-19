@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 // RAND LIMIT PARAMETERS
-#define SIZE 10000
+#define SIZE 1000000
 #define LOWER 0
 #define UPPER 100
 #define STEPS 10
