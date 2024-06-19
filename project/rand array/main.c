@@ -1,16 +1,17 @@
-#include "../lib/rand_array.h"
+#include "rand_array.h"
 #include <stdio.h>
 
 // RAND LIMIT PARAMETERS
+#define SIZE 10000
 #define LOWER 0
 #define UPPER 100
 #define STEPS 10
 #define INIT_VALUE 100
 
 // DISTRIBUTION PARAMETERS
-#define MEAN 0
-#define STANDARD_DEVIATION 1
-#define LAMBDA 2
+#define MEAN 0.0
+#define STANDARD_DEVIATION 1.0
+#define LAMBDA 2.45
 
 void print_int_array(FILE *file, int *array, unsigned n) {
   for (unsigned i = 0; i < n; i++)
@@ -104,12 +105,12 @@ int prj_2_procedure(char *filepath_gauss, char *filepath_poisson, size_t size) {
 
   double *poisson = generate_poisson_distribution(size, LAMBDA);
 
-  fprintf(file1, "GAUSSIAN DISTRIBUTION\nMEAN: %d | STD DEV:%d\n", MEAN,
+  fprintf(file1, "GAUSSIAN DISTRIBUTION\nMEAN: %lf | STD DEV:%lf\n", MEAN,
           STANDARD_DEVIATION);
 
   print_double_array(file1, gauss, size);
 
-  fprintf(file2, "POISSON DISTRIBUTION\nLAMBDA: %d\n", LAMBDA);
+  fprintf(file2, "POISSON DISTRIBUTION\nLAMBDA: %lf\n", LAMBDA);
 
   print_double_array(file2, poisson, size);
 
@@ -119,9 +120,9 @@ int prj_2_procedure(char *filepath_gauss, char *filepath_poisson, size_t size) {
   return 1;
 }
 
-#define N 1000
-
 int main(int argc, char **argv) {
+
+  size_t size = SIZE;
 
   if (argc != 5) {
     perror("Invalid arg count!");
@@ -138,17 +139,17 @@ int main(int argc, char **argv) {
 
   switch (option) {
   case 1:
-    if (prj_1_procedure(argv[2], N) == 0)
+    if (prj_1_procedure(argv[2], size) == 0)
       return 2;
     break;
   case 2:
-    if (prj_2_procedure(argv[3], argv[4], N) == 0)
+    if (prj_2_procedure(argv[3], argv[4], size) == 0)
       return 3;
     break;
   case 3:
-    if (prj_1_procedure(argv[2], N) == 0)
+    if (prj_1_procedure(argv[2], size) == 0)
       return 4;
-    if (prj_2_procedure(argv[3], argv[4], N) == 0)
+    if (prj_2_procedure(argv[3], argv[4], size) == 0)
       return 5;
     break;
   default:

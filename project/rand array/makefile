@@ -1,8 +1,8 @@
 CC = clang
 CFLAGS = -lm -Wall -Wextra -Wpedantic
-SRC = src/main.c lib/rand_array.c
-EXE = src/exe
-OUTPUT_FILES = output/rand_arrays.txt output/gauss.txt output/poisson.txt
+SRC = main.c rand_array.c
+EXE = exe
+OUTPUT_FILES = rand_arrays.txt gauss.txt poisson.txt
 OPTION = 3
 
 run:
