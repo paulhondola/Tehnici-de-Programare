@@ -1,8 +1,10 @@
 #include "rand_array.h"
 #include <stdio.h>
 
-// RAND LIMIT PARAMETERS
+// SIZE PARAMETER
 #define SIZE 1000000
+
+// RAND LIMIT PARAMETERS
 #define LOWER 0
 #define UPPER 100
 #define STEPS 10
